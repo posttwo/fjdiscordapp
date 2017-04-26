@@ -12,6 +12,10 @@
         {
             "type": "vcs",
             "url":  "git@github.com:posttwo/restcord.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:posttwo/socialite-discord"
         }
     ],
     "require": {
@@ -22,7 +26,7 @@
         "laravel/tinker": "~1.0",
         "posttwo/funnyjunk": "dev-master",
         "posttwo/restcord": "dev-master",
-        "socialiteproviders/discord": "^2.0",
+        "socialiteproviders/discord": "dev-master",
         "webpatser/laravel-uuid": "^2.0"
     },
     "require-dev": {

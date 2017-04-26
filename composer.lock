@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d532ab94ecc799f09f59f3db70d9323f",
+    "content-hash": "3cc24a2fb5b92d2bb38f1eb1a4379de3",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1631,21 +1631,21 @@
         },
         {
             "name": "socialiteproviders/discord",
-            "version": "v2.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SocialiteProviders/Discord.git",
-                "reference": "a6bac8331ece4ae042121e841c6263341d0b4a09"
+                "reference": "336ced2be2bbdd9738686ec1198b106450cf75ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/a6bac8331ece4ae042121e841c6263341d0b4a09",
-                "reference": "a6bac8331ece4ae042121e841c6263341d0b4a09",
+                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/336ced2be2bbdd9738686ec1198b106450cf75ee",
+                "reference": "336ced2be2bbdd9738686ec1198b106450cf75ee",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.6 || ^7.0",
-                "socialiteproviders/manager": "~3.0"
+                "socialiteproviders/manager": "~2.0 || ~3.0"
             },
             "type": "library",
             "autoload": {
@@ -1664,7 +1664,7 @@
                 }
             ],
             "description": "Discord OAuth2 Provider for Laravel Socialite",
-            "time": "2017-01-25T09:48:29+00:00"
+            "time": "2017-02-21T18:40:18+00:00"
         },
         {
             "name": "socialiteproviders/manager",
@@ -4231,7 +4231,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "posttwo/funnyjunk": 20,
-        "posttwo/restcord": 20
+        "posttwo/restcord": 20,
+        "socialiteproviders/discord": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
