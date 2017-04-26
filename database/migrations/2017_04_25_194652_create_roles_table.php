@@ -19,6 +19,12 @@ class CreateRolesTable extends Migration
             $table->string('description');
             $table->string('discord_id');
             $table->string('icon');
+            $table->string('slug');
+
+            $table->unique('name');
+            $table->unique('id');
+            $table->unique('slug');	
+            
             $table->timestamps();
         });
     }

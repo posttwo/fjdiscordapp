@@ -26,8 +26,16 @@ class GroupController extends Controller
     public function leave($name)
     {
         $role = Role::where('name', $name)->firstOrFail();
-        dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
+        dispatch(new AddUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
         return ["message" => "Left group, it may take a minute before Discord updates"];
+    }
+
+    public function slugJoin($slug)
+    {
+        $role = Role::where('slug', $slug)->firstOrFail();
+        dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
+        event(new UserJoinedGroup(Auth::user(), $role));
+        return view('joined')->with('role', $role);
     }
 }

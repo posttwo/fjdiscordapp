@@ -56,7 +56,7 @@
                 <li class="active">
                     <a href="/">
                         <i class="pe-7s-graph"></i>
-                        <p>Home</p>
+                        <p>Join a Group</p>
                     </a>
                 </li>
 
