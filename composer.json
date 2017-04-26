@@ -26,7 +26,7 @@
         "laravel/tinker": "~1.0",
         "posttwo/funnyjunk": "dev-master",
         "posttwo/restcord": "dev-master",
-        "socialiteproviders/discord": "dev-master",
+        "posttwo/socialite-discord": "dev-master",
         "webpatser/laravel-uuid": "^2.0"
     },
     "require-dev": {

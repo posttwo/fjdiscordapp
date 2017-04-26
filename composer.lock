@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cc24a2fb5b92d2bb38f1eb1a4379de3",
+    "content-hash": "ed9e71f169f3278b2cc89fcca11f23fe",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1378,6 +1378,46 @@
             "time": "2017-04-25T20:26:20+00:00"
         },
         {
+            "name": "posttwo/socialite-discord",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/posttwo/socialite-discord.git",
+                "reference": "a0649f3ef259a870afdebcf8960e74d444670988"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/posttwo/socialite-discord/zipball/a0649f3ef259a870afdebcf8960e74d444670988",
+                "reference": "a0649f3ef259a870afdebcf8960e74d444670988",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Discord\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christopher Eklund",
+                    "email": "eklundchristopher@gmail.com"
+                }
+            ],
+            "description": "Discord OAuth2 Provider for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/posttwo/socialite-discord/tree/master",
+                "issues": "https://github.com/posttwo/socialite-discord/issues"
+            },
+            "time": "2017-04-26T12:59:02+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.0.1",
             "source": {
@@ -1628,43 +1668,6 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
-        },
-        {
-            "name": "socialiteproviders/discord",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SocialiteProviders/Discord.git",
-                "reference": "336ced2be2bbdd9738686ec1198b106450cf75ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SocialiteProviders/Discord/zipball/336ced2be2bbdd9738686ec1198b106450cf75ee",
-                "reference": "336ced2be2bbdd9738686ec1198b106450cf75ee",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.6 || ^7.0",
-                "socialiteproviders/manager": "~2.0 || ~3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "SocialiteProviders\\Discord\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christopher Eklund",
-                    "email": "eklundchristopher@gmail.com"
-                }
-            ],
-            "description": "Discord OAuth2 Provider for Laravel Socialite",
-            "time": "2017-02-21T18:40:18+00:00"
         },
         {
             "name": "socialiteproviders/manager",
@@ -4232,7 +4235,7 @@
     "stability-flags": {
         "posttwo/funnyjunk": 20,
         "posttwo/restcord": 20,
-        "socialiteproviders/discord": 20
+        "posttwo/socialite-discord": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
