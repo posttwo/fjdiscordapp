@@ -14,6 +14,7 @@ use DateTime;
 use App\Jobs\VerifyUserDiscord;
 use Debugbar;
 use App\Events\UserJoinedGroup;
+use App\Role;
 
 class VerificationController extends Controller
 {
@@ -73,6 +74,7 @@ class VerificationController extends Controller
 
     public function test()
     {
-        event(new UserJoinedGroup(Auth::user(), new \App\Role()));
+        $role = Role::find('2423432-f');
+        event(new UserJoinedGroup(Auth::user(), $role));
     }
 }

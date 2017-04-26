@@ -28,5 +28,6 @@ class InsertJoinedGroupToTable
     {
         //$event->user and $event->role are available
         //shove them into a tbale
+        $event->user->roles()->attach($event->role->id);
     }
 }

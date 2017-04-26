@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Jobs\AddUserDiscordGroup;
 use App\Role;
 use Auth;
+use App\Events\UserJoinedGroup;
 
 class GroupController extends Controller
 {
@@ -13,5 +14,6 @@ class GroupController extends Controller
     {
         $role = Role::where('name', $name)->firstOrFail();
         dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
+        event(new UserJoinedGroup(Auth::user(), $role));
     }
 }
