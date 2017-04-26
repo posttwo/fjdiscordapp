@@ -15,14 +15,15 @@ use App\Jobs\VerifyUserDiscord;
 use Debugbar;
 use App\Events\UserJoinedGroup;
 use App\Role;
+use RestCord\DiscordClient;
 
 class VerificationController extends Controller
 {
 
     public function __construct()
     {
-        $this->fj = new FunnyJunk();
-        $this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+        //$this->fj = new FunnyJunk();
+        //$this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
     }
 
     public function sendPM($username)
@@ -74,7 +75,7 @@ class VerificationController extends Controller
 
     public function test()
     {
-        $role = Role::find('2423432-f');
-        event(new UserJoinedGroup(Auth::user(), $role));
+        $discord = new DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => false]);
+        $discord->guild->removeGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => '34543543534', 'user.id' => '342343']);
     }
 }

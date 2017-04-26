@@ -11044,21 +11044,43 @@ $('#beginVerificationButton').click(function () {
     bootbox.prompt("What's your FunnyJunk username?", sendFJVerification);
 });
 
-$('.joinGroupButton').click(function () {
+$('#groupButtons').on('click', '.joinGroupButton', function () {
     var name = $(this).attr("data-name");
     var dialog = bootbox.dialog({
-        title: 'Verifying FunnyJunk Account',
+        title: 'Joining Group',
         message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>\n                 Joining The Group.',
         closeButton: true,
         className: "joinGroup"
     });
-
     axios.get('/join/' + name).then(function (response) {
+        $(this).appendTo('.joinedGroups');
+        $(this).addClass('leaveGroupButton').removeClass('joinGroupButton');
+
         $('.joinGroup').modal('toggle');
-        $.notify("Joined The Group", 'success');
-    }).catch(function (error) {
+        $.notify(response.data.message, 'success');
+    }.bind(this)).catch(function (error) {
         $('.joinGroup').modal('toggle');
-        bootbox.alert("We Failed, contact Posttwo to join manually.");
+        bootbox.alert("Joining failed, this may be because you're already in the group. Contact Posttwo for help");
+    });
+});
+
+$('#groupButtons').on('click', '.leaveGroupButton', function () {
+    var name = $(this).attr("data-name");
+    var dialog = bootbox.dialog({
+        title: 'Leaving Group',
+        message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>\n                 Leaving The Group.',
+        closeButton: true,
+        className: "leaveGroup"
+    });
+    axios.get('/leave/' + name).then(function (response) {
+        $(this).appendTo('.joinableGroups');
+        $(this).addClass('joinGroupButton').removeClass('leaveGroupButton');
+
+        $('.leaveGroup').modal('toggle');
+        $.notify(response.data.message, 'success');
+    }.bind(this)).catch(function (error) {
+        $('.leaveGroup').modal('toggle');
+        bootbox.alert("Leave failed, this may be because you're not in the group. Contact Posttwo for help");
     });
 });
 

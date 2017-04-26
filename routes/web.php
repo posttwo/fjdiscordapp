@@ -14,8 +14,9 @@ Route::middleware('auth')->get('/verify/fj/{username}', 'VerificationController@
 Route::middleware('auth')->get('/verify2/fj/{token}', 'VerificationController@verify');
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@view')->name('home');
-    Route::get('/test', 'VerificationController@test');
+    Route::get('/test2', 'VerificationController@test');
     Route::get('/join/{name}', 'GroupController@join');
+    Route::get('/leave/{name}', 'GroupController@leave');
 });
 
 Route::get('login', 'AuthController@redirect')->name('login');

@@ -17,7 +17,7 @@
                 </a>
             </div>
             <p class="description text-center">
-                Lorem Ipsum
+                {{Auth::user()->id}}
             </p>
             @if(Auth::user()->fjuser === null)
                 <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#verificationStepOneModal">Connect FunnyJunk</button>
@@ -27,15 +27,30 @@
         </div>
     </div>
 </div>
-<div class="col-md-8">
+<div class="col-md-8" id="groupButtons">
     <div class="card">
         <div class="header">
             <h4 class="title">Click to Join a Group!</h4>
         </div>
         <div class="content">
-            <div class="row">
-                @foreach($roles as $role)
+            <div class="row joinableGroups">
+                @foreach($rolesUserDoesntHave as $role)
                     <button type="button" class="btn btn-default btn-sm joinGroupButton" data-name="{{$role->name}}">
+                        {{$role->name}}
+                        <img src="{{$role->icon}}" alt="{{$role->name}}" width="50px" height="50px"/>
+                    </button>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="header">
+            <h4 class="title">Click to Leave a Group!</h4>
+        </div>
+        <div class="content">
+            <div class="row joinedGroups">
+                @foreach($rolesUserHas as $role)
+                    <button type="button" class="btn btn-default btn-sm leaveGroupButton" data-name="{{$role->name}}">
                         {{$role->name}}
                         <img src="{{$role->icon}}" alt="{{$role->name}}" width="50px" height="50px"/>
                     </button>

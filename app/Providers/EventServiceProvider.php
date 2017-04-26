@@ -21,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UserJoinedGroup' => [
             'App\Listeners\InsertJoinedGroupToTable'
+        ],
+        'App\Events\UserLeftGroup' => [
+            'App\Listeners\RemoveJoinedGroupFromTable'
         ]
     ];
 
