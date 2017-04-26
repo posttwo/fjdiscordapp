@@ -39,7 +39,7 @@ class AuthController extends Controller
             $user->save();
         }
         Auth::loginUsingId($user->id, true);
-        return redirect()->intended('home');
+        return redirect()->intended('/');
     }
 
     public function logout()
