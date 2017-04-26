@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
+
     ],
 
     /*
@@ -229,6 +231,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
     ],
 
 ];

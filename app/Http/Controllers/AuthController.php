@@ -7,11 +7,15 @@ use Socialite;
 use App\User;
 use Auth;
 use App\Jobs\JoinUserDiscord;
+use Jenssegers\Agent\Agent;
 
 class AuthController extends Controller
 {
     public function redirect()
     {
+        $agent = new Agent();
+        if($agent->isRobot())
+            return view('forbots');
         return Socialite::with('discord')->stateless()->redirect();
     }
 
