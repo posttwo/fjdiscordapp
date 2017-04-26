@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['domain' => '{slug}.fjapp.dev', 'middleware' => 'auth'], function () {
+Route::group(['domain' => '{slug}.fjme.me', 'middleware' => 'auth'], function () {
         Route::get('/', 'GroupController@slugJoin');
     });
 Route::middleware('auth')->get('/verify/fj/{username}', 'VerificationController@sendPM');
