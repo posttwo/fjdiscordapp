@@ -45,11 +45,19 @@ $('#beginVerificationButton').click(function(){
 
 $('.joinGroupButton').click(function(){
     var name = $(this).attr("data-name");
-    bootbox.alert("Joining Group: " + name);
+    var dialog = bootbox.dialog({
+        title: 'Verifying FunnyJunk Account',
+        message: `<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>
+                 Joining The Group.`,
+        closeButton: true,
+        className: "joinGroup"
+    });
     
     axios.get('/join/' + name).then(function(response){
+        $('.joinGroup').modal('toggle');
+        $.notify("Joined The Group", 'success');
     }).catch(function (error) {
-        $('.verifyStepTwo').modal('toggle');
+        $('.joinGroup').modal('toggle');
         bootbox.alert("We Failed, contact Posttwo to join manually.");
     });
 }) 

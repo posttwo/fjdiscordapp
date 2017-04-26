@@ -10,10 +10,9 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+//mix.autoload({ 'jquery': ['window.$', 'window.jQuery'] });
 mix.js(['resources/assets/js/app.js',
         'resources/assets/js/bootstrap-checkbox-radio-switch.js',
-        'resources/assets/js/bootstrap-notify.js',
         'resources/assets/js/bootstrap-select.js',
         'resources/assets/js/chartist.min.js',
         'resources/assets/js/light-bootstrap-dashboard.js', ], 'public/js/app.js')

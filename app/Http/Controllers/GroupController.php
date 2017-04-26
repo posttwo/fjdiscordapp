@@ -15,5 +15,6 @@ class GroupController extends Controller
         $role = Role::where('name', $name)->firstOrFail();
         dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
+        return ["message" => "Joined the group, it may take a minute before Discord updates"];
     }
 }

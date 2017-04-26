@@ -9,9 +9,9 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-
     require('bootstrap-sass');
     window.bootbox = require('bootbox');
+    window.notify  = require('notifyjs-browser');
 } catch (e) {}
 
 /**
@@ -19,7 +19,7 @@ try {
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
+console.log("gay");
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = window.Laravel.csrfToken;
