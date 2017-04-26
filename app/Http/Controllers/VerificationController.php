@@ -13,6 +13,7 @@ use Auth;
 use DateTime;
 use App\Jobs\VerifyUserDiscord;
 use Debugbar;
+use App\Events\UserJoinedGroup;
 
 class VerificationController extends Controller
 {
@@ -72,7 +73,6 @@ class VerificationController extends Controller
 
     public function test()
     {
-        //dd(Auth::user());
-        $discord = new \RestCord\DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => true]);
+        event(new UserJoinedGroup(Auth::user(), new \App\Role()));
     }
 }

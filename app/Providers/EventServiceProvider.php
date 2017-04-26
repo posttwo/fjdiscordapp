@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'SocialiteProviders\Manager\SocialiteWasCalled' => [
             'SocialiteProviders\Discord\DiscordExtendSocialite@handle'
+        ],
+        'App\Events\UserJoinedGroup' => [
+            'App\Listeners\InsertJoinedGroupToTable'
         ]
     ];
 
