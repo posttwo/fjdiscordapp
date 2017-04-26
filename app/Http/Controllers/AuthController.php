@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function handleCallback()
     {
-        $discord = Socialite::driver('discord')->user();         //http://i.imgur.com/cda8ZGI.png
+        $discord = Socialite::driver('discord')->stateless()->user();         //http://i.imgur.com/cda8ZGI.png
 
         //Check if user exists
         $user = User::where('discord_id', $discord->id)->first();
