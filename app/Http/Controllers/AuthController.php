@@ -39,6 +39,7 @@ class AuthController extends Controller
         }else{
             $user->token = $discord->token;
             $user->refreshToken = $discord->refreshToken;
+            $user->avatar = $discord->avatar;
             $user->save();
         }
         Auth::loginUsingId($user->id, true);
