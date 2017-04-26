@@ -22,8 +22,8 @@ class VerificationController extends Controller
 
     public function __construct()
     {
-        //$this->fj = new FunnyJunk();
-        //$this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+        $this->fj = new FunnyJunk();
+        $this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
     }
 
     public function sendPM($username)

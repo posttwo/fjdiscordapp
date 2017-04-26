@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname');
             $table->string('token');
             $table->string('refreshToken');
-            $table->string('avatar');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

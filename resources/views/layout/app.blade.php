@@ -54,7 +54,7 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="/">
+                    <a href="{{env('APP_URL')}}/">
                         <i class="pe-7s-graph"></i>
                         <p>Join a Group</p>
                     </a>

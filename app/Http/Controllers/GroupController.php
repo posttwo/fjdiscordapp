@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Jobs\AddUserDiscordGroup;
 use App\Jobs\RemoveUserDiscordGroup;
+use App\Jobs\JoinUserDiscord;
 use App\Role;
 use Auth;
 use App\Events\UserJoinedGroup;
@@ -26,7 +27,7 @@ class GroupController extends Controller
     public function leave($name)
     {
         $role = Role::where('name', $name)->firstOrFail();
-        dispatch(new AddUserDiscordGroup(Auth::user(), $role));
+        dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
         return ["message" => "Left group, it may take a minute before Discord updates"];
     }
@@ -34,7 +35,10 @@ class GroupController extends Controller
     public function slugJoin($slug)
     {
         $role = Role::where('slug', $slug)->firstOrFail();
-        dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
+        $rolesUserHas = Auth::user()->roles()->where('id', $role->id)->first();
+        if($rolesUserHas !== null)
+            return view('joined')->with('role', $role);
+        dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
         return view('joined')->with('role', $role);
     }

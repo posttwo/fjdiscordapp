@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Socialite;
 use App\User;
 use Auth;
+use App\Jobs\JoinUserDiscord;
 
 class AuthController extends Controller
 {
@@ -31,6 +32,11 @@ class AuthController extends Controller
                 'refreshToken' => $discord->refreshToken,
                 'avatar'     => $discord->avatar
             ]);
+            dispatch(new JoinUserDiscord($user));
+        }else{
+            $user->token = $discord->token;
+            $user->refreshToken = $discord->refreshToken;
+            $user->save();
         }
         Auth::loginUsingId($user->id, true);
         return redirect()->intended('home');
