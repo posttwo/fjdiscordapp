@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->uuid('id');
             $table->string('discord_id');
             $table->string('nickname');
-            $table->string('email');
             $table->string('token');
             $table->string('refreshToken');
             $table->string('avatar');
