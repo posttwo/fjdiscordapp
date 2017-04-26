@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function redirect()
     {
-        return Socialite::with('discord')->redirect();
+        return Socialite::with('discord')->stateless()->redirect();
     }
 
     public function handleCallback()
