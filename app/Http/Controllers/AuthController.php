@@ -8,14 +8,18 @@ use App\User;
 use Auth;
 use App\Jobs\JoinUserDiscord;
 use Jenssegers\Agent\Agent;
+use App\Role;
 
 class AuthController extends Controller
 {
-    public function redirect()
+    public function redirect(Request $request)
     {
         $agent = new Agent();
-        if($agent->isRobot())
-            return view('forbots');
+        if($agent->isRobot()){
+            $subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
+            $role = Role::where('slug', $subdomain);
+            return view('forbots')->with('role', $role);
+        }
         return Socialite::with('discord')->stateless()->redirect();
     }
 
