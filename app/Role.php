@@ -18,4 +18,9 @@ class Role extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    public function restrictions()
+    {
+        return $this->hasMany('App\RoleRestriction');
+    }
 }

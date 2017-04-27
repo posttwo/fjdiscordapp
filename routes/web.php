@@ -21,12 +21,15 @@ Route::middleware('auth')->get('/verify2/fj/{token}', 'VerificationController@ve
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
-        //Route::get('/test2', 'VerificationController@test');
+        Route::get('/test2', 'VerificationController@test');
         Route::get('/join/{name}', 'GroupController@join');
         Route::get('/leave/{name}', 'GroupController@leave');
 
         Route::get('/roles', 'AdminController@viewRoles')->middleware('role:admin.roles')->name('admin.roles');
         Route::post('/roles', 'AdminController@addRole')->middleware('role:admin.roles')->name('admin.roles');
+        Route::post('/roles/restrict', 'AdminController@addRestriction')->middleware('role:admin.roles')->name('admin.roles.restriction');
+        Route::get('/permissions', 'AdminController@getListOfPermissions')->middleware('role:admin.roles')->name('admin.permissions.list');
+        Route::get('/permissions/sync', 'VerificationController@sync')->name('user.permissions.sync');
      });
 
     Route::group(['domain' => '{slug}.' . env('APP_URI')], function () {

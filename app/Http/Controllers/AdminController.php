@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Role;
+use Spatie\Permission\Models\Permission;
+use App\RoleRestriction;
 
 class AdminController extends Controller
 {
@@ -23,5 +25,23 @@ class AdminController extends Controller
         $x->slug = $request->input('slug');
         $x->save();
         return $x;
+    }
+
+    public function addRestriction(Request $request)
+    {
+        $role = Role::find($request->role);
+        foreach($request->permissions as $permission)
+        {
+            $perm = Permission::find($permission);
+            $x = new RoleRestriction();
+            $x->role_id = $role->id;
+            $x->permission = $perm->name;
+            $x->save();
+        }
+    }
+
+    public function getListOfPermissions()
+    {
+        return Permission::get();
     }
 }

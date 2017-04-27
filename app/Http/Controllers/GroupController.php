@@ -10,15 +10,14 @@ use App\Role;
 use Auth;
 use App\Events\UserJoinedGroup;
 use App\Events\UserLeftGroup;
+use Spatie\Permission\Models\Permission;
 
 class GroupController extends Controller
 {
     public function join($name)
     {
         $role = Role::where('name', $name)->firstOrFail();
-        $rolesUserHas = Auth::user()->roles()->where('id', $role->id)->first();
-        if($rolesUserHas !== null)
-            abort(400);
+        $this->checkIfUserCanJoinRole($role, true);
         dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
         return ["message" => "Joined the group, it may take a minute before Discord updates"];
@@ -35,11 +34,35 @@ class GroupController extends Controller
     public function slugJoin($slug)
     {
         $role = Role::where('slug', $slug)->firstOrFail();
+        $check = $this->checkIfUserCanJoinRole($role, false);
+        if($check)
+        {
+            dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
+            event(new UserJoinedGroup(Auth::user(), $role));
+        }
+        return view('joined')->with('role', $role)->with('check', $check);
+    }
+
+    protected function checkIfUserCanJoinRole(Role $role, $abort)
+    {
         $rolesUserHas = Auth::user()->roles()->where('id', $role->id)->first();
         if($rolesUserHas !== null)
-            return view('joined')->with('role', $role);
-        dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
-        event(new UserJoinedGroup(Auth::user(), $role));
-        return view('joined')->with('role', $role);
+            if($abort)
+                abort(400);
+            else
+                return false;
+        
+        //check if user has permissions
+        foreach($role->restrictions as $restriction)
+        {
+            if(Auth::user()->cannot($restriction->permission))
+            {
+                if($abort)
+                    abort(403, 'Group Access Restricted: ' . $restriction->restriction->description . " | " . $restriction->permission);
+                else
+                    return false;
+            }
+        }
+        return true;
     }
 }

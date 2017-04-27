@@ -16,6 +16,8 @@
 					<th>Discord ID</th>
 					<th>Icon</th>
 					<th>Slug</th>
+					<th>Restrictions</th>
+					<th></th>
 				</tr></thead>
 				<tbody>
 				@foreach($roles as $role)
@@ -26,6 +28,11 @@
 						<td>{{$role->discord_id}}</td>
 						<td><img src="{{$role->icon}}" width="50px"/></td>
 						<td>{{$role->slug}}</td>
+						<td>@foreach($role->restrictions as $restriction)
+							{{$restriction->permission}}
+							@endforeach
+						</td>
+						<td><button type="button" class="btn btn-danger btn-xs restrictRoleButton" data-id="{{$role->id}}">Restrict</button></td>
 					</tr>
 				@endforeach
 				</tbody>

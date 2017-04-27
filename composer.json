@@ -30,6 +30,7 @@
         "posttwo/restcord": "dev-master",
         "posttwo/socialite-discord": "dev-master",
         "spatie/laravel-permission": "^2.1",
+        "sunra/php-simple-html-dom-parser": "^1.5",
         "webpatser/laravel-uuid": "^2.0"
     },
     "require-dev": {

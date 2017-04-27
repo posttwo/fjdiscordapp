@@ -62,8 +62,8 @@ class VerificationController extends Controller
             $fjuser = new FunnyjunkUser();
             $fjuser->fj_id = $fj->id;
             $fjuser->username = $token->username;
-            $fjuser->level = 0; //@TODO
-            $fjuser->ismod = 0; //@TODO
+            $fjuser->level = 0; //@TODO REMOVE
+            $fjuser->ismod = 0; //@TODO REMOVE
             Auth::user()->fjuser()->save($fjuser);
             dispatch(new VerifyUserDiscord(Auth::user()));
         }
@@ -73,11 +73,31 @@ class VerificationController extends Controller
         }
     }
 
+    public function sync()
+    {
+        $user = new FJUser();
+        $user->set(array('username' => Auth::user()->fjuser->username));
+        $user->populate();
+        if($user->patreon)
+            Auth::user()->givePermissionTo('user.patreon');
+        if($user->occreator)
+            Auth::user()->givePermissionTo('user.occreator');
+        if($user->level > 99)
+            Auth::user()->givePermissionTo('user.level100');
+        if($user->level > 199)
+            Auth::user()->givePermissionTo('user.level200');
+        if($user->level > 399)
+            Auth::user()->givePermissionTo('user.level400');
+        if($user->level > 9)
+            Auth::user()->givePermissionTo('user.level10');
+        return "ok";
+    }
+
     public function test()
     {
-        //$discord = new DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => false]);
-        //$discord->guild->removeGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => '34543543534', 'user.id' => '342343']);
-        \Spatie\Permission\Models\Permission::create(['name' => 'admin.roles']);
-        Auth::user()->givePermissionTo('admin.roles');
+        $user = new FJUser();
+        $user->set(array('username' => 'posttwo'));
+        $user->populate();
+        dd($user);
     }
 }

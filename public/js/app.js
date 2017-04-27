@@ -11061,7 +11061,15 @@ $('#groupButtons').on('click', '.joinGroupButton', function () {
         $.notify(response.data.message, 'success');
     }.bind(this)).catch(function (error) {
         $('.joinGroup').modal('toggle');
-        bootbox.alert("Joining failed, this may be because you're already in the group. Contact Posttwo for help");
+        if (typeof error.response.data.error !== 'undefined') {
+            bootbox.dialog({
+                title: 'Joining Failed',
+                message: error.response.data.error,
+                closeButton: true
+            });
+        } else {
+            bootbox.alert("Joining failed, this may be because you're already in the group. Contact Posttwo for help");
+        }
     });
 });
 
@@ -11082,6 +11090,23 @@ $('#groupButtons').on('click', '.leaveGroupButton', function () {
     }.bind(this)).catch(function (error) {
         $('.leaveGroup').modal('toggle');
         bootbox.alert("Leave failed, this may be because you're not in the group. Contact Posttwo for help");
+    });
+});
+
+$('#syncPermissions').click(function () {
+    var dialog = bootbox.dialog({
+        title: 'Synching Permissions',
+        message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>\n                  <br /> Please Wait',
+        closeButton: true,
+        className: "permSyncher"
+    });
+
+    axios.get('/permissions/sync').then(function (response) {
+        $('.permSyncher').modal('toggle');
+        location.reload();
+    }).catch(function (error) {
+        $('.permSyncher').modal('toggle');
+        bootbox.alert("Sync Failed. Contact Posttwo for help or try again");
     });
 });
 
