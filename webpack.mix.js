@@ -11,15 +11,9 @@ const { mix } = require('laravel-mix');
  |
  */
 //mix.autoload({ 'jquery': ['window.$', 'window.jQuery'] });
-mix.js(['resources/assets/js/app.js',
-        'resources/assets/js/bootstrap-checkbox-radio-switch.js',
-        'resources/assets/js/bootstrap-select.js',
-        'resources/assets/js/chartist.min.js',
-        'resources/assets/js/light-bootstrap-dashboard.js', ], 'public/js/app.js')
-   .sass('resources/assets/sass/light-bootstrap-dashboard.scss', 'public/css/app.css')
-   .copy('resources/assets/css/bootstrap.min.css', 'public/css/bootstrap.min.css')
-   .copy('resources/assets/css/pe-icon-7-stroke.css', 'public/css/pe-icon-7-stroke.css')
-   .copy('resources/assets/css/animate.min.css', 'public/css/animate.min.css')
-   .copyDirectory('resources/assets/img', 'public/img')
-   .copyDirectory('resources/assets/fonts', 'public/fonts')
-   .browserSync('fjapp.dev');
+mix.js('resources/assets/js/app.js', 'public/js/app.js')
+   .js('resources/assets/js/app-admin.js', 'public/js/app-admin.js')
+   .sass('resources/assets/sass/app.scss', 'public/css/app.css')
+   .browserSync({
+        proxy: 'fjapp.dev'
+   });

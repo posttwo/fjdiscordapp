@@ -75,7 +75,9 @@ class VerificationController extends Controller
 
     public function test()
     {
-        $discord = new DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => false]);
-        $discord->guild->removeGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => '34543543534', 'user.id' => '342343']);
+        //$discord = new DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => false]);
+        //$discord->guild->removeGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => '34543543534', 'user.id' => '342343']);
+        //\Spatie\Permission\Models\Permission::create(['name' => 'admin.logs']);
+        //Auth::user()->givePermissionTo('admin.logs');
     }
 }
