@@ -21,7 +21,7 @@ Route::middleware('auth')->get('/verify2/fj/{token}', 'VerificationController@ve
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
-        Route::get('/test2', 'VerificationController@test');
+        //Route::get('/test2', 'VerificationController@test');
         Route::get('/join/{name}', 'GroupController@join');
         Route::get('/leave/{name}', 'GroupController@leave');
 
