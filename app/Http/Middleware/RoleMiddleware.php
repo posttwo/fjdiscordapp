@@ -17,7 +17,6 @@ class RoleMiddleware
     public function handle($request, Closure $next, $permission)
     {
         if (! $request->user()->can($permission)) {
-            dd($request->user()->permissions);
             abort(403);
         }
         return $next($request);

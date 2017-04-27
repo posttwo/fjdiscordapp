@@ -38,7 +38,7 @@
                 <img src="{{$role->icon}}" alt="{{$role->name}}" width="100px" height="100px"/><br />
                 {{$role->description}}
             </div><br />
-            <a href="{{env('APP_URL')}}"><button type="button" class="btn btn-default btn-lg btn-block">View Our Other Groups</button></a>
+            <a href="{{route('home')}}"><button type="button" class="btn btn-default btn-lg btn-block">View Our Other Groups</button></a>
         </div>
     </div>
 </div>

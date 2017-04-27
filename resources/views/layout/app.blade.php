@@ -47,17 +47,29 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="{{ env('APP_URL') }}" class="simple-text">
+                <a href="{{ route('home') }}" class="simple-text">
                     {{ env('APP_NAME') }}
                 </a>
             </div>
 
             <ul class="nav">
                 <li class="active">
-                    <a href="{{env('APP_URL')}}/">
+                    <a href="{{route('home')}}/">
                         <i class="pe-7s-graph"></i>
                         <p>Join a Group</p>
                     </a>
+                    @can('admin.roles')
+                    <a href="{{route('admin.roles')}}">
+                        <i class="pe-7s-graph"></i>
+                        <p>Manage Roles</p>
+                    </a>
+                    @endcan
+                    @can('admin.logs')
+                    <a href="{{route('log-viewer::dashboard')}}">
+                        <i class="pe-7s-graph"></i>
+                        <p>System Logs</p>
+                    </a>
+                    @endcan
                 </li>
 
             </ul>
@@ -74,7 +86,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">@yield('title')</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -135,7 +147,6 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="/js/app.js" type="text/javascript"></script>
-    <script src="/js/test2.js" type="text/javascript"></script>
-
+    <script src="{{ mix('/js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ mix('/js/app-admin.js') }}" type="text/javascript"></script>
 </html>
