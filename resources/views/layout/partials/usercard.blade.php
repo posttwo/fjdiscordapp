@@ -19,7 +19,7 @@
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#verificationStepOneModal">Connect FunnyJunk</button>
         @else
             FJ: {{Auth::user()->fjuser->username}}
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Sync Permissions</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>
 </div>
