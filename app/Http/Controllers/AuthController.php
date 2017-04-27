@@ -34,7 +34,6 @@ class AuthController extends Controller
                 //'email'      => $discord->email,
                 'token'      => $discord->token,
                 'refreshToken' => $discord->refreshToken,
-                'avatar'     => $discord->avatar
             ]);
             dispatch(new JoinUserDiscord($user));
         }else{
