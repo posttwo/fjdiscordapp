@@ -17,7 +17,7 @@ class AuthController extends Controller
         $agent = new Agent();
         if($agent->isRobot()){
             $subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
-            $role = Role::where('slug', $subdomain);
+            $role = Role::where('slug', $subdomain)->first();
             return view('forbots')->with('role', $role);
         }
         return Socialite::with('discord')->stateless()->redirect();
