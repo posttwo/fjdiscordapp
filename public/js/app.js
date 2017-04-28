@@ -11031,13 +11031,19 @@ function sendFJVerification(username) {
 }
 
 function receiveFJVerification(result) {
+    var dialog = bootbox.dialog({
+        title: 'Synchronizing Permissions',
+        message: '<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>\n                  <br /> Waiting for the bot to pull your FJ profile.',
+        closeButton: true,
+        className: "verifyStepTwo"
+    });
     axios.get('/verify2/fj/' + result).then(function (response) {
-        $('.verifyStepTwo').modal('toggle');
+        $('.verifyStepThree').modal('toggle');
         bootbox.alert("Verified!");
         location.reload();
     }).catch(function (error) {
-        $('.verifyStepTwo').modal('toggle');
-        bootbox.alert("Token expired (15 minutes) or not found.");
+        $('.verifyStepThree').modal('toggle');
+        bootbox.alert("Token expired (15 minutes) or not found. Or FunnyJunk is not accessible to us temporarily. Refresh the page to make sure.");
     });
 }
 
