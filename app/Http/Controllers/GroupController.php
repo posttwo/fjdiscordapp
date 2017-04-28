@@ -20,6 +20,7 @@ class GroupController extends Controller
         $this->checkIfUserCanJoinRole($role, true);
         dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
+        logger("User joined group", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
         return ["message" => "Joined the group, it may take a minute before Discord updates"];
     }
 
@@ -28,6 +29,7 @@ class GroupController extends Controller
         $role = Role::where('name', $name)->firstOrFail();
         dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
+        logger("User left up", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
         return ["message" => "Left group, it may take a minute before Discord updates"];
     }
 
@@ -37,8 +39,11 @@ class GroupController extends Controller
         $check = $this->checkIfUserCanJoinRole($role, false);
         if($check)
         {
+            logger("User joined group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
             dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
             event(new UserJoinedGroup(Auth::user(), $role));
+        }else{
+            logger("User failed to join group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
         }
         return view('joined')->with('role', $role)->with('check', $check);
     }
@@ -57,8 +62,10 @@ class GroupController extends Controller
         {
             if(Auth::user()->cannot($restriction->permission))
             {
-                if($abort)
+                if($abort){
+                    logger()->error("User tried to join group but didnt have permission.", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
                     abort(403, 'Group Access Restricted: ' . $restriction->restriction->description . " | " . $restriction->permission);
+                }
                 else
                     return false;
             }

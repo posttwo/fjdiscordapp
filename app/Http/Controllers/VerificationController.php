@@ -28,6 +28,7 @@ class VerificationController extends Controller
 
     public function sendPM($username)
     {
+        logger("Verification: Sending PM", ["id" => Auth::user()->id]);
         $this->fj->acceptFriends();
         //get id of user
         $user = new FJUser();
@@ -55,6 +56,7 @@ class VerificationController extends Controller
         Debugbar::info("thanks");
         if(Auth::user()->id == $token->user->id)
         {
+            logger("Verification: User has been verified", ["id" => Auth::user()->id, "verified_as" => $token->username]);
             $fj = new FJUser();
             $fj->set(array('username' => $token->username));
             $fj->getId();
@@ -70,16 +72,18 @@ class VerificationController extends Controller
         }
         else
         {
+            logger()->notice("Verification: User token mismatch", ["id" => Auth::user()->id, "token_id" => $token->user->id]);
             abort(404);
         }
     }
 
     public function sync()
     {
+        logger("Verification: Synching Permissions", ["id" => Auth::user()->id]);
         $user = new FJUser();
         $user->set(array('username' => Auth::user()->fjuser->username));
         $user->populate();
-        if($user->patreon && Auth::user()->cannot('user.patreon'))
+        if($user->patreon && Auth::user()->cannot('user.patreon'))  
             Auth::user()->givePermissionTo('user.patreon');
         if($user->occreator && Auth::user()->cannot('user.occreator'))
             Auth::user()->givePermissionTo('user.occreator');
@@ -96,9 +100,6 @@ class VerificationController extends Controller
 
     public function test()
     {
-        $user = new FJUser();
-        $user->set(array('username' => 'posttwo'));
-        $user->populate();
-        dd($user);
+        logger()->alert("TEST FUNCTION ACCESSED", ["id" => Auth::user()->id]);
     }
 }
