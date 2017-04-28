@@ -11,7 +11,7 @@
             @if($check)
             You Just Joined
             @else
-            Failed To Joined
+            <span class="danger">Failed To Join</span>
             @endif
             </h4>
         </div>
