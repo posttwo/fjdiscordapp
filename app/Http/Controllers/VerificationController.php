@@ -83,9 +83,9 @@ class VerificationController extends Controller
         $user = new FJUser();
         $user->set(array('username' => Auth::user()->fjuser->username));
         $user->populate();
-        if($user->patreon && Auth::user()->cannot('user.patreon'))  
+        if($user->contributor_account && Auth::user()->cannot('user.patreon'))  
             Auth::user()->givePermissionTo('user.patreon');
-        if($user->occreator && Auth::user()->cannot('user.occreator'))
+        if($user->has_oc_item && Auth::user()->cannot('user.occreator'))
             Auth::user()->givePermissionTo('user.occreator');
         if($user->level > 99 && Auth::user()->cannot('user.level100'))
             Auth::user()->givePermissionTo('user.level100');
