@@ -103,7 +103,7 @@ $('#syncPermissions').click(function(){
         className: "permSyncher"
     });
 
-    axios.get('/permissions/sync').then(function(response){
+    axios.get('http://fjme.me/permissions/sync').then(function(response){ //@TODO make this use the domain variable | would require testing, hotfix
         $('.permSyncher').modal('toggle');
         location.reload();
     }).catch(function (error) {
