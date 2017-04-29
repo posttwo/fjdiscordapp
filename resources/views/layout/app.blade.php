@@ -21,8 +21,8 @@
     <link href="/css/app.css" rel="stylesheet"/>
 
     <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
      <!--<link href="/css/pe-icon-7-stroke.css" rel="stylesheet" />-->
     
     <!-- Laravel -->
@@ -135,7 +135,7 @@
                     </ul>
                 </nav>
                 <p class="copyright pull-right">
-                   <a href="http://posttwo.pt">Posttwo</a>, fuck Helpful
+                   <a href="https://posttwo.pt">Posttwo</a>, fuck Helpful
                 </p>
             </div>
         </footer>
