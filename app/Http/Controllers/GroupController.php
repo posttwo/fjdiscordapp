@@ -39,7 +39,7 @@ class GroupController extends Controller
         $check = $this->checkIfUserCanJoinRole($role, false);
         if($check)
         {
-            logger("User joined group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
+            logger("User joined group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id, "role_name" => $role->name, "username" => Auth::user()->nickname]);
             dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
             event(new UserJoinedGroup(Auth::user(), $role));
         }else{
