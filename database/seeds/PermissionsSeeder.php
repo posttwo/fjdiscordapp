@@ -13,6 +13,16 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
         $p = new Permission();
+        $p->name = 'admin.roles';
+        $p->description = 'Administrative';
+        $p->save();
+
+        $p = new Permission();
+        $p->name = 'admin.logs';
+        $p->description = 'Administrative';
+        $p->save();
+
+        $p = new Permission();
         $p->name = 'user.patreon';
         $p->description = 'Requires user to be an FJ Patreon';
         $p->save();
@@ -40,6 +50,11 @@ class PermissionsSeeder extends Seeder
         $p = new Permission();
         $p->name = 'user.level10';
         $p->description = 'Requires user to have an account level of 10';
+        $p->save();
+
+        $p = new Permission();
+        $p->name = 'user.verified';
+        $p->description = 'Requires user to have an FJ account';
         $p->save();
 
 
