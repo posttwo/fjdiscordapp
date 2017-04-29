@@ -14,7 +14,6 @@ class AuthController extends Controller
 {
     public function redirect(Request $request)
     {
-        logger('Begining authentication process');
         $agent = new Agent();
         if($agent->isRobot()){
             logger('Robot requested access to auth area, exposing memes.');
@@ -22,6 +21,7 @@ class AuthController extends Controller
             $role = Role::where('slug', $subdomain)->first();
             return view('forbots')->with('role', $role);
         }
+        logger('Begining authentication process');
         return Socialite::with('discord')->stateless()->redirect();
     }
 
