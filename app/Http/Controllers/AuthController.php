@@ -51,16 +51,16 @@ class AuthController extends Controller
                 'refreshToken' => $discord->refreshToken,
             ]);
             dispatch(new JoinUserDiscord($user));
-            logger('User has been created', ['id' => $user->id]);
+            logger('User has been created', ['id' => $user->id, "username" => $user->nickname]);
         }else{
             $user->token = $discord->token;
             $user->refreshToken = $discord->refreshToken;
             $user->avatar = $discord->avatar;
             $user->save();
-            logger('User has been updated', ['id' => $user->id]);
+            logger('User has been updated', ['id' => $user->id, "username" => $user->nickname]);
         }
         Auth::loginUsingId($user->id, true);
-        logger('User has been authenticated', ['id' => $user->id]);
+        logger('User has been authenticated', ['id' => $user->id, "username" => $user->nickname]);
         return redirect()->intended('/');
     }
 

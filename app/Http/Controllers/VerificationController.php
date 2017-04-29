@@ -28,7 +28,6 @@ class VerificationController extends Controller
 
     public function sendPM($username)
     {
-        logger("Verification: Sending PM", ["id" => Auth::user()->id]);
         $this->fj->acceptFriends();
         //get id of user
         $user = new FJUser();
@@ -41,6 +40,7 @@ class VerificationController extends Controller
         $token->username = $username;
 
         Auth::user()->verificationTokens()->save($token);
+        logger("Verification: Sending PM", ["id" => Auth::user()->id, "fj_username" => $username, "token" =>$token->token]);
         //send pm
         $pm = new PM();
         $pm->sendToUser($user->id, $user->username, "Discord Verification", $token->token);
