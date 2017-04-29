@@ -20,7 +20,7 @@ class GroupController extends Controller
         $this->checkIfUserCanJoinRole($role, true);
         dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
-        logger("User joined group", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
+        logger("User joined group", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id, "role_name" => $role->name, "username" => Auth::user()->nickname]);
         return ["message" => "Joined the group, it may take a minute before Discord updates"];
     }
 
@@ -29,7 +29,7 @@ class GroupController extends Controller
         $role = Role::where('name', $name)->firstOrFail();
         dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
-        logger("User left up", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
+        logger("User left group", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id, "role_name" => $role->name, "username" => Auth::user()->nickname]);
         return ["message" => "Left group, it may take a minute before Discord updates"];
     }
 
@@ -43,7 +43,7 @@ class GroupController extends Controller
             dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
             event(new UserJoinedGroup(Auth::user(), $role));
         }else{
-            logger("User failed to join group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
+            logger("User failed to join group via slug", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id, "role_name" => $role->name, "username" => Auth::user()->nickname]);
         }
         return view('joined')->with('role', $role)->with('check', $check);
     }
@@ -63,7 +63,7 @@ class GroupController extends Controller
             if(Auth::user()->cannot($restriction->permission))
             {
                 if($abort){
-                    logger()->error("User tried to join group but didnt have permission.", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id]);
+                    logger()->error("User tried to join group but didnt have permission.", ["id" => Auth::user()->id, "role_discord_id" => $role->discord_id, "role_name" => $role->name, "username" => Auth::user()->nickname]);
                     abort(403, 'Group Access Restricted: ' . $restriction->restriction->description . " | " . $restriction->permission);
                 }
                 else
