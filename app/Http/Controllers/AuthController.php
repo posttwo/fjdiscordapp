@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         $agent = new Agent();
         if($agent->isRobot()){
-            logger('Robot requested access to auth area, exposing memes.');
+            logger('Robot requested access to auth area, exposing memes.', ['useragent' => $agent->getUserAgent()]);
             $subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
             $role = Role::where('slug', $subdomain)->first();
             return view('forbots')->with('role', $role);
