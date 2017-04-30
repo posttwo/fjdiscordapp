@@ -9,7 +9,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use RestCord\DiscordClient;
 use App\User;
-use App\Role;
 
 class AddUserDiscordGroup implements ShouldQueue
 {
@@ -22,7 +21,7 @@ class AddUserDiscordGroup implements ShouldQueue
      */
     protected $user;
     protected $role;
-    public function __construct(User $user, Role $role)
+    public function __construct(User $user, $role)
     {
         $this->user = $user;
         $this->role = $role;
@@ -38,6 +37,6 @@ class AddUserDiscordGroup implements ShouldQueue
     public function handle()
     {
         $discord = new DiscordClient(['token' => env('DISCORD_TOKEN'), 'throwOnRatelimit' => true]);
-        $discord->guild->addGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => $this->role->discord_id, 'user.id' => $this->user->discord_id]);
+        $discord->guild->addGuildMemberRole(['guild.id' => '137320242652119040', 'role.id' => $this->role, 'user.id' => $this->user->discord_id]);
     }
 }

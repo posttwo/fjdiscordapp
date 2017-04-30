@@ -18,7 +18,7 @@ class GroupController extends Controller
     {
         $role = Role::where('name', $name)->firstOrFail();
         $this->checkIfUserCanJoinRole($role, true);
-        dispatch(new AddUserDiscordGroup(Auth::user(), $role));
+        dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
         event(new UserJoinedGroup(Auth::user(), $role));
         $this->dLog("joined group", $role);
         return ["message" => "Joined the group, it may take a minute before Discord updates"];
@@ -40,7 +40,7 @@ class GroupController extends Controller
         if($check)
         {
             $this->dLog("joined group via slug", $role);
-            dispatch(new AddUserDiscordGroup(Auth::user(), $role));
+            dispatch(new AddUserDiscordGroup(Auth::user(), $role->discord_id));
             event(new UserJoinedGroup(Auth::user(), $role));
         }else{
             $this->dLog("failed to join group via slug", $role);
