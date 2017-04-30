@@ -55,7 +55,7 @@ class GroupController extends Controller
             if($abort)
                 abort(400);
             else
-                return false;
+                return 0;
         
         //check if user has permissions
         foreach($role->restrictions as $restriction)

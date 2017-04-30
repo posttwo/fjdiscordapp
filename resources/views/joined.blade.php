@@ -27,7 +27,9 @@
                               <br />{{$restriction->restriction->description}}
                         @endcannot
                     @endforeach
-                    <br />If there's no other reason, it may be because you're already in the group!
+                    @if($check === 0)
+                    <br />You're already in the group! Click the button below for an option to leave.
+                    @endif
                 @endif
             </div><br />
             <a href="{{route('home')}}"><button type="button" class="btn btn-default btn-lg btn-block">View Our Other Groups</button></a>
