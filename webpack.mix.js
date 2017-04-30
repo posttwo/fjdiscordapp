@@ -11,10 +11,11 @@ const { mix } = require('laravel-mix');
  |
  */
 //mix.autoload({ 'jquery': ['window.$', 'window.jQuery'] });
-mix.setResourceRoot('http://fjapp.dev/');
+mix.setResourceRoot('https://fjme.me/');
 mix.js('resources/assets/js/app.js', 'public/js/app.js')
    .js('resources/assets/js/app-admin.js', 'public/js/app-admin.js')
    .sass('resources/assets/sass/app.scss', 'public/css/app.css')
+   .version()
    .browserSync({
         proxy: 'fjapp.dev'
    });
