@@ -14,9 +14,8 @@ use Spatie\Permission\Models\Permission;
 
 class GroupController extends Controller
 {
-    public function join($name)
+    public function join(Role $role)
     {
-        $role = Role::where('name', $name)->firstOrFail();
         $this->checkIfUserCanJoinRole($role, true);
         dispatch(new AddUserDiscordGroup(Auth::user(), $role));
         event(new UserJoinedGroup(Auth::user(), $role));
@@ -24,18 +23,16 @@ class GroupController extends Controller
         return ["message" => "Joined the group, it may take a minute before Discord updates"];
     }
 
-    public function leave($name)
+    public function leave(Role $role)
     {
-        $role = Role::where('name', $name)->firstOrFail();
         dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
         $this->dLog("left group", $role);
         return ["message" => "Left group, it may take a minute before Discord updates"];
     }
 
-    public function slugJoin($slug)
+    public function slugJoin(Role $role)
     {
-        $role = Role::where('slug', $slug)->firstOrFail();
         $check = $this->checkIfUserCanJoinRole($role, false);
         if($check)
         {

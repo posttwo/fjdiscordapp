@@ -13,6 +13,11 @@ class Role extends Model
         'name', 'description', 'discord_id', 'icon', 'slug'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 
     public function users()
     {

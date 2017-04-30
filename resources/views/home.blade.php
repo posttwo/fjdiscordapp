@@ -19,7 +19,7 @@
                             @break
                         @endcannot
                     @endforeach
-                    data-name="{{$role->name}}">
+                    data-name="{{$role->slug}}">
                         {{$role->name}}
                         <img src="{{$role->icon}}" alt="{{$role->name}}" width="50px" height="50px"/>
                     </button>
@@ -34,7 +34,7 @@
         <div class="content">
             <div class="row joinedGroups">
                 @foreach($rolesUserHas as $role)
-                    <button type="button" class="btn btn-default btn-sm leaveGroupButton" data-name="{{$role->name}}">
+                    <button type="button" class="btn btn-default btn-sm leaveGroupButton" data-name="{{$role->slug}}">
                         {{$role->name}}
                         <img src="{{$role->icon}}" alt="{{$role->name}}" width="50px" height="50px"/>
                     </button>

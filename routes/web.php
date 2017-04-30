@@ -19,9 +19,8 @@ Route::group(['middleware' => ['auth','web']], function () {
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
         Route::get('/test2', 'VerificationController@test');
-        Route::get('/join/{name}', 'GroupController@join');
-        Route::get('/leave/{name}', 'GroupController@leave');
-        //Route::get('/group/{slug}', 'GroupController@slugJoin')->name('group.join');
+        Route::get('/join/{role}', 'GroupController@join');
+        Route::get('/leave/{role}', 'GroupController@leave');
 
         Route::get('/roles', 'AdminController@viewRoles')->middleware('role:admin.roles')->name('admin.roles');
         Route::post('/roles', 'AdminController@addRole')->middleware('role:admin.roles')->name('admin.roles');
@@ -30,7 +29,7 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/permissions/sync', 'VerificationController@sync')->name('user.permissions.sync');
      });
 
-    Route::group(['domain' => '{slug}.' . env('APP_URI')], function () {
+    Route::group(['domain' => '{role}.' . env('APP_URI')], function () {
         Route::get('/', 'GroupController@slugJoin');
     });
 });
