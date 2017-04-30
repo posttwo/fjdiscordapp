@@ -18,7 +18,7 @@
     <!-- <link href="/css/animate.min.css" rel="stylesheet"/> -->
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="/css/app.css" rel="stylesheet"/>
+    <link href="//{{ env('APP_URI') . mix('/css/app.css')}}" rel="stylesheet"/>
 
     <!--     Fonts and icons     -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -30,13 +30,14 @@
     <script>
             window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
+                'rootDomain' => env('APP_URI'),
             ]); ?>
     </script>
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="purple">
 
     <!--
 
@@ -147,6 +148,6 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="{{ mix('/js/app.js') }}" type="text/javascript"></script>
-    <script src="{{ mix('/js/app-admin.js') }}" type="text/javascript"></script>
+    <script src="//{{ env('APP_URI') . mix('/js/app.js') }}" type="text/javascript"></script>
+    <script src="//{{ env('APP_URI') . mix('/js/app-admin.js') }}" type="text/javascript"></script>
 </html>

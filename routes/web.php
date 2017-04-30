@@ -10,18 +10,18 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth')->get('/verify/fj/{username}', 'VerificationController@sendPM');
-Route::middleware('auth')->get('/verify2/fj/{token}', 'VerificationController@verify');
 
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','web']], function () {
+    Route::get('/verify/fj/{username}', 'VerificationController@sendPM');
+    Route::get('/verify2/fj/{token}', 'VerificationController@verify');
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
         Route::get('/test2', 'VerificationController@test');
         Route::get('/join/{name}', 'GroupController@join');
         Route::get('/leave/{name}', 'GroupController@leave');
-        Route::get('/group/{slug}', 'GroupController@slugJoin')->name('group.join');
+        //Route::get('/group/{slug}', 'GroupController@slugJoin')->name('group.join');
 
         Route::get('/roles', 'AdminController@viewRoles')->middleware('role:admin.roles')->name('admin.roles');
         Route::post('/roles', 'AdminController@addRole')->middleware('role:admin.roles')->name('admin.roles');
@@ -31,14 +31,12 @@ Route::group(['middleware' => 'auth'], function () {
      });
 
     Route::group(['domain' => '{slug}.' . env('APP_URI')], function () {
-        Route::get('/', function($slug){
-            return redirect()->route('group.join', ['slug' => $slug]);
-        });
+        Route::get('/', 'GroupController@slugJoin');
     });
 });
 
-
-
-Route::get('login', 'AuthController@redirect')->name('login');
-Route::get('login/callback', 'AuthController@handleCallback');
-Route::get('logout', 'AuthController@logout');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('login', 'AuthController@redirect')->name('login');
+    Route::get('login/callback', 'AuthController@handleCallback');
+    Route::get('logout', 'AuthController@logout');
+}); 

@@ -181,6 +181,7 @@ return [
         Jenssegers\Agent\AgentServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

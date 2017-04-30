@@ -16,8 +16,7 @@ function sendFJVerification(username){
         closeButton: true,
         className: "verifyStepTwo"
     });
-
-    axios.get('/verify/fj/' + username).then(function(response){
+    axios.get('//' + window.Laravel.rootDomain + '/verify/fj/' + username, { withCredentials: true}).then(function(response){
         $('.verifyStepTwo').modal('toggle');
         bootbox.prompt("Check FJ PMs and Paste the contents of the message", receiveFJVerification);
     }).catch(function (error) {
@@ -36,7 +35,7 @@ function receiveFJVerification(result){
         closeButton: true,
         className: "verifyStepTwo"
     });
-    axios.get('/verify2/fj/' + result).then(function(response){
+    axios.get('//' + window.Laravel.rootDomain + '/verify2/fj/' + result, { withCredentials: true}).then(function(response){
         $('.verifyStepThree').modal('toggle');
         bootbox.alert("Verified!");
         location.reload();
@@ -107,10 +106,10 @@ $('#syncPermissions').click(function(){
         message: `<p class="text-center"><i class="fa fa-spin fa-spinner"></i></p>
                   <br /> Please Wait`,
         closeButton: true,
-        className: "permSyncher"
+        className: "permSyncher",
     });
 
-    axios.get('/permissions/sync').then(function(response){
+    axios.get('//' + window.Laravel.rootDomain + '/permissions/sync', { withCredentials: true}).then(function(response){
         $('.permSyncher').modal('toggle');
         location.reload();
     }).catch(function (error) {
