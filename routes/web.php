@@ -26,10 +26,7 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::post('/roles', 'AdminController@addRole')->middleware('role:admin.roles')->name('admin.roles');
         Route::post('/roles/restrict', 'AdminController@addRestriction')->middleware('role:admin.roles')->name('admin.roles.restriction');
         Route::get('/permissions', 'AdminController@getListOfPermissions')->middleware('role:admin.roles')->name('admin.permissions.list');
-        Route::get('/permissions/sync', 'VerificationController@sync')->name('user.permissions.sync');
-
-        Route::get('/list/cah', 'ListController@listCahCards');
-     });
+        Route::get('/permissions/sync', 'VerificationController@sync')->name('user.permissions.sync');     });
 
     Route::group(['domain' => '{role}.' . env('APP_URI')], function () {
         Route::get('/', 'GroupController@slugJoin');
@@ -40,4 +37,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('login', 'AuthController@redirect')->name('login');
     Route::get('login/callback', 'AuthController@handleCallback');
     Route::get('logout', 'AuthController@logout');
+    Route::get('/list/cah', 'ListController@listCahCards');
 }); 
