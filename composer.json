@@ -31,6 +31,7 @@
         "posttwo/restcord": "dev-master",
         "posttwo/socialite-discord": "dev-master",
         "spatie/laravel-permission": "^2.1",
+        "team-reflex/discord-php": "^4.0",
         "webpatser/laravel-uuid": "^2.0"
     },
     "require-dev": {
