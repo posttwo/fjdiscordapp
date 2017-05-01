@@ -11,6 +11,7 @@ use Auth;
 use App\Events\UserJoinedGroup;
 use App\Events\UserLeftGroup;
 use Spatie\Permission\Models\Permission;
+use Cache;
 
 class GroupController extends Controller
 {
@@ -27,6 +28,7 @@ class GroupController extends Controller
     {
         dispatch(new RemoveUserDiscordGroup(Auth::user(), $role));
         event(new UserLeftGroup(Auth::user(), $role));
+        Cache::tags('role_membership.'. Auth::user()->id . '.' . $role->slug)->flush();
         $this->dLog("left group", $role);
         return ["message" => "Left group, it may take a minute before Discord updates"];
     }
@@ -67,6 +69,7 @@ class GroupController extends Controller
                     return false;
             }
         }
+        Cache::tags('role_membership.'. Auth::user()->id . '.' . $role->slug)->flush();
         return true;
     }
 

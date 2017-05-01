@@ -59,6 +59,12 @@
                         <i class="pe-7s-graph"></i>
                         <p>Join a Group</p>
                     </a>
+                    @ifgroup(cah)
+                    <a href="{{route('cahcards')}}/">
+                        <i class="pe-7s-graph"></i>
+                        <p>CAH Cards</p>
+                    </a>
+                    @endif
                     @can('admin.roles')
                     <a href="{{route('admin.roles')}}">
                         <i class="pe-7s-graph"></i>

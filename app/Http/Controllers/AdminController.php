@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Role;
 use Spatie\Permission\Models\Permission;
 use App\RoleRestriction;
+use Cache;
 
 class AdminController extends Controller
 {
@@ -24,6 +25,7 @@ class AdminController extends Controller
         $x->icon = $request->input('icon');
         $x->slug = $request->input('slug');
         $x->save();
+        Cache::tags('roles')->flush();
         return $x;
     }
 

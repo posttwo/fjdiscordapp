@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Watson\Rememberable\Rememberable;
 
 class Role extends Model
 {
-    public $incrementing = false;
     use Uuids;
+    use Rememberable;
+    
+    public $incrementing = false;
     
     protected $fillable = [
         'name', 'description', 'discord_id', 'icon', 'slug'
@@ -17,7 +20,6 @@ class Role extends Model
     {
         return 'slug';
     }
-
 
     public function users()
     {

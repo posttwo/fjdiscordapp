@@ -18,8 +18,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        Blade::directive('break', function ($role_id) {
+        Blade::directive('break', function () {
             return "<?php break; ?>";
+        });
+        Blade::directive('ifgroup', function($name) {
+            return  "<?php if(Auth::user()->roles()->remember(1440)->cacheTags('role_membership.' . Auth::user()->id . '.$name')->where('slug', '$name')->first()): ?>";
         });
     }
 
