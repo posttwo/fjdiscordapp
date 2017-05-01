@@ -117,6 +117,12 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
+                    @if(env('FJ_API_ENABLED') == false)
+                    <div class="alert alert-danger">
+                        <button type="button" aria-hidden="true" class="close">×</button>
+                        <span><b> Warning - </b> FunnyJunk API is currently not working. Synching permissions will not work, awaiting fix from admin.</span>
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>

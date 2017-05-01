@@ -68,7 +68,8 @@ class VerificationController extends Controller
             $fjuser->ismod = 0; //@TODO REMOVE
             Auth::user()->fjuser()->save($fjuser);
             dispatch(new VerifyUserDiscord(Auth::user()));
-            $this->sync();
+            if(env('FJ_API_ENABLED') == true)
+                    $this->sync();
         }
         else
         {
