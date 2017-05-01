@@ -12,6 +12,11 @@
 */
 
 
+Route::group(['domain' => 'guide.' . env('APP_URI')], function () {
+    Route::get('/', function(){
+        return redirect("https://funnyjunk.com/Funnyjunk+discord/funny-pictures/6253653/");
+    });
+});   
 
 Route::group(['middleware' => ['auth','web']], function () {
     Route::get('/verify/fj/{username}', 'VerificationController@sendPM');
@@ -28,12 +33,6 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/permissions', 'AdminController@getListOfPermissions')->middleware('role:admin.roles')->name('admin.permissions.list');
         Route::get('/permissions/sync', 'VerificationController@sync')->name('user.permissions.sync');     
     });
-    
-    Route::group(['domain' => 'guide.' . env('APP_URI')], function () {
-        Route::get('/', function(){
-            return redirect("https://funnyjunk.com/Funnyjunk+discord/funny-pictures/6253653/");
-        });
-    });   
 
     Route::group(['domain' => '{role}.' . env('APP_URI')], function () {
         Route::get('/', 'GroupController@slugJoin');
