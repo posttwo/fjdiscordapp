@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
             return "<?php break; ?>";
         });
         Blade::directive('ifgroup', function($name) {
-            return  "<?php if(Auth::user()->roles()->remember(1440)->cacheTags('role_membership.' . Auth::user()->id . '.$name')->where('slug', '$name')->first()): ?>";
+            return  "<?php if(Auth::check() && Auth::user()->roles()->remember(1440)->cacheTags('role_membership.' . Auth::user()->id . '.$name')->where('slug', '$name')->first()): ?>";
         });
     }
 
