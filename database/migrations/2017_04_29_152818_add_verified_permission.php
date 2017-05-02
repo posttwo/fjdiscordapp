@@ -67,6 +67,6 @@ class AddVerifiedPermission extends Migration
      */
     public function down()
     {
-        Permission::all()->delete();
+        Permission::getQuery()->delete();
     }
 }

@@ -46,9 +46,9 @@ class AuthController extends Controller
             $user = User::create([
                 'discord_id' => $discord->id,
                 'nickname'   => $discord->nickname,
-                //'email'      => $discord->email,
                 'token'      => $discord->token,
                 'refreshToken' => $discord->refreshToken,
+                'avatar' => $discord->avatar,
             ]);
             dispatch(new JoinUserDiscord($user));
             logger('User has been created', ['id' => $user->id, "username" => $user->nickname]);
