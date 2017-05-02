@@ -35,7 +35,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'token', 'refreshToken', 'remember_token',
+        'token', 'refreshToken', 'email',
     ];
 
     public function fjuser()
