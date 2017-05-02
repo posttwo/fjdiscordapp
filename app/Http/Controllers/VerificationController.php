@@ -87,7 +87,6 @@ class VerificationController extends Controller
         $user = new FJUser();
         $user->set(array('username' => Auth::user()->fjuser->username));
         $user->populate();
-        dd(Auth::user()->fjuser);
         if(Auth::user()->cannot('user.verified') && $user->username != null)
         {
             Auth::user()->givePermissionTo('user.verified');
