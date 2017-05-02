@@ -28,6 +28,9 @@ class VerificationController extends Controller
 
     public function sendPM($username)
     {
+        if(Auth::user()->fjuser !== null)
+            abort(400);
+
         $this->fj->acceptFriends();
         //get id of user
         $user = new FJUser();
@@ -49,6 +52,9 @@ class VerificationController extends Controller
 
     public function verify($token)
     {
+        if(Auth::user()->fjuser !== null)
+            abort(400);
+            
         $date = new DateTime;
         $date->modify('-15 minutes');
         $formatted_date = $date->format('Y-m-d H:i:s');

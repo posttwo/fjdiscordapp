@@ -36,7 +36,4 @@
         </div>
     </div>
 </div>
-@if(Auth::user()->fjuser === null)
-    @include('layout.models.verification')
-@endif
 @endsection()
