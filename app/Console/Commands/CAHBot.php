@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Discord\DiscordCommandClient;
 use App\Cah;
+use App\LolPlayer;
 
 class CAHBot extends Command
 {
@@ -49,6 +50,12 @@ class CAHBot extends Command
         $this->discord->registerCommand('black', function ($message) {
             return $this->addCard('black', $message);
         });
+        $this->discord->registerCommand('coach', function ($message) {
+            return $this->addPlayer('coach', $message);
+        });
+        $this->discord->registerCommand('noob', function ($message) {
+            return $this->addPlayer('noob', $message);
+        });
         $this->discord->run();
     }
 
@@ -64,6 +71,21 @@ class CAHBot extends Command
             $cah->save();
             $this->info("Added " . $color . " card ID: " . $cah->id);
             return "Added " . $color . " card:```" . $text . "```";
+        }
+    }
+
+    protected function addPlayer($type, $message)
+    {
+        if($message->channel_id == 307269832355741696){
+            $explode = explode('|', $message->content);
+            $text = $explode[1];
+            $cah = new LolPlayer;
+            $cah->type = $type;
+            $cah->times = $text;
+            $cah->discord_id = $message->author->id;
+            $cah->save();
+            $this->info("Added " . $type . " player: " . $cah->id);
+            return "Added " . $type . " player with timezone:```" . $text . "```";
         }
     }
 }
