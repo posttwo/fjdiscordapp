@@ -25,5 +25,5 @@ Route::middleware('throttle:1000,1,1')->post('/fjuser/{fjid}', function (Request
 
 //For everyone else, fuck you we do it properly here
 Route::group(['middleware' => 'throttle:60,1,1'], function(){
-    Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['clientscope:fjapi-userinfo-basic']);
+    Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
 });
