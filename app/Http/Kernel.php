@@ -38,7 +38,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:1000,1,1',
+            'throttle:60,1,1',
             'bindings',
         ],
     ];
@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+        'clientscope' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
 }

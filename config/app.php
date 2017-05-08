@@ -182,6 +182,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+
 
     ],
 
