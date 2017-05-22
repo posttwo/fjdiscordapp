@@ -17,7 +17,11 @@ Route::group(['domain' => 'guide.' . env('APP_URI')], function () {
         return redirect("https://funnyjunk.com/Funnyjunk+discord/funny-pictures/6253653/");
     });
 });   
-
+Route::group(['domain' => 'rules.' . env('APP_URI')], function () {
+    Route::get('/', function(){
+        return redirect("https://redmine.posttwo.pt/projects/fj/wiki");
+    });
+});   
 Route::group(['middleware' => ['auth','web']], function () {
     Route::get('/verify/fj/{username}', 'VerificationController@sendPM');
     Route::get('/verify2/fj/{token}', 'VerificationController@verify');
