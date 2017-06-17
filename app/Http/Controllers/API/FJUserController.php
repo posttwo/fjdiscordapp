@@ -44,7 +44,6 @@ class FJUserController extends \App\Http\Controllers\Controller
             $response['role_description'] = $user->role_description;
             $response['has_oc_item'] = $user->has_oc_item;
             $response['ban_history'] = $user->ban_history;
-            $response['last_online'] = $user->last_online;
 
             return $response;
         });
