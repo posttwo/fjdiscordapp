@@ -24,3 +24,5 @@
   </FilesMatch>
 </IfModule>
 Header add Access-Control-Allow-Origin "https://funnyjunk.com"
+Header add Access-Control-Allow-Headers "origin, x-requested-with, content-type, Authorization"
+Header add Access-Control-Allow-Methods "PUT, GET, POST, DELETE, OPTIONS"
