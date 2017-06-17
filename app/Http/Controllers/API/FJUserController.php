@@ -29,7 +29,7 @@ class FJUserController extends \App\Http\Controllers\Controller
         return $response;
     }
     
-    [ublic function getModUserByUsername($username)
+    public function getModUserByUsername($username)
     {
         $response = Cache::remember('fjapi.getModUserByUsername.' . $username, 10, function() use($username){
             $user = new User();
