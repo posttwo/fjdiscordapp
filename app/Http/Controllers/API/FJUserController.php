@@ -28,4 +28,27 @@ class FJUserController extends \App\Http\Controllers\Controller
         
         return $response;
     }
+    
+    [ublic function getModUserByUsername($username)
+    {
+        $response = Cache::remember('fjapi.getModUserByUsername.' . $username, 10, function() use($username){
+            $user = new User();
+            $user->set(array('username' => $username));
+            $user->populate();
+
+            $response['username'] = $user->username;
+            $response['userId'] = $user->userId;
+            $response['joined'] = $user->joined;
+            $response['last_online'] = $user->last_online;
+            $response['contributor_account'] = $user->contributor_account;
+            $response['role_description'] = $user->role_description;
+            $response['has_oc_item'] = $user->has_oc_item;
+            $response['ban_history'] = $user->ban_history;
+            $response['last_online'] = $user->last_online;
+
+            return $response;
+        });
+        
+        return $response;
+    }
 }
