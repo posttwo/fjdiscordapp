@@ -31,6 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(Carbon::now()->addYears(15));
         Passport::tokensCan([
             'fjapi-userinfo-basic' => 'Get basic info for an FJ User',
+            'fjapi-userinfo-mod' => 'Get Mod Info for an FJ User',
         ]);
     }
 }
