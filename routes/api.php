@@ -27,7 +27,7 @@ Route::middleware('throttle:1000,1,1')->post('/fjuser/{fjid}', function (Request
 Route::group(['middleware' => 'throttle:60,1,1'], function(){
     Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
     Route::get('/fjuser/modUserByName/{username}', 'API\FJUserController@getModUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-mod']);
-    Route::get('/fjuser/discordByID/{fjid}', function($fjid(){
+    Route::get('/fjuser/discordByID/{fjid}', function($fjid){
         $user = \App\FunnyjunkUser::where('fj_id', $fjid)->orderBy('created_at', 'desc')->firstOrFail();
         return $user->user;
     })->middleware(['auth:api', 'scope:fjapi-userinfo-mod']);
