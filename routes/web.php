@@ -25,11 +25,9 @@ Route::group(['domain' => 'rules.' . env('APP_URI')], function () {
 Route::group(['middleware' => ['auth','web']], function () {
     Route::get('/verify/fj/{username}', 'VerificationController@sendPM');
     Route::get('/verify2/fj/{token}', 'VerificationController@verify');
-    
-    Route::get('/test/{int}', 'DJController@get')->middleware('throttle:1,30');
-
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
+        Route::get('/test2', 'VerificationController@test');
         Route::get('/join/{role}', 'GroupController@join');
         Route::get('/leave/{role}', 'GroupController@leave');
 
