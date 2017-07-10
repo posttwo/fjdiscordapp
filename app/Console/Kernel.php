@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
                 if($com->reply_level != 0)
                     continue;
                 if($lastProcessedId >= $com->id)
-                    echo "Shouldnt have one but ";//continue;
+                    continue;
                 
                 $slack = new \App\Slack;
                 $slack->username =   $com->username;
