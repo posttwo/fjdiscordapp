@@ -2354,12 +2354,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/posttwo/funnyjunk.git",
-                "reference": "7dbc9543bacea8b0fe50261220f5af86ed834c36"
+                "reference": "1009878683de12fdf572c243c2e14cc25ab8b8e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/7dbc9543bacea8b0fe50261220f5af86ed834c36",
-                "reference": "7dbc9543bacea8b0fe50261220f5af86ed834c36",
+                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/1009878683de12fdf572c243c2e14cc25ab8b8e9",
+                "reference": "1009878683de12fdf572c243c2e14cc25ab8b8e9",
                 "shasum": ""
             },
             "type": "library",
@@ -2372,7 +2372,7 @@
                 "source": "https://github.com/posttwo/funnyjunk/tree/master",
                 "issues": "https://github.com/posttwo/funnyjunk/issues"
             },
-            "time": "2017-04-28T19:12:42+00:00"
+            "time": "2017-06-27T20:15:07+00:00"
         },
         {
             "name": "posttwo/restcord",
