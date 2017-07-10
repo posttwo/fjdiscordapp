@@ -45,7 +45,6 @@ class ModNotify extends Notification
                     ->warning()
                     ->from($n->username)
                     ->image($n->avatar)
-                    ->content($n->description)
                     ->attachment(function ($attachment) use ($n) {
                         $attachment->title($n->title)
                             ->fields([
@@ -53,6 +52,7 @@ class ModNotify extends Notification
                                     'Text' => $n->text,
                                     'ID' => $n->id,
                                     'Date' => $n->date,
+                                    'Link' => $n->link
                                 ]);
                     });
     }

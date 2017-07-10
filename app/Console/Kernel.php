@@ -46,7 +46,9 @@ class Kernel extends ConsoleKernel
                 $slack->number   =   $com->number;
                 $slack->id       =   $com->id;
                 $slack->date     =   $com->date;
-                $slack->title = 'https://funnyjunk.com/askamod/' . $com->number;
+
+                $slack->title = '';
+                $slack->link = 'https://funnyjunk.com/askamod/' . $com->number;
                 $slack->description = 'I am confused on Ask A Mod again, please help!';
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
