@@ -7,7 +7,8 @@
                 <a href="#">
             <img class="avatar border-gray" src="{{Auth::user()->avatar}}" alt="..."/>
 
-                <h4 class="title">{{Auth::user()->nickname}}<br />
+                <h4 class="title">{{Auth::user()->nickname}}
+                <br />
                     <small>{{Auth::user()->discord_id}}</small>
                 </h4>
             </a>
@@ -18,7 +19,10 @@
         @if(Auth::user()->fjuser === null)
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#verificationStepOneModal">Connect FunnyJunk</button>
         @else
-            FJ: {{Auth::user()->fjuser->username}}
+            FJ: {{Auth::user()->fjuser->username}} 
+            @if(Auth::user()->can('mod.isAMod'))
+                    <span class="label label-success">Mod</span>
+            @endif
             <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>
