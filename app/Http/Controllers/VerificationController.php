@@ -111,7 +111,7 @@ class VerificationController extends Controller
                 Auth::user()->givePermissionTo('mod.isAMod');
 
             $level = (int)filter_var($user->role_name, FILTER_SANITIZE_NUMBER_INT);
-            if($level >= 7 && Auth::user()->cannot('mod.isExec'))
+            if($level > 7 && Auth::user()->cannot('mod.isExec'))
                 Auth::user()->givePermissionTo('mod.isExec');
         }
         
