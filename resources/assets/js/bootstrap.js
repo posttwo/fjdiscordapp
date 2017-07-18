@@ -13,6 +13,7 @@ try {
     require('./light-bootstrap-dashboard');
     window.bootbox = require('bootbox');
     window.notify  = require('notifyjs-browser');
+    window.Clipboard = require("clipboard");
 } catch (e) {}
 
 /**

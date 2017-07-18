@@ -106,7 +106,13 @@ class VerificationController extends Controller
         
         //Moderators
         if(substr($user->role_name, 0, 14) == 'flag_moderator'){
-            Auth::user()->givePermissionTo('mod.isAMod');
+
+            if(Auth::user()->cannot('mod.isAMod'))
+                Auth::user()->givePermissionTo('mod.isAMod');
+
+            $level = (int)filter_var($user->role_name, FILTER_SANITIZE_NUMBER_INT);
+            if($level >= 7 && Auth::user()->cannot('mod.isExec'))
+                Auth::user()->givePermissionTo('mod.isExec');
         }
         
         return "ok";

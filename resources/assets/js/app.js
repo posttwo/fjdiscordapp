@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-
+require('./moderators');
 function sendFJVerification(username){
     var dialog = bootbox.dialog({
         title: 'Verifying FunnyJunk Account',

@@ -59,26 +59,39 @@
                         <i class="pe-7s-graph"></i>
                         <p>Join a Group</p>
                     </a>
-                    @ifgroup(cah)
+                </li>
+                @ifgroup(cah)
+                <li class="active">
                     <a href="{{route('cahcards')}}/">
                         <i class="pe-7s-graph"></i>
                         <p>CAH Cards</p>
                     </a>
-                    @endif
-                    @can('admin.roles')
+                </li>
+                @endif
+                @can('admin.roles')
+                <li class="active">
                     <a href="{{route('admin.roles')}}">
                         <i class="pe-7s-graph"></i>
                         <p>Manage Roles</p>
                     </a>
-                    @endcan
-                    @can('admin.logs')
+                </li>
+                @endcan
+                @can('admin.logs')
+                <li>
                     <a href="{{route('log-viewer::dashboard')}}">
                         <i class="pe-7s-graph"></i>
                         <p>System Logs</p>
                     </a>
-                    @endcan
                 </li>
-
+                @endcan
+                @can('mod.isAMod')
+                <li class="active">
+                    <a href="{{route('moderator.index')}}">
+                        <i class="pe-7s-smile"></i>
+                        <p>Moderators</p>
+                    </a>
+                </li>
+                @endcan
             </ul>
     	</div>
     </div>

@@ -23,6 +23,9 @@
             @if(Auth::user()->can('mod.isAMod'))
                     <span class="label label-success">Mod</span>
             @endif
+            @if(Auth::user()->can('mod.isExec'))
+                    <span class="label label-danger">Executive</span>
+            @endif
             <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>
