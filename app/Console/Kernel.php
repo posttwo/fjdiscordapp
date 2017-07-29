@@ -56,7 +56,6 @@ class Kernel extends ConsoleKernel
                                        'Link' => 'https://funnyjunk.com/askamod/' . $com->number ];
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
-                dd();
             }
             \Cache::forever("Cron-ASKAMOD", $comments[1]->id);
             
