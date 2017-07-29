@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c4257794f8d7ac25d228aca2b0dc671",
+    "content-hash": "5fa2b0db30d07d2f0d749906b039afba",
     "packages": [
         {
             "name": "TrafficCophp/ByteBuffer",
@@ -49,6 +49,48 @@
                 "wrapper"
             ],
             "time": "2016-01-13T22:50:58+00:00"
+        },
+        {
+            "name": "ammadeuss/laravel-html-dom-parser",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ammadeuss/laravel-html-dom-parser.git",
+                "reference": "182922e031738a05ed4296918b448d56a7cf40a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ammadeuss/laravel-html-dom-parser/zipball/182922e031738a05ed4296918b448d56a7cf40a6",
+                "reference": "182922e031738a05ed4296918b448d56a7cf40a6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.4.*",
+                "sunra/php-simple-html-dom-parser": "^1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ammadeuss\\LaravelHtmlDomParser\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ammadeuss Raducan",
+                    "email": "raducan@ammadeuss.ro"
+                }
+            ],
+            "description": "Laravel wrapper for the PHP Simple HTML DOM Parser package",
+            "homepage": "https://github.com/ammadeuss/html-dom-parser",
+            "keywords": [
+                "dom parser",
+                "laravel"
+            ],
+            "time": "2017-03-01T17:25:43+00:00"
         },
         {
             "name": "arcanedev/log-viewer",
@@ -2354,12 +2396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/posttwo/funnyjunk.git",
-                "reference": "1009878683de12fdf572c243c2e14cc25ab8b8e9"
+                "reference": "bc17d77cbc0910ad8e00969b3c93b4ec74271972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/1009878683de12fdf572c243c2e14cc25ab8b8e9",
-                "reference": "1009878683de12fdf572c243c2e14cc25ab8b8e9",
+                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/bc17d77cbc0910ad8e00969b3c93b4ec74271972",
+                "reference": "bc17d77cbc0910ad8e00969b3c93b4ec74271972",
                 "shasum": ""
             },
             "type": "library",
@@ -2372,7 +2414,7 @@
                 "source": "https://github.com/posttwo/funnyjunk/tree/master",
                 "issues": "https://github.com/posttwo/funnyjunk/issues"
             },
-            "time": "2017-06-27T20:15:07+00:00"
+            "time": "2017-07-29T14:48:52+00:00"
         },
         {
             "name": "posttwo/restcord",
@@ -3490,6 +3532,54 @@
                 "spatie"
             ],
             "time": "2017-04-21T06:10:35+00:00"
+        },
+        {
+            "name": "sunra/php-simple-html-dom-parser",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sunra/php-simple-html-dom-parser.git",
+                "reference": "75b9b1cb64502d8f8c04dc11b5906b969af247c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sunra/php-simple-html-dom-parser/zipball/75b9b1cb64502d8f8c04dc11b5906b969af247c6",
+                "reference": "75b9b1cb64502d8f8c04dc11b5906b969af247c6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sunra\\PhpSimple\\HtmlDomParser": "Src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sunra",
+                    "email": "sunra@yandex.ru",
+                    "homepage": "https://github.com/sunra"
+                },
+                {
+                    "name": "S.C. Chen",
+                    "homepage": "http://sourceforge.net/projects/simplehtmldom/"
+                }
+            ],
+            "description": "Composer adaptation of: A HTML DOM parser written in PHP5+ let you manipulate HTML in a very easy way! Require PHP 5+. Supports invalid HTML. Find tags on an HTML page with selectors just like jQuery. Extract contents from HTML in a single line.",
+            "homepage": "https://github.com/sunra/php-simple-html-dom-parser",
+            "keywords": [
+                "dom",
+                "html",
+                "parser"
+            ],
+            "time": "2016-11-22T22:57:47+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        //Check new askamod comments
         $schedule->call(function () {
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $r = $fj->getByUrl("/askamod");
@@ -40,21 +41,56 @@ class Kernel extends ConsoleKernel
                     continue;
                 
                 $slack = new \App\Slack;
+                $slack->target = 'mod-notify';
                 $slack->username =   $com->username;
-                $slack->text     =   $com->text;
+                $slack->text     =   null;
                 $slack->avatar   =   $com->original_avatar_url;
-                $slack->number   =   $com->number;
-                $slack->id       =   $com->id;
-                $slack->date     =   $com->date;
+                $slack->title    = '';
+                $slack->text     = 'I am confused on Ask A Mod again, please help!';
 
-                $slack->title = '';
-                $slack->link = 'https://funnyjunk.com/askamod/' . $com->number;
-                $slack->description = 'I am confused on Ask A Mod again, please help!';
+
+                $slack->embedFields = ['Username' => $com->username,
+                                       'Text' => $com->text,
+                                       'ID'   => $com->id,
+                                       'Date' => $com->date,
+                                       'Link' => 'https://funnyjunk.com/askamod/' . $com->number ];
+
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                dd();
             }
             \Cache::forever("Cron-ASKAMOD", $comments[1]->id);
             
         })->everyFiveMinutes();
+
+        
+        //Make sure unrated content is rated
+        $schedule->call(function (){
+            echo "Running";
+            $fj = new \Posttwo\FunnyJunk\FunnyJunk;
+            $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+            $ratings = $fj->getRatingCounters();
+
+            $alert = false;
+            if($ratings['sfw'] > 50 || $ratings['links'] > 100)
+                $alert = true;
+            
+            if($alert == true)
+            {
+                $slack = new \App\Slack;
+                $slack->target = 'mod-social';
+                $slack->username =   "Lazy Mod Motivation System";
+                $slack->text     =   ':warning: There is currently too many unreviewed shit. :warning: @here';
+                $slack->embedFields = [ 'Links'         => $ratings['links'],
+                                        'SFW Content'   => $ratings['sfw'],
+                                        'NSFW Content'  => $ratings['nsfw'] ];
+
+                $slack->title = null;
+                $slack->avatar = null;
+                \Notification::send($slack, new \App\Notifications\ModNotify(null));
+            }
+
+                
+        })->everyTenMinutes();
     }
 
     /**

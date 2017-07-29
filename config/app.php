@@ -183,6 +183,7 @@ return [
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Ammadeuss\LaravelHtmlDomParser\ServiceProvider::class,
 
 
     ],
@@ -237,6 +238,8 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'HTMLDomParser' => Ammadeuss\LaravelHtmlDomParser\Facade::class
+
     ],
 
 ];

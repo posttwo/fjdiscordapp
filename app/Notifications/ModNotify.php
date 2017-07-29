@@ -44,16 +44,11 @@ class ModNotify extends Notification
         return (new SlackMessage)
                     ->warning()
                     ->from($n->username)
+                    ->content($n->text)
                     ->image($n->avatar)
                     ->attachment(function ($attachment) use ($n) {
                         $attachment->title($n->title)
-                            ->fields([
-                                    'Username' => $n->username,
-                                    'Text' => $n->text,
-                                    'ID' => $n->id,
-                                    'Date' => $n->date,
-                                    'Link' => $n->link
-                                ]);
+                            ->fields($n->embedFields);
                     });
     }
 

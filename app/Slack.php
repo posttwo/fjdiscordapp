@@ -16,6 +16,11 @@ class Slack extends Model
      */
     public function routeNotificationForSlack()
     {
-        return "https://discordapp.com/api/webhooks/334097861081825282/Fu6sm10Ry4NLM-u2YJ72UMxjlwCTQY4A7ORbI9mAPoF1BnxWEDLSIcsDi3hibdpfHCw2/slack";
+        if($this->target == 'dev')
+            return env("DISCORD_DEV");
+        if($this->target == 'mod-notify')
+            return env("DISCORD_MODNOTIFY");
+        if($this->target == 'mod-social')
+            return env("DISCORD_MODSOCIAL");
     }
 }
