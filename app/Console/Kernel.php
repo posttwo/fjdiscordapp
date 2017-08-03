@@ -89,7 +89,7 @@ class Kernel extends ConsoleKernel
             }
 
                 
-        })->everyTenMinutes();
+        })->cron('*/20 * * * * *');
     }
 
     /**
