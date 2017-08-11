@@ -59,7 +59,7 @@ class CAHBot extends Command
 
         //mod shit
         $this->discord->registerCommand('fuck', function ($message) {
-            return $this->shutUp();
+            return $this->shutUp($message);
         });
         $this->discord->run();
     }
@@ -94,7 +94,7 @@ class CAHBot extends Command
         }
     }
 
-    protected function shutUp()
+    protected function shutUp($message)
     {
         if($message->channel_id == 334673571009789953){
             //Put into cache
