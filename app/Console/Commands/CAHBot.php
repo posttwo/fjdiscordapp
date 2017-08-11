@@ -56,6 +56,11 @@ class CAHBot extends Command
         $this->discord->registerCommand('noob', function ($message) {
             return $this->addPlayer('noob', $message);
         });
+
+        //mod shit
+        $this->discord->registerCommand('fuck off', function ($message) {
+            return $this->shutUp();
+        });
         $this->discord->run();
     }
 
@@ -86,6 +91,16 @@ class CAHBot extends Command
             $cah->save();
             $this->info("Added " . $type . " player: " . $cah->id);
             return "Added " . $type . " player with timezone:```" . $text . "```";
+        }
+    }
+
+    protected function shutUp()
+    {
+        if($message->channel_id == 334673571009789953){
+            //Put into cache
+            \Cache::forever("Cron-Ratings-Silence", 1);
+            $this->info("Added " . $type . " player: " . $cah->id);
+            return "Skipping next bot run.";
         }
     }
 }

@@ -74,7 +74,7 @@ class Kernel extends ConsoleKernel
             if($ratings['sfw'] > 50 || $ratings['links'] > 100)
                 $alert = true;
             
-            if($alert == true)
+            if($alert == true && \Cache::get("Cron-Ratings-Silence", 0) == 0)
             {
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
@@ -88,7 +88,7 @@ class Kernel extends ConsoleKernel
                 $slack->avatar = null;
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
-
+            \Cache::forever("Cron-Ratings-Silence", 0);
                 
         })->everyTenMinutes();
     }
