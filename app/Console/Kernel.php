@@ -47,6 +47,10 @@ class Kernel extends ConsoleKernel
                 $slack->avatar   =   $com->original_avatar_url;
                 $slack->title    = '';
                 $slack->text     = 'I am confused on Ask A Mod again, please help!';
+                if($com->username == 'crixuz')
+                {
+                    $slack->text = 'Im a special snowflake trying to post porn and not get banned, please assist oh my dearest modfriends!';
+                }
 
 
                 $slack->embedFields = ['Username' => $com->username,
@@ -78,7 +82,7 @@ class Kernel extends ConsoleKernel
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
                 $slack->username =   "Lazy Mod Motivation System";
-                $slack->text     =   ':warning: There is currently too many unreviewed shit. :warning: @here';
+                $slack->text     =   ':warning: There is currently too much unreviewed content. :warning:';
                 $slack->embedFields = [ 'Links'         => $ratings['links'],
                                         'SFW Content'   => $ratings['sfw'],
                                         'NSFW Content'  => $ratings['nsfw'] ];
