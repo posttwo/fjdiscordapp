@@ -58,7 +58,7 @@ class CAHBot extends Command
         });
 
         //mod shit
-        $this->discord->registerCommand('fuck off', function ($message) {
+        $this->discord->registerCommand('fuck', function ($message) {
             return $this->shutUp();
         });
         $this->discord->run();
@@ -99,7 +99,6 @@ class CAHBot extends Command
         if($message->channel_id == 334673571009789953){
             //Put into cache
             \Cache::forever("Cron-Ratings-Silence", 1);
-            $this->info("Added " . $type . " player: " . $cah->id);
             return "Skipping next bot run.";
         }
     }
