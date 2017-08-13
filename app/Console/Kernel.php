@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\CAHBot::class
+        Commands\CAHBot::class,
+        Commands\UnverifyUser::class
     ];
 
     /**
