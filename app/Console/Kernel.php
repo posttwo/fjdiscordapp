@@ -55,7 +55,7 @@ class Kernel extends ConsoleKernel
 
 
                 $slack->embedFields = ['Username' => $com->username,
-                                       'Text' => $com->text,
+                                       'Text' => str_limit($com->text, 80),
                                        'ID'   => $com->id,
                                        'Date' => $com->date,
                                        'Link' => 'https://funnyjunk.com/askamod/' . $com->number ];
