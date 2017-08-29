@@ -51,8 +51,8 @@ class DJController extends Controller
         if($url == false)
             return false;
         //Dispatch a job to check in 5 minutes
-        $job = (new CheckDJVote($board, $url, $djPosition));
-                    //->delay(Carbon::now()->addMinutes(2));
+        $job = (new CheckDJVote($board, $url, $djPosition))
+                    ->delay(Carbon::now()->addMinutes(2));
 
         dispatch($job);
 
