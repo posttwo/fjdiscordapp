@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Discord\DiscordCommandClient;
 use App\Cah;
 use App\LolPlayer;
+use App\FunnyjunkUser;
 
 class CAHBot extends Command
 {
@@ -56,12 +57,28 @@ class CAHBot extends Command
         $this->discord->registerCommand('noob', function ($message) {
             return $this->addPlayer('noob', $message);
         });
-
+        $this->discord->registerCommand('mention', function($message) {
+            return $this->getUser($message);
+        });
         //mod shit
         $this->discord->registerCommand('fuck', function ($message) {
             return $this->shutUp($message);
         });
         $this->discord->run();
+    }
+
+    protected function getUser($message)
+    {
+        //return "Test Posttwo";
+        //return "Test: " . $message->content;
+        $split = explode(" ", $message->content);
+        $username = $split[count($split)-1];
+        $user = FunnyjunkUser::where('username', $username)->first();
+        if($user == null)
+        {
+            return "sorry that user is a retard";
+        }
+        return " has mentioned <@" . $user->user->discord_id . ">";
     }
 
     protected function addCard($color, $message)
