@@ -7,6 +7,8 @@ use Discord\DiscordCommandClient;
 use App\Cah;
 use App\LolPlayer;
 use App\FunnyjunkUser;
+use App\User;
+use Posttwo\FunnyJunk\User as FJUser;
 
 class CAHBot extends Command
 {
@@ -60,6 +62,12 @@ class CAHBot extends Command
         $this->discord->registerCommand('mention', function($message) {
             return $this->getUser($message);
         });
+        $this->discord->registerCommand('reverse', function($message) {
+            return $this->getFJ($message);
+        });
+        $this->discord->registerCommand('stats', function($message) {
+            return $this->getStats($message);
+        });
         //mod shit
         $this->discord->registerCommand('fuck', function ($message) {
             return $this->shutUp($message);
@@ -79,6 +87,38 @@ class CAHBot extends Command
             return "sorry that user is a retard";
         }
         return " has mentioned <@" . $user->user->discord_id . ">";
+    }
+
+    protected function getFJ($message)
+    {
+        $mentions = $message->mentions;
+        foreach($mentions as $mention)
+        {
+            if($mention->id == "247756747882758154") //skip bot
+                continue;
+            
+            $user = User::where('discord_id', $mention->id)->first();
+            if($user == null)
+                return "couldnt find out who that fucker is, sorry. :(";
+            $this->info($user->fjuser);
+            return $mention->username . " => https://funnyjunk.com/u/" . $user->fjuser->username;
+        }
+    }
+
+    protected function getStats($message)
+    {
+        $split = explode(" ", $message->content);
+        $username = $split[count($split)-1];
+        $user = new FJUser();
+        $user->set(array('username' => $username));
+        $user->populate();
+        $return = "looked up " . $user->username;
+        $return = $return . "\n" . "ID: " . $user->id;
+        $return = $return . "\n" . "Registered: " . $user->date_registered;
+        $return = $return . "\n" . "Role: " . $user->role_name;
+        $return = $return . "\n" . "Group: " . $user->group_name;
+        $return = $return . "\n" . "Avatar: " . $user->big_avatar;
+        return $return;
     }
 
     protected function addCard($color, $message)
