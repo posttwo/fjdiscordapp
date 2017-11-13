@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CAHBot::class,
-        Commands\UnverifyUser::class
+        Commands\UnverifyUser::class,
+        Commands\ClearBotCookie::class
     ];
 
     /**
