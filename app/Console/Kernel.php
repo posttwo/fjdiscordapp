@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //Check new askamod comments
-        $schedule->call(function () {
+        /*$schedule->call(function () {
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $r = $fj->getByUrl("/askamod");
             $comments = $r->comments;
@@ -65,37 +65,42 @@ class Kernel extends ConsoleKernel
             }
             \Cache::forever("Cron-ASKAMOD", collect($comments)->max('id'));
             
-        })->everyFiveMinutes();
+        })->everyFiveMinutes();*/
 
         
-        //Make sure unrated content is rated
+        //Check if anyone has been demodded :)
         $schedule->call(function (){
             echo "Running";
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
-            $ratings = $fj->getRatingCounters();
-
-            $alert = false;
-            if($ratings['sfw'] > 50 || $ratings['links'] > 100)
-                $alert = true;
+            $mods = $fj->getMods();
             
-            if($alert == true && \Cache::get("Cron-Ratings-Silence", 0) == 0)
-            {
-                $slack = new \App\Slack;
-                $slack->target = 'mod-social';
-                $slack->username =   "Lazy Mod Motivation System";
-                $slack->text     =   ':warning: There is currently too much unreviewed content. :warning:';
-                $slack->embedFields = [ 'Links'         => $ratings['links'],
-                                        'SFW Content'   => $ratings['sfw'],
-                                        'NSFW Content'  => $ratings['nsfw'] ];
-
-                $slack->title = null;
-                $slack->avatar = null;
-                \Notification::send($slack, new \App\Notifications\ModNotify(null));
+            $oldMods = \Cache::get('Cron-Mod-Array', []);
+            if($mods == $oldMods){
+                echo "No Changes";
             }
-            \Cache::forever("Cron-Ratings-Silence", 0);
+            else {
+                echo "Changes in mods detected!";
+                logger()->alert("Cron detected change in mods!");
+                foreach($oldMods as $key => $value) {
+                    if(!isset($mods[$key])) {
+                        echo $value->username . " has been demodded";
+                        logger()->alert($value->username . " has been demodded");
+                        $slack = new \App\Slack;
+                        $slack->target = 'mod-social';
+                        $slack->username =   "FunnyJunk Alert System";
+                        $slack->text     =   ':warning: USER HAS BEEN DEMODDED: ' . $value->username . ' :warning:';     
+                        $slack->embedFields = [];  
+                        $slack->title = null;
+                        $slack->avatar = null;
+                        \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                    }
+                }
+
+                \Cache::forever('Cron-Mod-Array', $mods);
+            }
                 
-        })->cron('*/20 * * * * *');
+        })->everyFiveMinutes();
     }
 
     /**
