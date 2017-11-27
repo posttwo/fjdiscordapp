@@ -40,5 +40,6 @@
         </div>
         </div>
     </div>
+    <button type="button" class="btn btn-success btn-lg btn-block" id="getModeratorNotesToken">Get Notes Token</button>
 </div>
 @endsection()

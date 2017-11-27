@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::post('/mods/tokens', 'ModeratorController@storeToken')->middleware('role:mod.isAMod')->name('moderator.tokens.index');
         Route::delete('/mods/tokens/{id}', 'ModeratorController@revokeToken')->middleware('role:mod.isAMod');
         Route::get('/mods/tokens/scopes', 'ModeratorController@getAvailableScopes')->middleware('role:mod.isAMod');
+        Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware('role:mod.isAMod');
 
         //DJ Mods
         Route::get('/mods/dj/{boardName}', 'DJController@index')->name('moderator.dj.index')->middleware('role:mod.isAMod');

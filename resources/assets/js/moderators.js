@@ -52,3 +52,20 @@ $('#createPersonalAccessToken').click(function(){
         });
     }.bind(this))
 })
+
+$('#getModeratorNotesToken').click(function(){
+    $("#getModeratorNotesToken").attr("disabled", true);
+    $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+     axios.get('/mods/notetoken').then( function (response){
+        bootbox.dialog({
+            title: "Success",
+            message: '<p>Note Token has been issued. This token cannot be changed.</p><button class="btn btn-info btn-lg btn-block" id="copyClipboard" data-clipboard-text="' + response.data.token + '">Copy to clipboard</button>',
+            closeButton: true
+        });
+        new Clipboard('#copyClipboard');
+        $("#getModeratorNotesToken").attr("disabled", false);        
+     }).catch(function (error){
+         $.notify("error", 'error');
+         $("#getModeratorNotesToken").attr("disabled", false);
+     })
+})

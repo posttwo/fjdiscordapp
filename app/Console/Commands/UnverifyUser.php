@@ -40,8 +40,9 @@ class UnverifyUser extends Command
     {
         $discordId = $this->ask("Please enter the users Discord ID");
         $user = User::where('discord_id', $discordId)->firstOrFail();
+        $fjusername = $user->fjuser->username;
         $this->line("Nickname: " . $user->nickname);
-        $this->line("FJ Username: " . $user->fjuser->username);
+        $this->line("FJ Username: " . $fjusername);
 
         if(!$this->confirm("Are you sure you want to UNVERIFY this user?"))
         {
@@ -54,5 +55,13 @@ class UnverifyUser extends Command
         //syncPermissions
         $user->syncPermissions([]);
         $this->info("Removed all Permissions assosciated with user");
+
+        if($this->confirm("Would you like to revoke note tokens for this user?"))
+        {
+            $this->info("Trying to delete note token from " . $fjusername);
+            $json = json_decode(file_get_contents('http://fjmod.posttwo.pt/token/no' . env("NOTE_API") . "?mod=" . $fjusername), true);
+            $this->info($json);
+            $this->info("Deleted!");
+        }
     }
 }
