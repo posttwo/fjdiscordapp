@@ -22,5 +22,7 @@ class Slack extends Model
             return env("DISCORD_MODNOTIFY");
         if($this->target == 'mod-social')
             return env("DISCORD_MODSOCIAL");
+        if($this->target == 'mod-help')
+            return env("DISCORD_MODHELP");
     }
 }

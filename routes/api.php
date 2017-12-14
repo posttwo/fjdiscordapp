@@ -31,4 +31,5 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
         $user = \App\FunnyjunkUser::where('fj_id', $fjid)->with('user')->get()->pluck('user');
         return $user;
     })->middleware(['auth:api', 'scope:fjapi-userinfo-mod']);
+    Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp']);
 });

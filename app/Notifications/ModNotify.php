@@ -41,15 +41,22 @@ class ModNotify extends Notification
     public function toSlack($notifiable)
     {
         $n = $notifiable;
-        return (new SlackMessage)
-                    ->warning()
+        if(!isset($n->footer))
+            $n->footer = '';
+        if(!isset($n->image_url))
+            $n->image_url = '';
+        $slack = (new SlackMessage)
                     ->from($n->username)
                     ->content($n->text)
                     ->image($n->avatar)
                     ->attachment(function ($attachment) use ($n) {
                         $attachment->title($n->title)
-                            ->fields($n->embedFields);
+                            ->fields($n->embedFields)
+                            ->footer($n->footer)
+                            ->image($n->image_url);
                     });
+        $slack->level = $n->color;
+        return $slack;
     }
 
     /**
