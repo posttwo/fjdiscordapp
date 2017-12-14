@@ -20,8 +20,8 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
     {
         //find if already exists
         try{
-            $content = ModHelp::where('content_id', $request->input('contentId'))->firstOrFail();
-            return response()->json('Already Asked', 208);
+            $content = ModHelp::where('image_id', $request->input('imageId'))->firstOrFail();
+            return response()->json('Already Asked', 406);
         } 
         catch (ModelNotFoundException $e)
         {
@@ -51,6 +51,7 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
             }
 
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
+            return response()->json('OK', 200);
         }
         //else add
 
