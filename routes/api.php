@@ -25,11 +25,11 @@ Route::middleware('throttle:1000,1,1')->post('/fjuser/{fjid}', function (Request
 
 //For everyone else, fuck you we do it properly here
 Route::group(['middleware' => 'throttle:60,1,1'], function(){
-    Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
-    Route::get('/fjuser/modUserByName/{username}', 'API\FJUserController@getModUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-mod']);
+    Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-basic', 'role:mod.isAMod']);
+    Route::get('/fjuser/modUserByName/{username}', 'API\FJUserController@getModUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
     Route::get('/fjuser/discordByID/{fjid}', function($fjid){
         $user = \App\FunnyjunkUser::where('fj_id', $fjid)->with('user')->get()->pluck('user');
         return $user;
-    })->middleware(['auth:api', 'scope:fjapi-userinfo-mod']);
-    Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp']);
+    })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+    Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
 });
