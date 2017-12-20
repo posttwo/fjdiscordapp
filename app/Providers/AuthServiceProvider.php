@@ -28,11 +28,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //API SHIT
+        Passport::routes(null, ['middleware' => ['web','role:mod.isAMod']]);
         Passport::tokensExpireIn(Carbon::now()->addYears(15));
         Passport::tokensCan([
             'fjapi-userinfo-basic' => 'Get basic info for an FJ User',
             'fjapi-userinfo-mod' => 'Get Mod Info for an FJ User',
-            'discord-post-modhelp' => 'Post Mod-Help queries'
+            'discord-post-modhelp' => 'Post Mod-Help queries',
+            'fjmod-token' => 'Create or Get a Notes Token'
         ]);
+        Passport::enableImplicitGrant();
     }
 }

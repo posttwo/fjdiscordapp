@@ -32,4 +32,5 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
         return $user;
     })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
+    Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
 });
