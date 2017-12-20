@@ -29,7 +29,7 @@ class ModeratorController extends Controller
         $user = Auth::user();
         $tokens = $this->tokenRepository->forUser($user->getKey());
         $tokens = $tokens->load('client')->filter(function ($token) {
-            return $token->client->personal_access_client && ! $token->revoked;
+            return !$token->revoked;
         })->values();
         
         $scopes = Passport::scopes();
