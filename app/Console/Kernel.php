@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel
             $lastProcessedId = \Cache::get("Cron-ASKAMOD", 0);
 
             foreach($comments as $com) {
+                if($com->id == "empty")
+                    continue;
                 if($com->is_sticky == 1)
                     continue;
                 if($com->reply_level != 0)
@@ -63,7 +65,9 @@ class Kernel extends ConsoleKernel
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
-            \Cache::forever("Cron-ASKAMOD", collect($comments)->max('id'));
+            $collection = collect($comments);
+            $collection->pop(); //admin is a retard
+            \Cache::forever("Cron-ASKAMOD", $collection->max('id'));
             
         })->everyFiveMinutes();
 
