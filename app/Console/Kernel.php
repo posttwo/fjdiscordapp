@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel
             $lastProcessedId = \Cache::get("Cron-ASKAMOD", 0);
 
             foreach($comments as $com) {
+                if($com->id == "empty")
+                    continue;
                 if($com->is_sticky == 1)
                     continue;
                 if($com->reply_level != 0)
