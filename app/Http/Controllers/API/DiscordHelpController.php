@@ -20,7 +20,7 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
     {
         //find if already exists
         try{
-            $content = ModHelp::where('image_id', $request->input('imageId'))->firstOrFail();
+            $content = ModHelp::where('image_id', $request->input('imageId'))->where('comment_id', $request->input('commentId'))->firstOrFail();
             return response()->json('Already Asked', 406);
         } 
         catch (ModelNotFoundException $e)
@@ -30,6 +30,7 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
             $content->content_url = $request->input('contentUrl');
             $content->image_id = $request->input('imageId');
             $content->image_url = $request->input('imageUrl');
+            $content->comment_id = $request->input('commentId', null);
             $content->save();
             //post it
             $fj = $this->fj->getByUrl($content->content_url);
