@@ -65,7 +65,9 @@ class Kernel extends ConsoleKernel
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
-            \Cache::forever("Cron-ASKAMOD", collect($comments)->max('id'));
+            $collection = collect($comments);
+            $collection->pop(); //admin is a retard
+            \Cache::forever("Cron-ASKAMOD", $collection->max('id'));
             
         })->everyFiveMinutes();
 
