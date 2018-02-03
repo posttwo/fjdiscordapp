@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth','web']], function () {
 Route::group(['middleware' => ['web']], function () {
     Route::get('login', 'AuthController@redirect')->name('login');
     Route::get('login/callback', 'AuthController@handleCallback');
+    Route::get('login/sut/{token}', 'AuthController@singleUseLogin');
     Route::get('logout', 'AuthController@logout');
     Route::get('/list/cah', 'ListController@listCahCards')->name('cahcards');
 }); 
