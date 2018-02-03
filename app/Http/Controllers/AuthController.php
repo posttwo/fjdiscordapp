@@ -64,16 +64,6 @@ class AuthController extends Controller
         return redirect()->intended('/');
     }
 
-    public function singleUseLogin($token)
-    {
-        $user = User::where('singleUseToken', $token)->firstOrFail();
-        logger('User has been authenticated via SUT', ['id' => $user->id, "username" => $user->nickname]);
-        $user->singleUseToken = null;
-        $user->save();
-        Auth::loginUsingId($user->id, true);
-        return redirect()->intended('/');
-    }
-
     public function logout()
     {
         logger('User has been logged out', ['id' => Auth::user()->id]);

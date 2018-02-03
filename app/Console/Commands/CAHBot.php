@@ -47,9 +47,6 @@ class CAHBot extends Command
      */
     public function handle()
     {
-        $this->discord->registerCommand('auth', function ($message) {
-            return $this->getSingleUseToken($message);
-        });
         $this->discord->registerCommand('white', function ($message) {
             return $this->addCard('white', $message);
         });
@@ -76,32 +73,6 @@ class CAHBot extends Command
             return $this->shutUp($message);
         });
         $this->discord->run();
-    }
-
-
-    protected function getSingleUseToken($message)
-    {
-        $username  = $message->author->user->username;
-        $avatar    = $message->author->user->avatar;
-        $discordId = $message->author->user->id;
-
-        $user = User::where('discord_id', $discordId)->first();
-        if($user === null)
-        {
-            $user = User::create([
-                'discord_id' => $discordId,
-                'nickname'   => $username,
-                'token'      => '',
-                'refreshToken' => '',
-                'avatar' => $avatar,
-            ]);
-            logger('User created via SUT', ['id' => $user->id, "username" => $user->nickname]);
-        }
-
-        $user->singleUseToken = str_random(40);
-        $user->save();
-        $message->author->user->sendMessage("https://fjme.me/login/sut/" . $user->singleUseToken);
-        echo "THANKS";
     }
 
     protected function getUser($message)
