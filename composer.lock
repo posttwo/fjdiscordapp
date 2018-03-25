@@ -2620,12 +2620,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/posttwo/funnyjunk.git",
-                "reference": "1795051636bed6d0388759c8e65a00db8705392b"
+                "reference": "d997fb4faa320d7551398718ee54ee933a8e97e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/1795051636bed6d0388759c8e65a00db8705392b",
-                "reference": "1795051636bed6d0388759c8e65a00db8705392b",
+                "url": "https://api.github.com/repos/posttwo/funnyjunk/zipball/d997fb4faa320d7551398718ee54ee933a8e97e1",
+                "reference": "d997fb4faa320d7551398718ee54ee933a8e97e1",
                 "shasum": ""
             },
             "type": "library",
@@ -2638,7 +2638,7 @@
                 "source": "https://github.com/posttwo/funnyjunk/tree/master",
                 "issues": "https://github.com/posttwo/funnyjunk/issues"
             },
-            "time": "2017-08-29T15:23:06+00:00"
+            "time": "2018-02-20T17:35:25+00:00"
         },
         {
             "name": "posttwo/restcord",
@@ -3715,6 +3715,7 @@
             "keywords": [
                 "Socket"
             ],
+            "abandoned": "react/socket",
             "time": "2016-12-06T10:54:49+00:00"
         },
         {

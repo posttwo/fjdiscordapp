@@ -71,40 +71,32 @@ class Kernel extends ConsoleKernel
             
         })->everyFiveMinutes();
 
-        
-        //Check if anyone has been demodded :)
-        /*$schedule->call(function (){
-            echo "Running";
+         //Check mod stats comments
+         $schedule->call(function () {
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
-            $mods = $fj->getMods();
+            $r = $fj->getModInfo();
             
-            $oldMods = \Cache::get('Cron-Mod-Array', []);
-            if($mods == $oldMods){
-                echo "No Changes";
-            }
-            else {
-                echo "Changes in mods detected!";
-                logger()->alert("Cron detected change in mods!");
-                foreach($oldMods as $key => $value) {
-                    if(!isset($mods[$key])) {
-                        echo $value->username . " has been demodded";
-                        logger()->alert($value->username . " has been demodded");
-                        $slack = new \App\Slack;
-                        $slack->target = 'mod-social';
-                        $slack->username =   "FunnyJunk Alert System";
-                        $slack->text     =   ':warning: USER HAS BEEN DEMODDED: ' . $value->username . ' :warning:';     
-                        $slack->embedFields = [];  
-                        $slack->title = null;
-                        $slack->avatar = null;
-                        \Notification::send($slack, new \App\Notifications\ModNotify(null));
-                    }
-                }
+            //$r -> sfw nsfw links
+            if($r->sfw > 40)
+            {
+                $slack = new \App\Slack;
+                $slack->target = 'mod-social';
+                $slack->username =   "Baby Jettom";
+                $slack->text     =   null;
+                $slack->avatar   =   'https://cdn.discordapp.com/avatars/156530362862927880/d8ef373931ce86125e5d5dd2a5e5e75a.jpg';
+                $slack->title    = '';
+                $slack->text     = ':warning: DING DONG TOO MUCH SHIT :warning: <@&427487027429244929>';
 
-                \Cache::forever('Cron-Mod-Array', $mods);
+                $slack->embedFields = [ 'SFW' => $r->sfw,
+                                        'NSFW' => $r->nsfw,
+                                        'LINKS'   => $r->links ];
+
+                \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
-                
-        })->everyFiveMinutes();*/
+            
+        })->everyFiveMinutes();
+
     }
 
     /**
