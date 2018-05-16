@@ -18,6 +18,8 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
 
     public function sendHelpRequest(Request $request)
     {
+	if(Auth::user()->cannot('mod.isAMod'))
+                abort(403);
         //find if already exists
         try{
             $content = ModHelp::where('image_id', $request->input('imageId'))->where('comment_id', $request->input('commentId'))->firstOrFail();

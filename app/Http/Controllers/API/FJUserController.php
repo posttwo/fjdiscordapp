@@ -13,6 +13,8 @@ class FJUserController extends \App\Http\Controllers\Controller
 {
     public function getBasicUserByUsername($username)
     {
+	if(Auth::user()->cannot('mod.isAMod'))
+                abort(403);
         $response = Cache::remember('fjapi.getBasicUserByUsername.' . $username, 60, function() use($username){
             $user = new User();
             $user->set(array('username' => $username));
@@ -31,6 +33,8 @@ class FJUserController extends \App\Http\Controllers\Controller
     
     public function getModUserByUsername($username)
     {
+	if(Auth::user()->cannot('mod.isAMod'))
+		abort(403);
         $response = Cache::remember('fjapi.getModUserByUsername.' . $username, 10, function() use($username){
             $user = new User();
             $user->set(array('username' => $username));

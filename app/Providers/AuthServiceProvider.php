@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //API SHIT
-        Passport::routes(null, ['middleware' => ['web','role:mod.isAMod']]);
+        Passport::routes(null, ['middleware' => ['web']]);
         Passport::tokensExpireIn(Carbon::now()->addYears(15));
         Passport::tokensCan([
             'fjapi-userinfo-basic' => 'Get basic info for an FJ User',

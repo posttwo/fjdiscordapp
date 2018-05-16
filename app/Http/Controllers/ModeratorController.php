@@ -70,6 +70,8 @@ class ModeratorController extends Controller
 
     public function getOrCreateNotesToken()
     {
+	if(Auth::user()->cannot('mod.isAMod'))
+                abort(403);
         $user = Auth::user()->fjuser->username;
         $json = json_decode(file_get_contents('http://fjmod.posttwo.pt/token/' . env("NOTE_API") . "?mod=" . $user), true);
         return $json;        
