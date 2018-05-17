@@ -53,6 +53,7 @@ class AuthController extends Controller
             dispatch(new JoinUserDiscord($user));
             logger('User has been created', ['id' => $user->id, "username" => $user->nickname]);
         }else{
+            $user->nikcname = $discord->nickname;
             $user->token = $discord->token;
             $user->refreshToken = $discord->refreshToken;
             $user->avatar = $discord->avatar;
