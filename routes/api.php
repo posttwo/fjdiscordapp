@@ -41,7 +41,7 @@ Route::get('/userinfo/', function(Request $request){
 	if(Auth::user()->cannot('mod.isAMod'))
                 abort(403);
 	$return['user'] = $request->user();
-	$return['user']['email'] = $request->user()->fjuser->username . '@changeme.local';
+	$return['user']['email'] = $request->user()->fjuser->username . '@users.fjme.me';
 	$return['user']['fjuser'] = $request->user()->fjuser;
 	$return['user']['roles'] = $request->user()->permissions;
 	return $return;

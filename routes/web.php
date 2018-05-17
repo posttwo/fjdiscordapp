@@ -62,3 +62,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('logout', 'AuthController@logout');
     Route::get('/list/cah', 'ListController@listCahCards')->name('cahcards');
 }); 
+
+Route::post('webhook/mail/{key}', 'WebhookController@process');
