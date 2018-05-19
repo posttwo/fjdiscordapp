@@ -91,6 +91,12 @@
                         <p>Moderators</p>
                     </a>
                 </li>
+		<li class="active">
+                    <a href="https://edu.fjme.me">
+                        <i class="pe-7s-notebook"></i>
+                        <p>FJEducation</p>
+                    </a>
+                </li>
                 @endcan
             </ul>
     	</div>
