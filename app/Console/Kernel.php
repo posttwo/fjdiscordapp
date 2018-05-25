@@ -86,7 +86,7 @@ class Kernel extends ConsoleKernel
                 $slack->text     =   null;
                 $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
                 $slack->title    = '';
-                $slack->text     = ':warning: DING DONG YOU HAVE AIDS :warning: <@&427487027429244929>';
+                $slack->text     = ':lul: DING DONG YOU HAVE AIDS :lul: <@&427487027429244929>';
 
                 $slack->embedFields = [ 'SFW' => $r->sfw,
                                         'NSFW' => $r->nsfw,
