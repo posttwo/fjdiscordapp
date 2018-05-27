@@ -76,9 +76,10 @@ class Kernel extends ConsoleKernel
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
             $r = $fj->getModInfo();
-            
+            $lastCall = \Cache::get("Cron-SFW_COUNT", 0);
+            $isIncreasing = $r->sfw > $lastCall;
             //$r -> sfw nsfw links
-            if($r->sfw > 30)
+            if($r->sfw > 30 && $isIncreasing)
             {
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
@@ -87,13 +88,17 @@ class Kernel extends ConsoleKernel
                 $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
                 $slack->title    = '';
                 $slack->text     = '<:lul:374908740958158848> DING DONG YOU HAVE AIDS <:lul:374908740958158848> <@&427487027429244929>';
-
+                if($isIncreasing)
+                    $slack->text .= 'I am repeating this notification due to an increase from the last check. ';
+                if($r->sfw > 50)
+                    $slack->text .= ' Due to a large number of ratings, I am mentioning <@&137342300723478528>  <@&151904749984284672>';
                 $slack->embedFields = [ 'SFW' => $r->sfw,
                                         'NSFW' => $r->nsfw,
                                         'LINKS'   => $r->links ];
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
+            \Cache::forever("Cron-SFW_COUNT", $r->sfw);
             
         })->everyFiveMinutes();
 
