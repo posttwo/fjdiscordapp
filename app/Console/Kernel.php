@@ -89,9 +89,9 @@ class Kernel extends ConsoleKernel
                 $slack->title    = '';
                 $slack->text     = '<:lul:374908740958158848> DING DONG YOU HAVE AIDS <:lul:374908740958158848> <@&427487027429244929>';
                 if($isIncreasing)
-                    $slack->text .= 'I am repeating this notification due to an increase from the last check. ';
+                    $slack->text .= '\n :warning:  ';
                 if($r->sfw > 50)
-                    $slack->text .= ' Due to a large number of ratings, I am mentioning <@&137342300723478528>  <@&151904749984284672>';
+                    $slack->text .= '\n :red_circle:  <@&305827361767817216> <@&137342300723478528>  <@&151904749984284672>';
                 $slack->embedFields = [ 'SFW' => $r->sfw,
                                         'NSFW' => $r->nsfw,
                                         'LINKS'   => $r->links ];
