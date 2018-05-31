@@ -40,7 +40,16 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 Route::get('/userinfo/', function(Request $request){
 	if(Auth::user()->cannot('mod.isAMod'))
                 abort(403);
+	$avatar = $request->user()->avatar;
+	try{
+		if(get_headers($avatar, 1)[0] == 'HTTP/1.1 404 Not Found')
+			$avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+	}catch(Exception $e){
+		$avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+		logger()->error("Error in get_headers", ["user" => $request->user()]);
+	}
 	$return['user'] = $request->user();
+	$return['user']['avatar'] = $avatar;
 	$return['user']['email'] = $request->user()->fjuser->username . '@users.fjme.me';
 	$return['user']['fjuser'] = $request->user()->fjuser;
 	$return['user']['roles'] = $request->user()->permissions;
