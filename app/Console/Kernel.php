@@ -101,6 +101,40 @@ class Kernel extends ConsoleKernel
             \Cache::forever("Cron-SFW_COUNT", $r->sfw);
             
         })->everyFiveMinutes();
+        
+        $schedule->call(function () {
+            $fj = new \Posttwo\FunnyJunk\FunnyJunk;
+            $user = new \Posttwo\FunnyJunk\User;
+            $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+            $user->id = 886165;
+            $accounts = $user->getUsersSameId();
+            $previous = \Cache::get("SAMEIP-886165", []);
+            $current = [];
+            foreach($accounts as $ac){
+                    $current[] = $ac->username;
+            }
+            $diff = array_diff($current, $previous);
+            $total = array_merge($previous, $diff);
+            \Cache::forever("SAMEIP-886165", $total);      
+            if($diff != [])
+            {
+                $text = '';
+                foreach($diff as $d)
+                {
+                    $text .= ' ' . $d;
+                }
+                $slack = new \App\Slack;
+                $slack->target = 'mod-social';
+                $slack->username =   "Anitas Vagina";
+                $slack->text     =   null;
+                $slack->avatar   =   'https://i.imgur.com/rwFxHPc.png';
+                $slack->title    = '';
+                $slack->text     =  '<@&151904333703675904> I found illegal accounts! ' . $text;
+                $slack->embedFields = ['Monitored User' => 886165];
+
+                \Notification::send($slack, new \App\Notifications\ModNotify(null));
+            }
+        })->everyTenMinutes();
 
     }
 
