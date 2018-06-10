@@ -62,6 +62,18 @@ class UnverifyUser extends Command
             $this->info($json);
             $this->info("Deleted!");
         }
+	if($this->confirm("Inform Jettom?"))
+	{
+		$slack = new \App\Slack;
+                $slack->target = 'mod-social';
+                $slack->username =   "Jettoms Peen";
+                $slack->text     =   null;
+                $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
+                $slack->title    = '';
+                $slack->text     = ':warning: <@' . $discordId . '> User Demodded, please remove <@156530362862927880>';
+                $slack->embedFields = ['FJUser' => $fjusername, 'Discord' =>  $user->nickname];
+                \Notification::send($slack, new \App\Notifications\ModNotify(null));
+	}
 	if($this->confirm("Would you like to suspend this users FJEdu access?"))
 	{
 		$this->error("Function not yet available");
