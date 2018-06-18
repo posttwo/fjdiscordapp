@@ -83,14 +83,32 @@ class Kernel extends ConsoleKernel
             {
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
+				$slack->title    = '';
+				
                 $slack->username =   "Sexy Flanders";
-                $slack->text     =   null;
                 $slack->avatar   =   'https://i.imgur.com/ILcjrEq.png';
-                $slack->title    = '';
                 $slack->text     = '<:Voretwo:356922673395138571> Cummie cummie on my tummy <:Voretwo:356922673395138571> <@&427487027429244929>';
-                if($r->sfw > 50)
-                    $slack->text .= ' Masaka!! <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528>  <@&151904749984284672>';
-                $slack->embedFields = [ 'SFW' => $r->sfw,
+                
+				if($r->sfw > 45){
+					$slack->username =   "Helpfuls Ghost";
+					$slack->avatar   =   'https://i.imgur.com/4g9cHT2.png';
+					$slack->text     = 	 'One day I shall come back. Yes, I shall come back. <@&427487027429244929>';
+				}
+				
+				if($r->sfw > 50){
+                    $slack->text .= ' <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672>';
+				}
+				
+				if($r->sfw > 70){
+					$slack->username = 'Helpfuls Ressurection';
+					$slack->text .= '@everyone The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
+				}
+				
+				if($r->sfw > 100){
+					$slack->text .= 'Seriously tho';
+				}
+                
+				$slack->embedFields = [ 'SFW' => $r->sfw,
                                         'NSFW' => $r->nsfw,
                                         'LINKS'   => $r->links ];
 
