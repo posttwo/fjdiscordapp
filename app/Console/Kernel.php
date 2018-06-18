@@ -83,15 +83,13 @@ class Kernel extends ConsoleKernel
             {
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
-                $slack->username =   "Jettoms Peen";
+                $slack->username =   "Sexy Flanders";
                 $slack->text     =   null;
-                $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
+                $slack->avatar   =   'https://i.imgur.com/ILcjrEq.png';
                 $slack->title    = '';
-                $slack->text     = '<:lul:374908740958158848> DING DONG YOU HAVE AIDS <:lul:374908740958158848> <@&427487027429244929>';
-                if($isIncreasing)
-                    $slack->text .= '\n :warning:  ';
+                $slack->text     = '<:Voretwo:356922673395138571> Cummie cummie on my tummy <:Voretwo:356922673395138571> <@&427487027429244929>';
                 if($r->sfw > 50)
-                    $slack->text .= '\n :red_circle:  <@&305827361767817216> <@&137342300723478528>  <@&151904749984284672>';
+                    $slack->text .= ' Masaka!! <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528>  <@&151904749984284672>';
                 $slack->embedFields = [ 'SFW' => $r->sfw,
                                         'NSFW' => $r->nsfw,
                                         'LINKS'   => $r->links ];
