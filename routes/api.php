@@ -25,20 +25,34 @@ Route::middleware('throttle:1000,1,1')->post('/fjuser/{fjid}', function (Request
 
 //For everyone else, fuck you we do it properly here
 Route::group(['middleware' => 'throttle:60,1,1'], function(){
+
+	//FJUser
     Route::get('/fjuser/basicUserByName/{username}', 'API\FJUserController@getBasicUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-basic', 'role:mod.isAMod']);
     Route::get('/fjuser/modUserByName/{username}', 'API\FJUserController@getModUserByUsername')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
-    Route::get('/fjuser/discordByID/{fjid}', function($fjid){
-	if(Auth::user()->cannot('mod.isAMod'))
-                abort(403);
-        $user = \App\FunnyjunkUser::where('fj_id', $fjid)->with('user')->get()->pluck('user');
-        return $user;
-    })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+   
+	Route::get('/fjuser/discordByID/{fjid}', function($fjid){
+		if(Auth::user()->cannot('mod.isAMod'))
+					abort(403);
+			$user = \App\FunnyjunkUser::where('fj_id', $fjid)->with('user')->get()->pluck('user');
+			return $user;
+	})->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	
+
+	//FJMeme
+	Route::get('/fjmeme/getUserFJMemeInfoByFJUsername/{username}', 'API\FJUserController@getUserFJMemeInfoByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/revokeModeratorPermissionByFJUsername/{username}', 'API\FJUserController@revokeModeratorPermissionByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/giveUserAccessToOAuthByFJUsername/{username}', 'API\FJUserController@giveUserAccessToOAuthByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/revokeUserAccessToOAuthByFJUsername/{username}', 'API\FJUserController@revokeUserAccessToOAuthByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+
+
+
+
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
     Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
 });
 
 Route::get('/userinfo/', function(Request $request){
-	if(Auth::user()->cannot('mod.isAMod'))
+	if(Auth::user()->cannot('mod.isAMod') && Auth::user()->cannot('user.canUseFJMemeForSingleSignOn'))
                 abort(403);
 	$avatar = $request->user()->avatar;
 	try{

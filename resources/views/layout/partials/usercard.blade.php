@@ -26,6 +26,9 @@
             @if(Auth::user()->can('mod.isExec'))
                     <span class="label label-danger">Executive</span>
             @endif
+            @if(Auth::user()->can('user.canUseFJMemeForSingleSignOn'))
+                <span class="label label-default">OAuth</span>
+            @endif
             <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>

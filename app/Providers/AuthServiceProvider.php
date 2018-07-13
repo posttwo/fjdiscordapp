@@ -34,7 +34,8 @@ class AuthServiceProvider extends ServiceProvider
             'fjapi-userinfo-basic' => 'Get basic info for an FJ User',
             'fjapi-userinfo-mod' => 'Get Mod Info for an FJ User',
             'discord-post-modhelp' => 'Post Mod-Help queries',
-            'fjmod-token' => 'Create or Get a Notes Token'
+            'fjmod-token' => 'Create or Get a Notes Token',
+            'fjmeme-change-user' => 'Perform administrative actions on FJMeme'
         ]);
         Passport::enableImplicitGrant();
     }
