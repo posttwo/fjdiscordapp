@@ -135,7 +135,7 @@ class FJUserController extends \App\Http\Controllers\Controller
         $user->revokePermissionTo('user.canUseFJMemeForSingleSignOn');
 
         $results = $this->getMoodleUser($username);
-        $this->suspendMoodleUser($username);
+        $this->suspendMoodleUser($result);
     }
 
     protected function getMoodleUser($username){
