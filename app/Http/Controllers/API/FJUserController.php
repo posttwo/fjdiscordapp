@@ -26,6 +26,7 @@ class FJUserController extends \App\Http\Controllers\Controller
             $response['max_level'] = $user->level;
             $response['content_level'] = (int)filter_var($user->rank_info->currentContentLabel, FILTER_SANITIZE_NUMBER_INT);
             $response['comment_level'] = (int)filter_var($user->rank_info->currentCommentLabel, FILTER_SANITIZE_NUMBER_INT);
+			logger(Auth::user()->nickname . " requested basic user info for " . $username);
             return $response;
         });
         
@@ -49,7 +50,7 @@ class FJUserController extends \App\Http\Controllers\Controller
             $response['role_description'] = $user->role_description;
             $response['has_oc_item'] = $user->has_oc_item;
             $response['ban_history'] = $user->ban_history;
-
+			logger(Auth::user()->nickname . " requested mod user info for " . $username);
             return $response;
         });
         
@@ -72,10 +73,12 @@ class FJUserController extends \App\Http\Controllers\Controller
         $return['user']['email'] = $user->fjuser->username . '@users.fjme.me';
         $return['user']['fjuser'] = $user->fjuser;
         $return['user']['roles'] = $user->permissions;
+		logger(Auth::user()->nickname . " requested FJMeme info for " . $username);
         return $return;
     }
 
     public function revokeModeratorPermissionByFJUsername($username){
+		logger(Auth::user()->nickname . " revoked moderator permissions for " . $username);
         $return = [];
         $returnText = "Starting Revoke for $username ";
         $user = $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
@@ -127,15 +130,18 @@ class FJUserController extends \App\Http\Controllers\Controller
     }
 
     public function giveUserAccessToOAuthByFJUsername($username){
+		logger(Auth::user()->nickname . " Granted OAuth Access " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->givePermissionTo('user.canUseFJMemeForSingleSignOn');
     }
     public function revokeUserAccessToOAuthByFJUsername($username){
+		logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->revokePermissionTo('user.canUseFJMemeForSingleSignOn');
 
         $results = $this->getMoodleUser($username);
-        $this->suspendMoodleUser($result);
+        $this->suspendMoodleUser($results);
+	    
     }
 
     protected function getMoodleUser($username){
