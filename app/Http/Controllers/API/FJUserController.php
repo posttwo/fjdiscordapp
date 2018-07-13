@@ -133,6 +133,7 @@ class FJUserController extends \App\Http\Controllers\Controller
 		logger(Auth::user()->nickname . " Granted OAuth Access " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->givePermissionTo('user.canUseFJMemeForSingleSignOn');
+        return ["success" => true];
     }
     public function revokeUserAccessToOAuthByFJUsername($username){
 		logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
@@ -141,7 +142,16 @@ class FJUserController extends \App\Http\Controllers\Controller
 
         $results = $this->getMoodleUser($username);
         $this->suspendMoodleUser($results);
+        return ["success" => true];
 	    
+    }
+    
+    public function nukeFJMemeUserByFJUsername($username){
+        $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
+        $user->fjuser()->delete();
+        $this->info("Deleted assosciated FJUser");
+        $user->syncPermissions([]);
+        return ["success" => true];
     }
 
     protected function getMoodleUser($username){
