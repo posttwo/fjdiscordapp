@@ -11,7 +11,7 @@ return [
      |
      */
     'supportsCredentials' => true,
-    'allowedOrigins' => ['*.' . env("APP_URI"), 'funnyjunk.com', 'www.funnyjunk.com', 'n6.funnyjunk.com'],
+    'allowedOrigins' => ['*.' . env("APP_URI"), 'funnyjunk.com', 'www.funnyjunk.com', 'n6.funnyjunk.com', '*funnyjunk.com'],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],
