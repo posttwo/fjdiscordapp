@@ -59,7 +59,7 @@ class FJUserController extends \App\Http\Controllers\Controller
 
     public function getUserFJMemeInfoByFJUsername($username){
         $users = FunnyjunkUser::where('username', $username)->get();
-        $return[];
+        $return = [];
         foreach($users as $user){
             $user = $user->user;
             $avatar = $user->avatar;
