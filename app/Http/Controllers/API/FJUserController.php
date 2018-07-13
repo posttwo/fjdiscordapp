@@ -147,6 +147,7 @@ class FJUserController extends \App\Http\Controllers\Controller
     }
     
     public function nukeFJMemeUserByFJUsername($username){
+        logger(Auth::user()->nickname . " Nuked FJMeme of " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->fjuser()->delete();
         $this->info("Deleted assosciated FJUser");
