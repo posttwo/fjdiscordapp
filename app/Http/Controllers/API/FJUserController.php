@@ -58,22 +58,30 @@ class FJUserController extends \App\Http\Controllers\Controller
     }
 
     public function getUserFJMemeInfoByFJUsername($username){
-        $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
-
-        $avatar = $user->avatar;
-        try{
-            if(get_headers($avatar, 1)[0] == 'HTTP/1.1 404 Not Found')
+        $users = FunnyjunkUser::where('username', $username)->get();
+        $return[];
+        foreach($users as $user){
+            $user = $user->user;
+            $avatar = $user->avatar;
+            if($avatar != null){
+                try{
+                    if(get_headers($avatar, 1)[0] == 'HTTP/1.1 404 Not Found')
+                        $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+                }catch(Exception $e){
+                    $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+                    logger()->error("Error in get_headers", ["user" => $user]);
+                }
+            } else {
                 $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
-        }catch(Exception $e){
-            $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
-            logger()->error("Error in get_headers", ["user" => $user]);
+            }
+            $r['user'] = $user;
+            $r['user']['avatar'] = $avatar;
+            $r['user']['email'] = $user->fjuser->username . '@users.fjme.me';
+            $r['user']['fjuser'] = $user->fjuser;
+            $r['user']['roles'] = $user->permissions;
+            $return[] = $r;
+            logger(Auth::user()->nickname . " requested FJMeme info for " . $username);
         }
-        $return['user'] = $user;
-        $return['user']['avatar'] = $avatar;
-        $return['user']['email'] = $user->fjuser->username . '@users.fjme.me';
-        $return['user']['fjuser'] = $user->fjuser;
-        $return['user']['roles'] = $user->permissions;
-		logger(Auth::user()->nickname . " requested FJMeme info for " . $username);
         return $return;
     }
 
