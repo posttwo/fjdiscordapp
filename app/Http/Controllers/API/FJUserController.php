@@ -32,7 +32,7 @@ class FJUserController extends \App\Http\Controllers\Controller
         
         return $response;
     }
-    
+
     public function getModUserByUsername($username)
     {
 	    if(Auth::user()->cannot('mod.isAMod'))
@@ -62,34 +62,58 @@ class FJUserController extends \App\Http\Controllers\Controller
         $return = [];
         foreach($users as $user){
             $user = $user->user;
-            $avatar = $user->avatar;
-            if($avatar != null){
-                try{
-                    if(get_headers($avatar, 1)[0] == 'HTTP/1.1 404 Not Found')
-                        $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
-                }catch(Exception $e){
-                    $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
-                    logger()->error("Error in get_headers", ["user" => $user]);
-                }
-            } else {
-                $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
-            }
-            $r['user'] = $user;
-            $r['user']['avatar'] = $avatar;
-            $r['user']['email'] = $user->fjuser->username . '@users.fjme.me';
-            $r['user']['fjuser'] = $user->fjuser;
-            $r['user']['roles'] = $user->permissions;
+            $r = $this->getUserFJMemeInfo($user);
             $return[] = $r;
             logger(Auth::user()->nickname . " requested FJMeme info for " . $username);
         }
         return $return;
     }
 
+    public function getUserFJMemeInfoByID($id)
+    {
+        $user = \App\User::findOrFail($id);
+        return $this->getUserFJMemeInfo($user);
+    }
+
+    protected function getUserFJMemeInfo($user)
+    {
+        $avatar = $user->avatar;
+        if($avatar != null){
+            try{
+                if(get_headers($avatar, 1)[0] == 'HTTP/1.1 404 Not Found')
+                    $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+            }catch(Exception $e){
+                $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+                logger()->error("Error in get_headers", ["user" => $user]);
+            }
+        } else {
+            $avatar = 'https://new2.fjcdn.com/site/funnyjunk/images/def_avatar.gif';
+        }
+        $r['user'] = $user;
+        $r['user']['avatar'] = $avatar;
+        $r['user']['email'] = $user->fjuser->username . '@users.fjme.me';
+        $r['user']['fjuser'] = $user->fjuser;
+        $r['user']['roles'] = $user->permissions;
+        logger(Auth::user()->nickname . " requested FJMeme info for " . $user->fjuser->username);
+        return $r;
+    }
+
     public function revokeModeratorPermissionByFJUsername($username){
-		logger(Auth::user()->nickname . " revoked moderator permissions for " . $username);
+        $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
+        return $this->revokeModeratorPermission($user);
+    }
+
+    public function revokeModeratorPermissionByID($id)
+    {
+        $user = \App\User::findOrFail($id);
+        return $this->revokeModeratorPermission($user);
+    }
+
+    protected function revokeModeratorPermission($user)
+    {
+        logger(Auth::user()->nickname . " revoked moderator permissions for " . $user->fjuser->username);
         $return = [];
-        $returnText = "Starting Revoke for $username ";
-        $user = $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
+        $returnText = "Starting Revoke for" . $user->fjuser->username;
         $return['user'] = $user;
         $user->revokePermissionTo('mod.isAMod');
         $user->revokePermissionTo('mod.isExec');
@@ -104,13 +128,14 @@ class FJUserController extends \App\Http\Controllers\Controller
                   )
               );
             $context  = stream_context_create($options);
-            $t = file_get_contents('http://fjmod.posttwo.pt/token/no' . env("NOTE_API") . "?mod=" . $username, false, $context);
+            $t = file_get_contents('http://fjmod.posttwo.pt/token/no' . env("NOTE_API") . "?mod=" . $user->fjuser->username, false, $context);
             $return['notestoken'] = $t;
         }catch(Exception $e){
             $returnText .="Failed ";
             logger()->error($e);
         }
         //Inform Jettom
+        
         try{
             $returnText .="Posting on Discord\n";
             $slack = new \App\Slack;
@@ -120,15 +145,16 @@ class FJUserController extends \App\Http\Controllers\Controller
             $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
             $slack->title    = '';
             $slack->text     = ':warning: <@' . $user->discord_id . '> User Demodded, please remove <@156530362862927880>';
-            $slack->embedFields = ['FJUser' => $username, 'Discord' =>  $user->nickname];
+            $slack->embedFields = ['FJUser' => $user->fjuser->username, 'Discord' =>  $user->nickname];
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
         } catch (Exception $e){
             $returnText .="Failed\n";
             logger()->error($e);
         }
+
         //Get Moodle User
         $returnText .="Building moodle user ";
-        $results = $this->getMoodleUser($username);
+        $results = $this->getMoodleUser($user->fjuser->username);
         $return['moodleuser'] = $results;
         //Suspend Mod Moodle Account
         $returnText .="Suspending moodle user ";
@@ -143,6 +169,14 @@ class FJUserController extends \App\Http\Controllers\Controller
         $user->givePermissionTo('user.canUseFJMemeForSingleSignOn');
         return ["success" => true];
     }
+
+    public function giveUserAccessToOAuthByID($id){
+        $user = \App\User::findOrFail($id);
+        $username = $user->fjuser->username;
+        logger(Auth::user()->nickname . " Granted OAuth Access " . $username);
+        $user->givePermissionTo('user.canUseFJMemeForSingleSignOn');
+        return ["success" => true];
+    }
     public function revokeUserAccessToOAuthByFJUsername($username){
 		logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
@@ -151,17 +185,36 @@ class FJUserController extends \App\Http\Controllers\Controller
         $results = $this->getMoodleUser($username);
         $this->suspendMoodleUser($results);
         return ["success" => true];
-	    
+    }
+
+    public function revokeUserAccessToOAuthByID($id){
+        $user = \App\User::findOrFail($id);
+        $username = $user->fjuser->username;
+        logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
+        $user->revokePermissionTo('user.canUseFJMemeForSingleSignOn');
+        $results = $this->getMoodleUser($username);
+        $this->suspendMoodleUser($results);
+        return ["success" => true];
     }
     
     public function nukeFJMemeUserByFJUsername($username){
         logger(Auth::user()->nickname . " Nuked FJMeme of " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->fjuser()->delete();
-        $this->info("Deleted assosciated FJUser");
         $user->syncPermissions([]);
         return ["success" => true];
     }
+
+    public function nukeFJMemeUserByID($id){
+        $user = \App\User::findOrFail($id);
+        $username = $user->fjuser->username;
+        logger(Auth::user()->nickname . " Nuked FJMeme of " . $username);
+        $user->fjuser()->delete();
+        $user->syncPermissions([]);
+        return ["success" => true];
+    }
+
+
 
     protected function getMoodleUser($username){
         $postdata = http_build_query(

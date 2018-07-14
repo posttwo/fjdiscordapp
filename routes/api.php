@@ -38,13 +38,20 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	})->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
 	
 
-	//FJMeme
+	//FJMeme by Username
 	Route::get('/fjmeme/getUserFJMemeInfoByFJUsername/{username}', 'API\FJUserController@getUserFJMemeInfoByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/revokeModeratorPermissionByFJUsername/{username}', 'API\FJUserController@revokeModeratorPermissionByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/giveUserAccessToOAuthByFJUsername/{username}', 'API\FJUserController@giveUserAccessToOAuthByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/revokeUserAccessToOAuthByFJUsername/{username}', 'API\FJUserController@revokeUserAccessToOAuthByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/nukeFJMemeUserByFJUsername/{username}', 'API\FJUserController@nukeFJMemeUserByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 
+	//FJMeme by ID
+	Route::get('/fjmeme/getUserFJMemeInfoByID/{id}', 'API\FJUserController@getUserFJMemeInfoByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/revokeModeratorPermissionByID/{id}', 'API\FJUserController@revokeModeratorPermissionByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+
+	Route::get('/fjmeme/giveUserAccessToOAuthByID/{id}', 'API\FJUserController@giveUserAccessToOAuthByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/revokeUserAccessToOAuthByID/{id}', 'API\FJUserController@revokeUserAccessToOAuthByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/nukeFJMemeUserByID/{id}', 'API\FJUserController@nukeFJMemeUserByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
     Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
