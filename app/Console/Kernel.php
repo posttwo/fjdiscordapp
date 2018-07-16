@@ -62,7 +62,7 @@ class Kernel extends ConsoleKernel
                                        'Text' => str_limit($com->text, 80),
                                        'ID'   => $com->id,
                                        'Date' => $com->date,
-                                       'Link' => 'https://funnyjunk.com/askamod/' . $com->number ];
+                                       'Link' => 'https://funnyjunk.com/mod-social/' . $com->number ];
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
