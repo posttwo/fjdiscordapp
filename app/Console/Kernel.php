@@ -51,10 +51,10 @@ class Kernel extends ConsoleKernel
                 $slack->text     =   null;
                 $slack->avatar   =   $com->original_avatar_url;
                 $slack->title    = '';
-                $slack->text     = 'I am confused on Ask A Mod again, please help!';
+                $slack->text     = 'Extra! Extra! Read all about it!';
                 if($com->username == 'crixuz')
                 {
-                    $slack->text = 'Im a special snowflake trying to post porn and not get banned, please assist oh my dearest modfriends!';
+                    $slack->text = 'I the admin, I the dumb, I delete this when im gone';
                 }
 
 
