@@ -48,14 +48,9 @@ class Kernel extends ConsoleKernel
                 $slack = new \App\Slack;
                 $slack->target = 'mod-notify';
                 $slack->username =   $com->username;
-                $slack->text     =   null;
                 $slack->avatar   =   $com->original_avatar_url;
                 $slack->title    = '';
-                $slack->text     = 'Extra! Extra! Read all about it!';
-                if($com->username == 'crixuz')
-                {
-                    $slack->text = 'I the admin, I the dumb, I delete this when im gone';
-                }
+                $slack->text     = str_limit($com->text, 1500);
 
 
                 $slack->embedFields = ['Username' => $com->username,
