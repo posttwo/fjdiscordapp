@@ -29,10 +29,11 @@ class Kernel extends ConsoleKernel
         //Check new askamod comments
         $schedule->call(function () {
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
-            $r = $fj->getByUrl("/askamod");
+			$fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+            $r = $fj->getByUrl("/mod-social");
             $comments = $r->comments;
 
-            $lastProcessedId = \Cache::get("Cron-ASKAMOD", 0);
+            $lastProcessedId = \Cache::get("Cron-ModSocial", 0);
 
             foreach($comments as $com) {
                 if($com->id == "empty")
@@ -67,7 +68,7 @@ class Kernel extends ConsoleKernel
             }
             $collection = collect($comments);
             $collection->pop(); //admin is a retard
-            \Cache::forever("Cron-ASKAMOD", $collection->max('id'));
+            \Cache::forever("Cron-ModSocial", $collection->max('id'));
             
         })->everyFiveMinutes();
 
