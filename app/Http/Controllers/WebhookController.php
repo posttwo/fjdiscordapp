@@ -29,7 +29,7 @@ class WebhookController extends Controller
 		$parts = explode("@", Request::input('rcpt_to'));
 		$username = $parts[0];
 		$username = preg_replace("/[^[:alnum:][:space:]]/u", '', $username);
-		$user->set(array('username' => $username));.
+		$user->set(array('username' => $username));
 
 		try{
 			$fjuser = FunnyjunkUser::where('username', $username)->firstOrFail();
