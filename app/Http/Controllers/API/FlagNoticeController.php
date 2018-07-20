@@ -22,9 +22,9 @@ class FlagNoticeController extends \App\Http\Controllers\Controller
         $notice = new FlagNotice;
         $notice->user_id = Auth::user()->id;
 
-        $notice->context = $request->input('context');
-        $notice->value = $request->input('value');
-        $notice->text = $request->input('text');
+        $notice->context = htmlspecialchars($request->input('context'));
+        $notice->value = htmlspecialchars($request->input('value'));
+        $notice->text = htmlspecialchars($request->input('text'));
         $notice->revoked = false;
         $notice->save();
 
