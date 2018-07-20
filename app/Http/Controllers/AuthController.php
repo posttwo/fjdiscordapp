@@ -22,6 +22,12 @@ class AuthController extends Controller
             return view('forbots')->with('role', $role);
         }
         logger('Begining authentication process');
+        //return view("login");
+        return Socialite::with('discord')->stateless()->redirect();
+    }
+
+    public function loginWithDiscord()
+    {
         return Socialite::with('discord')->stateless()->redirect();
     }
 

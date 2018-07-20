@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Token');
     }
 
+    public function flagNotices()
+    {
+        return $this->hasMany('App\FlagNotice');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role', 'user_role')->withTimestamps();

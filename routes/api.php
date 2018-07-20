@@ -55,6 +55,13 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
     Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
+
+
+	//Flag Notices
+	Route::post('/mods/flagNotice', 'API\FlagNoticeController@getFlagNotices')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	Route::post('/mods/addFlagNotice', 'API\FlagNoticeController@addFlagNotice')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
+	Route::delete('/mods/flagNotice/{flagNotice}', 'API\FlagNoticeController@deleteFlagNotice')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
+
 });
 
 Route::get('/userinfo/', function(Request $request){
