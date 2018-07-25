@@ -118,16 +118,16 @@ class Kernel extends ConsoleKernel
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $user = new \Posttwo\FunnyJunk\User;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
-            $user->id = 886165;
+            $user->id = 1490859;
             $accounts = $user->getUsersSameId();
-            $previous = \Cache::get("SAMEIP-886165", []);
+            $previous = \Cache::get("SAMEIP-1490859", []);
             $current = [];
             foreach($accounts as $ac){
                     $current[] = $ac->username;
             }
             $diff = array_diff($current, $previous);
             $total = array_merge($previous, $diff);
-            \Cache::forever("SAMEIP-886165", $total);      
+            \Cache::forever("SAMEIP-1490859", $total);      
             if($diff != [])
             {
                 $text = '';
@@ -137,12 +137,12 @@ class Kernel extends ConsoleKernel
                 }
                 $slack = new \App\Slack;
                 $slack->target = 'mod-social';
-                $slack->username =   "Anitas Vagina";
+                $slack->username =   "Anitas Butthole";
                 $slack->text     =   null;
                 $slack->avatar   =   'https://i.imgur.com/rwFxHPc.png';
                 $slack->title    = '';
                 $slack->text     =  '<@&151904333703675904> I found illegal accounts! ' . $text;
-                $slack->embedFields = ['Monitored User' => 886165];
+                $slack->embedFields = ['Monitored User' => 1490859];
 
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
