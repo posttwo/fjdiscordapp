@@ -91,7 +91,13 @@
                         <p>Moderators</p>
                     </a>
                 </li>
-		<li class="active">
+                <li class="active">
+                    <a href="{{route('moderator.flagnotice.index')}}">
+                        <i class="pe-7s-smile"></i>
+                        <p>Flag Notices</p>
+                    </a>
+                </li>
+		        <li class="active">
                     <a href="https://edu.fjme.me">
                         <i class="pe-7s-notebook"></i>
                         <p>FJEducation</p>

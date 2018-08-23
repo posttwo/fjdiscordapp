@@ -56,7 +56,7 @@ class FlagNoticeController extends \App\Http\Controllers\Controller
         return $notices;
     }
 
-    private function getNotices($context, $value)
+    protected function getNotices($context, $value)
     {
         return FlagNotice::where('context', $context)->where('value', $value)->with('poster')->get();
     }
