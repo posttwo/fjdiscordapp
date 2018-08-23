@@ -20,7 +20,17 @@
                         <pre>{{$notice->context}} : {{$notice->value}}</pre>
                         {{$notice->text}}
                     </div>
-                    <div class="panel-footer">Please use FunnyJunk Exec Tools to delete this notice.</div>
+                    <div class="panel-footer">
+                    @if($notice->context == 'commentId' || $notice->context == 'imageId')
+                        <a href="https://funnyjunk.com/find/comment/{{$notice->value}}">Find Comment</a>
+                    @endif
+                    @if($notice->context == 'contentId' || $notice->context == 'imageId')
+                        <a href="https://funnyjunk.com/find/content/{{$notice->value}}">Find Content</a>
+                    @endif
+                    @if($notice->context == 'userId')
+                        <a href="https://funnyjunk.com/find/user/{{$notice->value}}">Find User</a>
+                    @endif
+                    </div>
                 </div>
             </div>
         </div>
