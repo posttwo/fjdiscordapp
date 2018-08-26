@@ -68,4 +68,15 @@ $('#getModeratorNotesToken').click(function(){
          $.notify("error", 'error');
          $("#getModeratorNotesToken").attr("disabled", false);
      })
-})
+});
+
+$('.ratingAttributeContent').click(function(){
+    let contentId = $(this).attr("data-contentid");
+    let userId = $(this).attr("data-userid");
+    let content = $(this).parent().parent();
+    console.log(contentId, userId);
+    axios.post('/mods/ratings/nobody/attribute/' + contentId + '/' + userId).then(function(response){
+        $.notify("Attributed Content", 'success');
+        console.log(content.remove());
+    })
+});

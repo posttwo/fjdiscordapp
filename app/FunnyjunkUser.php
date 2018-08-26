@@ -13,4 +13,14 @@ class FunnyjunkUser extends Model
     {
         return $this->hasOne('App\User', 'id', 'user_id');
     }
+
+    public function modaction()
+    {
+        return $this->hasMany('App\ModAction', 'id', 'fj_id');
+    }
+
+    public function attributedContent()
+    {
+        return $this->hasMany('App\FJContent', 'attributedTo', 'fj_id');
+    }
 }

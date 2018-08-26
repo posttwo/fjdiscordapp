@@ -27,7 +27,6 @@ Route::group(['middleware' => ['auth','web']], function () {
     Route::get('/verify2/fj/{token}', 'VerificationController@verify');
     Route::group(['domain' => env('APP_URI')], function () {
         Route::get('/', 'HomeController@view')->name('home');
-        Route::get('/test2', 'VerificationController@test');
         Route::get('/join/{role}', 'GroupController@join');
         Route::get('/leave/{role}', 'GroupController@leave');
 
@@ -46,6 +45,12 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/tokens/scopes', 'ModeratorController@getAvailableScopes')->middleware('role:mod.isAMod');
         Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware('role:mod.isAMod');
         Route::get('/mods/flagnotice', 'FlagNoticeController@index')->middleware('role:mod.isAMod')->name('moderator.flagnotice.index');
+
+
+        //Modstats
+        Route::get('/mods/ratings/nobody', 'ModActionController@getContentWithNoAttribution')->middleware('role:mod.isExec')->name('moderator.ratings.nobody');
+        Route::get('/mods/ratings/{fjusername}/{from?}/{to?}', 'ModActionController@getContentAttributedToUser')->middleware('role:mod.isExec')->name('moderator.ratings.viewuser');
+        Route::post('/mods/ratings/nobody/attribute/{content}/{userid}', 'ModActionController@attributeContent')->middleware('role:mod.isExec');
 
         //DJ Mods
         Route::get('/mods/dj/{boardName}', 'DJController@index')->name('moderator.dj.index')->middleware('role:mod.isAMod');
