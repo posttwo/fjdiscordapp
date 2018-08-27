@@ -32,8 +32,8 @@ class ModActionController extends Controller
         }
         else
         {
-            $from = Carbon::parse($from);
-            $to = Carbon::parse($to);
+            $from = Carbon::parse($from . " 00:00:00");
+            $to = Carbon::parse($to . " 23:59:59");
         }
         //Get available users
         $availableUser = FunnyjunkUser::has('modaction')->get();
@@ -43,6 +43,7 @@ class ModActionController extends Controller
                     ->with('modaction.user')
                     ->where('attributedTo', $fjuser->fj_id)
                     ->whereBetween('created_at', [$from, $to])
+                    ->orderBy('id', 'desc')
                     ->get();
         
         $meta['from'] = $from ?? "NO RANGE";
