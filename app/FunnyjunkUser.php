@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Watson\Rememberable\Rememberable;
 use Illuminate\Database\Eloquent\Model;
 
 class FunnyjunkUser extends Model
 {
     use Uuids;
+    use Rememberable;
     public $incrementing = false;
 
     public function user()

@@ -36,7 +36,7 @@ class ModActionController extends Controller
             $to = Carbon::parse($to . " 23:59:59");
         }
         //Get available users
-        $availableUser = FunnyjunkUser::has('modaction')->get();
+        $availableUser = FunnyjunkUser::remember(240)->has('modaction')->get();
         $contents = FJContent::with('modaction')
                     ->with('modaction.notes')
                     ->with('user')
@@ -68,7 +68,7 @@ class ModActionController extends Controller
         $meta['to'] = Carbon::now();
         $meta['user'] = "Pending Ratings";
         $meta['count'] = $contents->count();
-        $meta['availableUsers'] = FunnyjunkUser::has('modaction')->get();
+        $meta['availableUsers'] = FunnyjunkUser::remember(240)->has('modaction')->get();
         $meta['showRangePicker'] = false;
         return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
 
