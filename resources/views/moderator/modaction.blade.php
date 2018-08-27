@@ -8,10 +8,28 @@
             <p class="text-center">Attributions</p>
         </div>
         <div class="col-md-9">
-            From: {{$meta['from']}}<br />
-            To: {{$meta['to']}}<br />
-            User: {{$meta['user']}}<br />
-            <bold>URL For This Page: /mods/ratings/{{$meta['user']}}/{{$meta['from']}}/{{$meta['to']}}</bold>
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="userList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{$meta['user']}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="userList">
+                    @foreach($meta["availableUsers"] as $user)
+                        <li><a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to'], 'from' => $meta['from'] ])}}">
+                            {{$user->username}}
+                        </a></li>
+                    @endforeach
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{route('moderator.ratings.nobody')}}">Pending Ratings</a></li>
+                </ul>
+            </div>
+            <hr />
+            @if($meta['showRangePicker'] == true)
+                Date Range
+                From: <input type="date" name="range-from" id="range-from" value="{{$meta['from']->toDateString()}}" />
+                To: <input type="date" name="range-to" id="range-to" value="{{$meta['to']->toDateString()}}" /><br />
+                <button class="btn btn-info" id="changeDateRange">View Chosen Range</button>
+            @endif
         </div>
     </div>
     <div class="col-md-12">
@@ -21,6 +39,7 @@
                     <a href="https://funnyjunk.com/{{$content->url}}">{{$content->title}}</a> @ {{$content->id}}
                 </div>
                 <div class="panel-body">
+                    {{$content->created_at}}
                     <span class="badge">PC {{$content->rating_pc}}</span>
                     <span class="badge">SKIN {{$content->rating_skin}}</span>
                     <span class="badge">{{$content->rating_category}}</span>

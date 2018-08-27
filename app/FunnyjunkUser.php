@@ -16,7 +16,7 @@ class FunnyjunkUser extends Model
 
     public function modaction()
     {
-        return $this->hasMany('App\ModAction', 'id', 'fj_id');
+        return $this->hasMany('App\ModAction', 'user_id', 'fj_id');
     }
 
     public function attributedContent()

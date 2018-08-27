@@ -14,10 +14,10 @@ use Carbon\Carbon;
 use DB;
 use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Posttwo\FunnyJunk\FunnyJunk;
 
 class ModActionController extends Controller
 {
-
     public function getContentAttributedToUser($fjusername, $from = null, $to = null)
     {
         if($fjusername == "self")
@@ -30,7 +30,15 @@ class ModActionController extends Controller
             $from = Carbon::now()->subDay();
             $to = Carbon::now();
         }
-
+        else
+        {
+            $from = Carbon::parse($from);
+            $to = Carbon::parse($to);
+        }
+        //Get available users
+        $availableUser = FunnyjunkUser::whereHas('modaction', function($query) use($from, $to){
+            ///$query->where('created_at', '>=', $from);
+        })->get();
         $contents = FJContent::with('modaction')
                     ->with('modaction.notes')
                     ->with('user')
@@ -43,6 +51,8 @@ class ModActionController extends Controller
         $meta['to'] = $to ?? "SHOWING 24";
         $meta['user'] = $fjuser->username;
         $meta['count'] = $contents->count();
+        $meta['availableUsers'] = $availableUser;
+        $meta['showRangePicker'] = true;
         return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
     }
 
@@ -55,10 +65,12 @@ class ModActionController extends Controller
                     ->where('attributedTo', null)
                     ->get();
 
-        $meta['from'] = $from ?? "NO RANGE";
-        $meta['to'] = $to ?? "SHOWING ALL";
-        $meta['user'] = "No Attribution";
+        $meta['from'] = Carbon::now()->subDay();
+        $meta['to'] = Carbon::now();
+        $meta['user'] = "Pending Ratings";
         $meta['count'] = $contents->count();
+        $meta['availableUsers'] = FunnyjunkUser::has('modaction')->get();
+        $meta['showRangePicker'] = false;
         return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
 
     }
@@ -72,13 +84,26 @@ class ModActionController extends Controller
 
     public function parseJson()
     {
-        $input = Storage::disk('local')->get('testing.json');
+        $this->fj = new FunnyJunk();
+        $this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+        $input = $this->fj->getFlags();
+        //$input = Storage::disk('local')->get('testing.json'); //DEV
+        $latest = ModAction::whereRaw('id = (select max(`id`) from mod_actions)')->first();
         $input = json_decode($input, true);
         $input = collect($input)->map(function($row){
             return collect($row);
         });
+        $input = $input->filter(function($value,$key) use ($latest){
+            if($value["id"] > $latest->id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
         $input = $input->reverse();
-
         //need get latest and discard any old ones to optimise this crap lol
         DB::transaction(function () use($input){
             foreach($input->chunk(1) as $chunk)
@@ -148,7 +173,7 @@ class ModActionController extends Controller
         });
 
 
-        dd("DONE");
+        return("DONE");
     }
     
     protected function getLevelFromString($string)

@@ -103,12 +103,6 @@
                         <p>Own Ratings</p>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="{{route('moderator.ratings.nobody')}}">
-                        <i class="pe-7s-id"></i>
-                        <p>Pending Ratings</p>
-                    </a>
-                </li>
 		        <li class="active">
                     <a href="https://edu.fjme.me">
                         <i class="pe-7s-notebook"></i>
