@@ -80,3 +80,10 @@ $('.ratingAttributeContent').click(function(){
         console.log(content.remove());
     })
 });
+
+$('#changeDateRange').click(function(){
+    let user = $("#userList").text().trim();
+    let from = document.getElementById("range-from").value;
+    let to = document.getElementById("range-to").value;
+    window.location.href = '/mods/ratings/' + user + '/' + from + '/' + to;
+});

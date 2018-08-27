@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth','web']], function () {
 
 
         //Modstats
+        //Route::get('/test2', 'ModActionController@parseJson');
         Route::get('/mods/ratings/nobody', 'ModActionController@getContentWithNoAttribution')->middleware('role:mod.isExec')->name('moderator.ratings.nobody');
         Route::get('/mods/ratings/{fjusername}/{from?}/{to?}', 'ModActionController@getContentAttributedToUser')->middleware('role:mod.isExec')->name('moderator.ratings.viewuser');
         Route::post('/mods/ratings/nobody/attribute/{content}/{userid}', 'ModActionController@attributeContent')->middleware('role:mod.isExec');
