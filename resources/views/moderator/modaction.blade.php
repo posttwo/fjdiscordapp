@@ -16,7 +16,7 @@
                 <ul class="dropdown-menu" aria-labelledby="userList">
                     @foreach($meta["availableUsers"] as $user)
 			@if($user->username != 'posttwo')
-                        <li><a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to'], 'from' => $meta['from'] ])}}">
+                        <li><a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to']->toDateString(), 'from' => $meta['from']->toDateString() ])}}">
                             {{$user->username}}
                         </a></li>
 			@endif
