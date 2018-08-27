@@ -36,9 +36,7 @@ class ModActionController extends Controller
             $to = Carbon::parse($to);
         }
         //Get available users
-        $availableUser = FunnyjunkUser::whereHas('modaction', function($query) use($from, $to){
-            ///$query->where('created_at', '>=', $from);
-        })->get();
+        $availableUser = FunnyjunkUser::has('modaction')->get();
         $contents = FJContent::with('modaction')
                     ->with('modaction.notes')
                     ->with('user')
