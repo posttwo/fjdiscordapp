@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         //Check new askamod comments
-        $schedule->call(function () {
+        /*$schedule->call(function () {
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
 			$fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
             $r = $fj->getByUrl("/mod-social");
@@ -65,7 +65,7 @@ class Kernel extends ConsoleKernel
             $collection->pop(); //admin is a retard
             \Cache::forever("Cron-ModSocial", $collection->max('id'));
             
-        })->everyFiveMinutes();
+        })->everyFiveMinutes();*/
 
          //Check mod stats comments
          $schedule->call(function () {
