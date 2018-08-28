@@ -125,14 +125,6 @@ class ModActionController extends Controller
                         $content = new FJContent;
                     }
                     
-                    if($content->exists == false)
-                        $content->attributedTo = $chunk->get('user_id');
-                    else{
-                        if($content->attributedTo != $chunk->get('user_id')){
-                            $content->attributedTo = null;
-                            $action->addNote('fjmeme_parser_message', 'Attribution removed due to moderator conflict');
-                        }
-                    }
                         
                     $content->id = $chunk->get('reference_id');
                     $content->url = $chunk->get('url');
@@ -144,29 +136,51 @@ class ModActionController extends Controller
                     $content->title = $chunk->get('title');
                     $content->flagged = $chunk->get('flagged');
 
+                    $isActuallyContributing = false;
                     switch($chunk->get('category')){
                         case 'pc_level':
                             $level = $this->getLevelFromString($chunk->get('info'));
+                            if($content->rating_pc != $level)
+                                $isActuallyContributing = true;
                             $content->rating_pc = $level;
                             break;
                         case 'skin_level':
                             $level = $this->getLevelFromString($chunk->get('info'));
+                            if($content->rating_skin != $level)
+                                $isActuallyContributing = true;
                             $content->rating_skin = $level;
                             break;
                         case 'category': //rating_category
                             $category = $this->getCategoryFromString($chunk->get('info'));
+                            if($content->rating_category != $category)
+                                $isActuallyContributing = true;
                             $content->rating_category = $category;
                             break;
                         case 'flag':
+                            $isActuallyContributing = true;
                             $flag = $this->getLastWordFromString($chunk->get('info'));
                             $content->flagged_as = $flag;
                             break;
                         case 'unflag':
+                            $isActuallyContributing = true;
                             $content->flagged_as = null;
                             $content->hasIssue = true;
                             $action->addNote('fjmeme_parser_message', 'Issue raised due to content unflag');
                             break;
                     }
+
+                    if($content->exists == false)
+                        $content->attributedTo = $chunk->get('user_id');
+                    else{
+                        if($content->attributedTo != $chunk->get('user_id')){
+                            if($isActuallyContributing)
+                            {
+                                $content->attributedTo = null;
+                                $action->addNote('fjmeme_parser_message', 'Attribution removed due to moderator conflict');
+                            }
+                        }
+                    }
+
                     $content->save();
                 }
             }
