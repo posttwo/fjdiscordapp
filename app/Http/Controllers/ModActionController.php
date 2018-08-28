@@ -83,6 +83,7 @@ class ModActionController extends Controller
 
     public function parseJson()
     {
+        \Log::info('Parsing JSON');
         $this->fj = new FunnyJunk();
         $this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
         $input = $this->fj->getFlags();
