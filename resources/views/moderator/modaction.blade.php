@@ -2,6 +2,7 @@
 @section('title', 'Flag Notices')
 @section('content')
 <div class="row">
+@if($meta['showHeader'])
     <div class="col-md-12">
         <div class="col-md-3">
             <h2 class="text-center">{{$meta['count']}}</h2>
@@ -34,20 +35,21 @@
             @endif
         </div>
     </div>
+@endif
     <div class="col-md-12">
         @foreach($contents as $content)
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a href="https://funnyjunk.com/{{$content->url}}">{{$content->title}}</a> @ {{$content->id}}
+                    <a href="https://funnyjunk.com/{{$content->url}}">{{$content->title}}</a> @ <a href="{{route('moderator.contentInfo', $content->id)}}">{{$content->id}}</a>
                 </div>
                 <div class="panel-body">
-                    {{$content->created_at}}
                     <span class="badge">PC {{$content->rating_pc}}</span>
                     <span class="badge">SKIN {{$content->rating_skin}}</span>
                     <span class="badge">{{$content->rating_category}}</span>
                     @if($content->flagged_as != null)
                         <div class="label label-danger content_flagged">FLAGGED {{$content->flagged_as}}</div>
                     @endif
+                    {{$content->created_at}}
                     <hr />
                     <table class="table table-striped table-condensed">
                         <thead>
@@ -60,7 +62,9 @@
                         <tbody>
                             @foreach($content->modaction as $action)
                                 @foreach($action->notes as $note)
-                                    <tr class="danger">
+                                    <tr class="@if($note->category =='content_attribute')success
+                                                @else danger
+                                                @endif">
                                         <td>{{$note->created_at}}</td>
                                         <td>{{$note->info}}</td>
                                         <td>{{$note->category}}</tD>

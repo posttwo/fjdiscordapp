@@ -18,6 +18,15 @@ use Posttwo\FunnyJunk\FunnyJunk;
 
 class ModActionController extends Controller
 {
+
+    public function getContentById(FJContent $fjcontent)
+    {
+        $contents[] = $fjcontent;
+        $meta['showHeader'] = false; //@TODO IMPLEMENT
+        $meta['showRangePicker'] = false;
+        return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
+    }
+    
     public function getContentAttributedToUser($fjusername, $from = null, $to = null)
     {
         if($fjusername == "self")
@@ -46,6 +55,7 @@ class ModActionController extends Controller
                     ->orderBy('id', 'desc')
                     ->get();
         
+        $meta['showHeader'] = true;
         $meta['from'] = $from ?? "NO RANGE";
         $meta['to'] = $to ?? "SHOWING 24";
         $meta['user'] = $fjuser->username;
@@ -64,6 +74,7 @@ class ModActionController extends Controller
                     ->where('attributedTo', null)
                     ->get();
 
+        $meta['showHeader'] = true;
         $meta['from'] = Carbon::now()->subDay();
         $meta['to'] = Carbon::now();
         $meta['user'] = "Pending Ratings";
