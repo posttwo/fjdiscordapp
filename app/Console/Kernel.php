@@ -148,7 +148,7 @@ class Kernel extends ConsoleKernel
             }
         })->everyTenMinutes();
 
-        $schedule->call('App\Http\Controllers\ModActionController@parseJson')->twiceDaily(2, 14);
+        $schedule->call('App\Http\Controllers\ModActionController@parseJson')->hourly();
 
     }
 
