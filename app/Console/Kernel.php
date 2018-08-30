@@ -92,7 +92,7 @@ class Kernel extends ConsoleKernel
 				}
 				
 				if($r->sfw > 50){
-                    $slack->text .= ' <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **<@&464411259303886849> with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
+                    $slack->text .= ' <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **<@&484818489241239556> with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
 				}
 				
 				if($r->sfw > 70){
