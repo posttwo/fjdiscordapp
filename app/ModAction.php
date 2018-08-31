@@ -57,7 +57,9 @@ class ModAction extends Model
 
     public function content()
     {
-        return $this->belongsTo('App\FJContent', 'reference_id', 'id')->where('reference_type', 'content');
+        if($this->reference_type != 'content')
+            return false;
+        return $this->belongsTo('App\FJContent', 'reference_id', 'id');
     }
     
 }

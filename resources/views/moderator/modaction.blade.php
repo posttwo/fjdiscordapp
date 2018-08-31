@@ -9,6 +9,7 @@
             <p class="text-center">Attributions</p>
         </div>
         <div class="col-md-9">
+
             <div class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="userList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     {{$meta['user']}}
@@ -16,11 +17,17 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="userList">
                     @foreach($meta["availableUsers"] as $user)
-			@if($user->username != 'posttwo')
-                        <li><a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to']->toDateString(), 'from' => $meta['from']->toDateString() ])}}">
+                    @if($user->username != 'posttwo')
+                        <li>
+                        @if(isset($meta['lastTimeRated']))
+                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => null, 'from' => null ])}}">
+                        @else
+                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to'], 'from' => $meta['from'] ])}}">
+                        @endif
                             {{$user->username}}
-                        </a></li>
-			@endif
+                        </a>
+                        </li>
+                    @endif
                     @endforeach
                     <li role="separator" class="divider"></li>
                     <li><a href="{{route('moderator.ratings.nobody')}}">Pending Ratings</a></li>
@@ -32,6 +39,13 @@
                 From: <input type="date" name="range-from" id="range-from" value="{{$meta['from']->toDateString()}}" />
                 To: <input type="date" name="range-to" id="range-to" value="{{$meta['to']->toDateString()}}" /><br />
                 <button class="btn btn-info" id="changeDateRange">View Chosen Range</button>
+            @endif
+            @if(isset($meta['lastTimeRated']))
+                <p>User last rated at <strong>{{$meta['lastTimeRated']}}</strong><br />
+                Showing <strong>{{$meta['from']}}</strong> to <strong>{{$meta['to']}}</strong> <br />
+                This is a {{$meta['from']->diffInHours($meta['to'])}} hour span.</p>
+                <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $meta['fjusername'], 'to' => $meta['to'], 'from' => $meta['from']])}}">Direct Link To This Period</a>
+                <br />
             @endif
         </div>
     </div>

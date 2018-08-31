@@ -36,13 +36,16 @@ class ModActionController extends Controller
         $fjuser = FunnyjunkUser::where('username', $fjusername)->firstOrFail();
         if($from == null && $to == null)
         {
-            $from = Carbon::now()->subDay();
-            $to = Carbon::now();
+            $lastTimeRated = $this->getLastTimeUserRatedContent($fjuser);
+            $meta['lastTimeRated'] = $lastTimeRated->copy();
+            $to = $lastTimeRated->copy()->addHour();
+            $from = $lastTimeRated->copy()->subDay()->subHour();
         }
         else
         {
-            $from = Carbon::parse($from . " 00:00:00");
-            $to = Carbon::parse($to . " 23:59:59");
+            $from = Carbon::parse($from);
+            $to = Carbon::parse($to);
+            //dd($from, $to);
         }
         //Get available users
         $availableUser = FunnyjunkUser::remember(240)->has('modaction')->get();
@@ -54,7 +57,7 @@ class ModActionController extends Controller
                     ->whereBetween('created_at', [$from, $to])
                     ->orderBy('id', 'desc')
                     ->get();
-        
+        $meta['fjusername'] = $fjusername;
         $meta['showHeader'] = true;
         $meta['from'] = $from ?? "NO RANGE";
         $meta['to'] = $to ?? "SHOWING 24";
@@ -63,6 +66,12 @@ class ModActionController extends Controller
         $meta['availableUsers'] = $availableUser;
         $meta['showRangePicker'] = true;
         return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
+    }
+
+    protected function getLastTimeUserRatedContent(FunnyjunkUser $user)
+    {
+        $action = $user->modaction()->orderBy('id', 'desc')->whereIn('category', ['category', 'pc_level', 'skin_level'])->firstOrFail();
+        return $action->date;
     }
 
     public function getContentWithNoAttribution()
@@ -92,6 +101,40 @@ class ModActionController extends Controller
         $content->modaction->first()->addNote('content_attribute', Auth::user()->fjuser->username . ' attributed content to ' . $userid);
     }
 
+
+    /*
+    * Updates records with new times
+    * Remove next update
+    */
+    public function updateRecords()
+    {
+        $this->fj = new FunnyJunk();
+        $this->fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+        $input = $this->fj->getFlags();
+        $input = json_decode($input, true);
+        $input = collect($input)->map(function($row){
+            return collect($row);
+        });
+
+        DB::transaction(function () use($input){
+            foreach($input->chunk(1) as $chunk)
+            {
+                $chunk = $chunk->first();
+                if($chunk->get('reference_type') == 'content')
+                {
+                    try{
+                        $content = FJContent::findOrFail($chunk->get('reference_id'));
+                        $content->created_at = $chunk->get('date');
+                        $content->updated_at = $chunk->get('date');
+                        $content->save();
+                    } catch(ModelNotFoundException $e)
+                    {   
+                        echo "New Content Skipped";
+                    }
+                }
+            }
+        });
+    }
     public function parseJson()
     {
         \Log::info('Parsing JSON');
@@ -105,7 +148,7 @@ class ModActionController extends Controller
             return collect($row);
         });
         $input = $input->filter(function($value,$key) use ($latest){
-            if($value["id"] > $latest->id)
+            if($value["id"] > 0)//$latest->id)
             {
                 return true;
             }
@@ -131,9 +174,11 @@ class ModActionController extends Controller
                     //ACTION RELATING TO CONTENT
                     try{
                         $content = FJContent::findOrFail($chunk->get('reference_id'));
+                        $content->updated_at = $action->date;
                     } catch(ModelNotFoundException $e)
                     {   
                         $content = new FJContent;
+                        $content->created_at = $action->date;
                     }
                     
                         
