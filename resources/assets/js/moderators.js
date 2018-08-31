@@ -87,3 +87,13 @@ $('#changeDateRange').click(function(){
     let to = document.getElementById("range-to").value;
     window.location.href = '/mods/ratings/' + user + '/' + from + '/' + to;
 });
+
+var datetimepickerOptions = {
+    lang: 'cs',
+    step: 30,
+    minTime: '00:00',
+    maxTime: '23:59',
+    dayOfWeekStart: 1,
+    format: 'Y-m-d H:i'      
+};
+$('.datetimepicker').datetimepicker(datetimepickerOptions)

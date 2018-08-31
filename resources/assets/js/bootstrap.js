@@ -9,6 +9,7 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
+    require('jquery-datetimepicker');
     require('bootstrap-sass');
     require('./light-bootstrap-dashboard');
     window.bootbox = require('bootbox');

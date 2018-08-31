@@ -36,8 +36,8 @@
             <hr />
             @if($meta['showRangePicker'] == true)
                 Date Range
-                From: <input type="date" name="range-from" id="range-from" value="{{$meta['from']->toDateString()}}" />
-                To: <input type="date" name="range-to" id="range-to" value="{{$meta['to']->toDateString()}}" /><br />
+                From: <input type="text" class="datetimepicker" name="range-from" id="range-from" value="{{$meta['from']->toDateTimeString()}}" />
+                To: <input type="text" class="datetimepicker" name="range-to" id="range-to" value="{{$meta['to']->toDateTimeString()}}" /><br />
                 <button class="btn btn-info" id="changeDateRange">View Chosen Range</button>
             @endif
             @if(isset($meta['lastTimeRated']))
