@@ -148,7 +148,7 @@ class ModActionController extends Controller
             return collect($row);
         });
         $input = $input->filter(function($value,$key) use ($latest){
-            if($value["id"] > 0)//$latest->id)
+            if($value["id"] > $latest->id)
             {
                 return true;
             }
