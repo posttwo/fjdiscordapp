@@ -179,7 +179,7 @@
                     </ul>
                 </nav>
                 <p class="copyright pull-right">
-                   <a href="https://posttwo.pt">Posttwo</a>, fuck Helpful
+                   <a href="https://posttwo.pt">Posttwo</a>, Yeet yourgoodfriend
                 </p>
             </div>
         </footer>
