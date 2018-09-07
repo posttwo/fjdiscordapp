@@ -75,20 +75,20 @@
                         </thead>
                         <tbody>
                             @foreach($content->modaction as $action)
-                                @foreach($action->notes as $note)
-                                    <tr class="@if($note->category =='content_attribute')success
-                                                @else danger
-                                                @endif">
-                                        <td>{{$note->created_at}}</td>
-                                        <td>{{$note->info}}</td>
-                                        <td>{{$note->category}}</tD>
-                                    </tr>
-                                @endforeach
                                 <tr @if($content->attributedTo != $action->user_id) class="warning" @endif>
                                     <td>{{$action->date}}</td>
                                     <td>{{$action->info}}</td>
                                     <td><a href="https://funnyjunk.com/u/{{$action->user->username ?? $action->user_id}}">{{$action->user->username ?? $action->user_id}}</a></td>
                                 </tr>
+                                 @foreach($action->notes as $note)
+                                    <tr class="@if($note->category =='content_attribute')success
+                                                @else danger
+                                                @endif">
+                                        <td></td>
+                                        <td>{{$note->info}}</td>
+                                        <td>{{$note->category}}</tD>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>
