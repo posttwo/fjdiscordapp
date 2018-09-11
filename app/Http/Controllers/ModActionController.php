@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Storage;
+use DB;
+use Auth;
+use Carbon\Carbon;
 use App\ModAction;
 use App\ModActionNote;
 use App\FJContent;
 use App\FunnyjunkUser;
-
+use App\Slack;
 use App\Exceptions\ModActionParseErrorException;
-use Storage;
-use Carbon\Carbon;
-use DB;
-use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Posttwo\FunnyJunk\FunnyJunk;
 
@@ -98,7 +98,7 @@ class ModActionController extends Controller
     {
         $content->attributedTo = $userid;
         $content->save();
-        $content->modaction->first()->addNote('content_attribute', Auth::user()->fjuser->username . ' attributed content to ' . $userid);
+        $content->modaction()->latest('id')->first()->addNote('content_attribute', Auth::user()->fjuser->username . ' attributed content to ' . $userid);
     }
 
 
@@ -135,6 +135,7 @@ class ModActionController extends Controller
             }
         });
     }
+
     public function parseJson()
     {
         \Log::info('Parsing JSON');
@@ -192,57 +193,82 @@ class ModActionController extends Controller
                     $content->title = $chunk->get('title');
                     $content->flagged = $chunk->get('flagged');
 
-                    $isActuallyContributing = false;
                     switch($chunk->get('category')){
                         case 'pc_level':
                             $level = $this->getLevelFromString($chunk->get('info'));
-                            if($content->rating_pc != $level)
-                                $isActuallyContributing = true;
                             $content->rating_pc = $level;
                             break;
                         case 'skin_level':
                             $level = $this->getLevelFromString($chunk->get('info'));
-                            if($content->rating_skin != $level)
-                                $isActuallyContributing = true;
                             $content->rating_skin = $level;
                             break;
                         case 'category': //rating_category
                             $category = $this->getCategoryFromString($chunk->get('info'));
-                            if($content->rating_category != $category)
-                                $isActuallyContributing = true;
                             $content->rating_category = $category;
                             break;
                         case 'flag':
-                            $isActuallyContributing = true;
                             $flag = $this->getLastWordFromString($chunk->get('info'));
                             $content->flagged_as = $flag;
                             break;
                         case 'unflag':
-                            $isActuallyContributing = true;
                             $content->flagged_as = null;
                             $content->hasIssue = true;
                             $action->addNote('fjmeme_parser_message', 'Issue raised due to content unflag');
                             break;
                     }
 
+                    //If content was never seen before, attribute it.
                     if($content->exists == false)
                         $content->attributedTo = $chunk->get('user_id');
                     else{
+                        //If action was performed by not the original mod
                         if($content->attributedTo != $chunk->get('user_id')){
-                            if($isActuallyContributing)
-                            {
+                            if(
+                                $content->getOriginal('rating_pc') != $content->rating_pc ||
+                                $content->getOriginal('rating_skin') != $content->rating_skin ||
+                                $content->getOriginal('rating_category') != $content->rating_category ||
+                                $content->getOriginal('flagged_as') != $content->flagged_as
+                            ){
                                 $content->attributedTo = null;
                                 $action->addNote('fjmeme_parser_message', 'Attribution removed due to moderator conflict');
                             }
                         }
+
                     }
 
+                    //If raised issue flag
+                    if($content->getOriginal('hasIssue') == 0 && $content->hasIssue == true)
+                    {
+                        $slack = new Slack;
+                        $slack->target = 'mod-notify';
+                        $slack->username = 'Ratings Parser';
+                        $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
+                        $slack->title = $content->title;
+                        $slack->text = 'I have encountered an issue <@&299311804113354763>';
+                        $slack->embedFields = ['Content ID' => $content->id, 'Issue' => $action->info];
+                        $slack->footer = "Review: https://fjme.me/mods/contentInfo/" . $content->id;
+                        $slack->color = "error";
+                        \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                    }
                     $content->save();
                 }
             }
         });
 
-
+        $unratedContent = FJContent::where('attributedTo', null)->count();
+        if($unratedContent > 30)
+        {
+            $slack = new Slack;
+            $slack->target = 'mod-notify';
+            $slack->username = 'Executive Whip';
+            $slack->avatar = 'https://i.imgur.com/876EUYE.png';
+            $slack->title = "Ratings Too High";
+            $slack->text = 'Unresolved conflicts is at ' . $unratedContent . ' <@!192722532875370496>';
+            $slack->embedFields = [];
+            $slack->footer = "Review: https://fjme.me/mods/ratings/nobody";
+            $slack->color = "warning";
+            \Notification::send($slack, new \App\Notifications\ModNotify(null));
+        }
         return("DONE");
     }
     
