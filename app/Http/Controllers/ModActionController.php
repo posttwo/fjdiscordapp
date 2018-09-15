@@ -57,8 +57,17 @@ class ModActionController extends Controller
                     ->whereBetween('created_at', [$from, $to])
                     ->orderBy('id', 'desc')
                     ->get();
+        
+        //How much did he try tho?
+        $actions = ModAction::distinct('reference_id')->where('user_id', $fjuser->fj_id)
+                 ->whereBetween('date', [$from, $to])
+                 ->where('reference_type', 'content')
+                 ->get(['reference_id'])
+                 ->count();
+
         $meta['fjusername'] = $fjusername;
         $meta['showHeader'] = true;
+        $meta['touchedContents'] = $actions;
         $meta['from'] = $from ?? "NO RANGE";
         $meta['to'] = $to ?? "SHOWING 24";
         $meta['user'] = $fjuser->username;

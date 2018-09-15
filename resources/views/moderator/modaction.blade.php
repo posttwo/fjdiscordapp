@@ -7,6 +7,7 @@
         <div class="col-md-3">
             <h2 class="text-center">{{$meta['count']}}</h2>
             <p class="text-center">Attributions</p>
+            He tried {{$meta['touchedContents']}} contents tho.
         </div>
         <div class="col-md-9">
 
