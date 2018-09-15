@@ -22,8 +22,6 @@ class WebhookController extends Controller
 		$from = Request::input('mail_from');
 		$parts = explode("@", $from);
 		$from = $parts[1];
-		if($from != "psrp.edu.fjme.me")
-			return response()->json(['message' => 'Cannot into from address'], 403);
 		
 		$user = new FJUser();
 		$parts = explode("@", Request::input('rcpt_to'));
