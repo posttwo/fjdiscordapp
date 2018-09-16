@@ -98,7 +98,7 @@ class ModActionController extends Controller
         $meta['to'] = Carbon::now();
         $meta['user'] = "Pending Ratings";
         $meta['count'] = $contents->count();
-        $meta['availableUsers'] = FunnyjunkUser::remember(240)->has('modaction')->get();
+        $meta['availableUsers'] = User::permission('mod.isAMod')->with('fjuser')->get();
         $meta['showRangePicker'] = false;
         return view('moderator.modaction')->with('contents', $contents)->with('meta', $meta);
 
