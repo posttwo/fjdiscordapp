@@ -12,6 +12,7 @@ use App\ModActionNote;
 use App\FJContent;
 use App\FunnyjunkUser;
 use App\Slack;
+use App\User;
 use App\Exceptions\ModActionParseErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Posttwo\FunnyJunk\FunnyJunk;
@@ -48,7 +49,7 @@ class ModActionController extends Controller
             //dd($from, $to);
         }
         //Get available users
-        $availableUser = FunnyjunkUser::remember(240)->has('modaction')->get();
+        $availableUser = User::permission('mod.isAMod')->with('fjuser')->get();
         $contents = FJContent::with('modaction')
                     ->with('modaction.notes')
                     ->with('user')

@@ -20,17 +20,15 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="userList">
                     @foreach($meta["availableUsers"] as $user)
-                    @if($user->username != 'posttwo')
                         <li>
                         @if(isset($meta['lastTimeRated']))
-                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => null, 'from' => null ])}}">
+                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->fjuser->username, 'to' => null, 'from' => null ])}}">
                         @else
-                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->username, 'to' => $meta['to'], 'from' => $meta['from'] ])}}">
+                        <a href="{{route('moderator.ratings.viewuser', ['fjusername' => $user->fjuser->username, 'to' => $meta['to'], 'from' => $meta['from'] ])}}">
                         @endif
-                            {{$user->username}}
+                            {{$user->fjuser->username}}
                         </a>
                         </li>
-                    @endif
                     @endforeach
                     <li role="separator" class="divider"></li>
                     <li><a href="{{route('moderator.ratings.nobody')}}">Pending Ratings</a></li>
