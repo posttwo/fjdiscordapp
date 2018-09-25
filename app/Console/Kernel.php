@@ -81,18 +81,18 @@ class Kernel extends ConsoleKernel
                 $slack->target = 'mod-social';
 				$slack->title    = '';
 				
-                $slack->username =   "Sexy Flanders";
-                $slack->avatar   =   'https://i.imgur.com/ILcjrEq.png';
-                $slack->text     = '<:Voretwo:356922673395138571> Cummie cummie on my tummy <:Voretwo:356922673395138571> <@&427487027429244929>';
+                $slack->username =   "Johny Johny";
+                $slack->avatar   =   'https://i.imgur.com/vtGgMTb.png';
+                $slack->text     = '<@&427487027429244929> <@&427487027429244929>! Yes papa? Rating Content? No papa!';
                 
 				if($r->sfw > 45){
-					$slack->username =   "Helpfuls Ghost";
-					$slack->avatar   =   'https://i.imgur.com/4g9cHT2.png';
-					$slack->text     = 	 'One day I shall come back. Yes, I shall come back. <@&427487027429244929>';
+					$slack->username =   "Papa";
+					$slack->avatar   =   'https://i.imgur.com/x5J78JU.png';
+					$slack->text     = 	 ' Telling lies? <@&427487027429244929>';
 				}
 				
 				if($r->sfw > 50){
-                    $slack->text .= ' <:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **<@&484818489241239556> with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
+                    $slack->text .= ' No papa!<:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
 				}
 				
 				if($r->sfw > 70){
