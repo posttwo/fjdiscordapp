@@ -83,7 +83,7 @@ class Kernel extends ConsoleKernel
 				
                 $slack->username =   "Johny Johny";
                 $slack->avatar   =   'https://i.imgur.com/vtGgMTb.png';
-                $slack->text     = '<@&427487027429244929> <@&427487027429244929>! Yes papa? Rating Content? No papa!';
+                $slack->text     = '<@&427487027429244929> <@&427487027429244929>! Yes papa? Rating Content? Yes papa!';
                 
 				if($r->sfw > 45){
 					$slack->username =   "Papa";
