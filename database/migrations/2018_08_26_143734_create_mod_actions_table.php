@@ -34,7 +34,7 @@ class CreateModActionsTable extends Migration
             $table->string('title')->nullable();
             $table->string('role_name');
 
-            $table->index(['reference_type', 'reference_id']);
+            $table->index(['reference_id', 'reference_type']);
         });
     }
 
