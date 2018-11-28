@@ -36,7 +36,10 @@ class CAHBot extends Command
         parent::__construct();
         $this->discord = new DiscordCommandClient([
             'token' => env('DISCORD_TOKEN'),
-            'description' => "CAH Bot"
+            'description' => "CAH Bot",
+            'disabledEvents' => [
+                'PRESENCE_UPDATE'
+            ]
         ]);
     }
 
