@@ -81,18 +81,19 @@ class Kernel extends ConsoleKernel
                 $slack->target = 'mod-social';
 				$slack->title    = '';
 				
-                $slack->username =   "Johny Johny";
-                $slack->avatar   =   'https://i.imgur.com/vtGgMTb.png';
-                $slack->text     = '<@&427487027429244929> <@&427487027429244929>! Yes papa? Rating Content? Yes papa!';
+                $slack->username =   "Amazon Content Rating Prime";
+                $slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
+                $slack->text     = '<@&427487027429244929>  Please return to your Primestation for your daily Primerating, valued Primemod!';
                 
 				if($r->sfw > 45){
-					$slack->username =   "Papa";
-					$slack->avatar   =   'https://i.imgur.com/x5J78JU.png';
-					$slack->text     = 	 ' Telling lies? <@&427487027429244929>';
+					$slack->username =   "Amazon Content Rating Prime";
+					$slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
+					$slack->text     = 	 ' <@&427487027429244929>   SEV2 incident detected. Please return to your Primestations immediately, valued Primemods! ';
 				}
 				
 				if($r->sfw > 50){
-                    $slack->text .= ' No papa!<:NotLikeThis:250445078647144449> <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
+					$slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
+                    			$slack->text .= ' SEV0 incident detected and ticket opened. Paging Jeff. <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
 				}
 				
 				if($r->sfw > 70){
