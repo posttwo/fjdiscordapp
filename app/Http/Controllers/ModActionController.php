@@ -226,6 +226,12 @@ class ModActionController extends Controller
                             $action->addNote('fjmeme_parser_message', 'Issue raised due to content unflag');
                             break;
                     }
+                    
+                    if($action->modifier > 0)
+                    {
+                     $action->addNote('fjmeme_parser_message', 'Issue raised due to modifier usage');
+                     $contnet->hasIssue = true;
+                    }
 
                     //If content was never seen before, attribute it.
                     if($content->exists == false)
