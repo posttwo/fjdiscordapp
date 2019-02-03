@@ -273,11 +273,11 @@ class ModActionController extends Controller
                      $action->addNote('fjmeme_parser_message', 'Issue raised due to modifier usage');
                         $slack = new Slack;
                         $slack->target = 'mod-notify';
-                        $slack->username = 'Mod System';
-                        $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
-                        $slack->title = 'Modified Usage';
-                        $slack->text = 'I have encountered a modifier being used <@&299311804113354763>' . $action->toJson();
-                        $slack->embedFields = ['Issue' => $action->info];
+                        $slack->username = 'Jeff Beezos';
+                        $slack->avatar = 'https://i.imgur.com/ANa87p5.png';
+                        $slack->title = 'Modifier Used';
+                        $slack->text = 'I have encountered a modifier being used <@&299311804113354763> ' . $action->url;
+                        $slack->embedFields = ['Modifier' => $action->modifier];
                         $slack->color = "warning";
                         \Notification::send($slack, new \App\Notifications\ModNotify(null));
                 }
