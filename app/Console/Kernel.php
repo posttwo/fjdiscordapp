@@ -150,7 +150,7 @@ class Kernel extends ConsoleKernel
         })->everyTenMinutes();
 
         $schedule->call('App\Http\Controllers\ModActionController@parseJson')->hourly();
-        $schedule->call('App\Http\Controllers\ModComplaintController@checkComplaintsAndAlertMods')->everyTenMinutes();
+        //$schedule->call('App\Http\Controllers\ModComplaintController@checkComplaintsAndAlertMods')->everyTenMinutes();
 
     }
 
