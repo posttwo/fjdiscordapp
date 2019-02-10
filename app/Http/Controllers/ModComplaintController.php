@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Posttwo\FunnyJunk\FunnyJunk;
 use Posttwo\FunnyJunk\User as FJUser;
 use App\Slack;
+use App\ModAction;
+use App\FunnyjunkUser;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ModComplaintController extends Controller
 {
@@ -27,7 +30,17 @@ class ModComplaintController extends Controller
             //Is user activately banned?
             $u = new FJUser();
             $u->id = $complaint->id_user;
-            $u->getUsername();
+
+            try{
+                $fjuser = FunnyjunkUser::where('fj_id', $u->id)->firstOrFail();
+                $u->username = $fjuser->fj_id;
+                if($user->username == '')
+                    throw new Illuminate\Database\Eloquent\ModelNotFoundException;
+            } 
+            catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+                $u->getUsername();
+            }
+
             $u->populate();
             $lastBan = (collect($u->ban_history)->last());
             if($lastBan->user_ban_time > 0)
