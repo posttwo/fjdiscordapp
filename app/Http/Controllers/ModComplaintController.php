@@ -33,8 +33,8 @@ class ModComplaintController extends Controller
 
             try{
                 $fjuser = FunnyjunkUser::where('fj_id', $u->id)->firstOrFail();
-                $u->username = $fjuser->fj_id;
-                if($user->username == '')
+                $u->username = $fjuser->username;
+                if($u->username == '')
                     throw new Illuminate\Database\Eloquent\ModelNotFoundException;
             } 
             catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
