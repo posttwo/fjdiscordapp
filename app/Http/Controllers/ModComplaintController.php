@@ -74,4 +74,10 @@ class ModComplaintController extends Controller
         }
         return "hi";
     }
+
+    public function testView()
+    {
+        return $this->getComplaints();
+        return view('test');
+    }
 }

@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware('role:mod.isAMod');
         Route::get('/mods/flagnotice', 'FlagNoticeController@index')->middleware('role:mod.isAMod')->name('moderator.flagnotice.index');
 
+        //Mod Complaints
+        Route::get('/mods/complaints', 'ModCaseController@test');//->middleware('role:mod.isAMod');
 
         //Modstats
         Route::get('/test2', 'ModActionController@getLastTimeUserRatedContent');
