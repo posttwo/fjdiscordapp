@@ -136,7 +136,7 @@
                 <table class="pull-left col-md-12">
                     <tbody>
                         @foreach($modactions as $action)
-                            <tr @if($contentLive->attributedTo != $action->user_id) class="warning" @endif>
+                            <tr @if($contentLive != null && $contentLive->attributedTo != $action->user_id) class="warning" @endif>
                                 <td>{{$action->date}}</td>
                                 <td>{{$action->info}}</td>
                                 <td><a href="https://funnyjunk.com/u/{{$action->user->username ?? $action->user_id}}">{{$action->user->username ?? $action->user_id}}</a></td>
