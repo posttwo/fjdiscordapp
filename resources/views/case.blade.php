@@ -86,10 +86,12 @@
                 User specified <a href="{{$case->reference_url}}">{{$case->reference_url}}</a>
                 <table class="pull-left col-md-12">
                     <tbody>
+                        @if(isset($case->content_metadata['title']))
                         <tr>
                             <td class="h6"><strong>Title</strong></td>
                             <td class="h5">{{$case->content_metadata['title']}}</td>
                         </tr>
+                        @endif
                         @if($contentLive)
                             <tr>
                                 <td class="h6"><strong>URLive</strong></td>
