@@ -28,11 +28,18 @@ class ModCase extends Model
     {
         $data = collect($this->fj->getComplaints());
         //return $data;
+        //get current max ID
+        $largestSourceID = ModCase::where('source_type', 'fj-user-complaint')->max('source_id');
         DB::beginTransaction();
         foreach($data as $complaint)
         {
+            if($complaint->id <= $largestSourceID)
+            {
+                echo("Skipping: " . $complaint->id . "\n");
+                continue;
+            }
             echo($complaint->id . "\n");
-            if($complaint->id == 3835){
+            //if($complaint->id == 3835){
             $case = new ModCase;
             $case->source_type = 'fj-user-complaint';
             $case->source_id   = $complaint->id;
@@ -41,7 +48,7 @@ class ModCase extends Model
             
             $caseUserMessage = new ModCaseMessage;
             $caseUserMessage->title = $complaint->complaint_description;
-            $caseUserMessage->description = $complaint->solution . '\n' . $complaint->link;
+            $caseUserMessage->description = $complaint->solution . "\n" . $complaint->link;
             $caseUserMessage->fj_user_id = $complaint->id_user;
             $caseUserMessage->internal = false;
             $case->messages()->save($caseUserMessage);
@@ -52,8 +59,8 @@ class ModCase extends Model
             $case->getUserData();
             $case->routeSeverity();
 
-            return $case;
-            }
+            $case->save();
+            //}
             //$case->save();
         }
         DB::commit();

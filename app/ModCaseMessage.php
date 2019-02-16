@@ -11,4 +11,9 @@ class ModCaseMessage extends Model
     {
         return $this->belongsTo('App\ModCase');
     }
+
+    public function fjuser()
+    {
+        return $this->belongsTo('App\FunnyjunkUser', 'fj_user_id', 'fj_id');
+    }
 }
