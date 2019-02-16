@@ -89,9 +89,7 @@ class ModCase extends Model
 
                         $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to COMMENT {$onPageCommentId} on https://funnyjunk.com{$page->base_url}");
                         break;
-                    } else {
-                        $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve!");
-                    }
+                    } 
                 }
             } else {
                 $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve (NOT IN DB)!");
