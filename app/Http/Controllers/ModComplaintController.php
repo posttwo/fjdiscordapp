@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -36,7 +37,7 @@ class ModComplaintController extends Controller
                 $u->username = $fjuser->username;
                 if($u->username == '')
                     throw new Illuminate\Database\Eloquent\ModelNotFoundException;
-            } 
+            }
             catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
                 $u->getUsername();
             }
@@ -58,7 +59,7 @@ class ModComplaintController extends Controller
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
             }
         }
-        
+
         if($noresponse->count() > 3)
         {
             $slack = new Slack;
@@ -73,5 +74,11 @@ class ModComplaintController extends Controller
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
         }
         return "hi";
+    }
+
+    public function testView()
+    {
+        return $this->getComplaints();
+        return view('test');
     }
 }

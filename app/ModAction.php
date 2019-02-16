@@ -55,6 +55,11 @@ class ModAction extends Model
         return $this->belongsTo('App\FunnyjunkUser', 'user_id', 'fj_id');
     }
 
+    public function owner()
+    {
+        return $this->belongsTo('App\FunnyjunkUser', 'owner', 'username');
+    }
+
     public function content()
     {
         if($this->reference_type != 'content')
