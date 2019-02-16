@@ -24,8 +24,8 @@ class CreateModComplaintsTable extends Migration
             $table->unsignedInteger('severity')->nullable();   //1 Highest | 5 Lowest
             $table->string('queue', 255)->nullable();
             $table->unsignedInteger('status')->default(0); //0 = NEW | 1 = Processed | 2 = Assigned | 3 = Locked | 4 = Resolved | 5 = Reopenned
-            $table->text('user_metadata')->nullable();
-            $table->text('content_metadata')->nullable();
+            $table->json('user_metadata')->nullable();
+            $table->json('content_metadata')->nullable();
             $table->timestamps();
 
 
