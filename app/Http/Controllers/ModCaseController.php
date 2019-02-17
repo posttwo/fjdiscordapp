@@ -18,7 +18,7 @@ class ModCaseController extends Controller
     public function index()
     {
         $x = ModCase::orderBy('id', 'desc')->paginate(100);
-        $important = ModCase::whereIn('status', [1,2,3])->orderBy('severity', 'asc');
+        $important = ModCase::whereIn('status', [1,2,3])->orderBy('severity', 'asc')->get();
         return view('caseindex', ['list' => $x, 'importantList' => $important]);
     }
 
