@@ -78,6 +78,8 @@ class ModCaseController extends Controller
 
         if(Request::input('fjstatus') != null && $modCase->source_type == 'fj-user-complaint')
         {
+            $modCase->status = 4;
+            $modCase->save();
             $modCase->addInternalAnnotation('changeComplaintFJStatus', 'Changed FJ status to ' . Request::input('fjstatus'), Auth::user()->fjuser->fj_id);
             $reply = $message->description;
             $reply .= "\n [big][bold]====================[bold][big]\n";
