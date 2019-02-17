@@ -9,6 +9,12 @@ use App\FJContent;
 
 class ModCaseController extends Controller
 {
+    public function index()
+    {
+        $x = ModCase::paginate(100);
+        return view('caseindex', ['list' => $x]);
+    }
+
     public function getCase($sourceType, $sourceId)
     {
         $case = ModCase::with('messages')->where('source_type', $sourceType)->where('source_id', $sourceId)->first();

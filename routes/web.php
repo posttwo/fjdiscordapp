@@ -47,7 +47,8 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/flagnotice', 'FlagNoticeController@index')->middleware('role:mod.isAMod')->name('moderator.flagnotice.index');
 
         //Mod Complaints
-        Route::get('/mods/complaints/{sourceType}/{sourceId}', 'ModCaseController@getCase');//->middleware('role:mod.isAMod');
+        Route::get('/mods/complaints/{sourceType}/{sourceId}', 'ModCaseController@getCase')->middleware('role:mod.isAMod')->name('moderator.case');
+        Route::get('/mods/complaints', 'ModCaseController@index')->middleware('role:mod.isAMod');
 
         //Modstats
         Route::get('/test2', 'ModActionController@getLastTimeUserRatedContent');
