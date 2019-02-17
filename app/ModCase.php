@@ -103,7 +103,7 @@ class ModCase extends Model
                 if(isset($this->content_metadata['is_profile']))
                 {
                     //Is user profile
-                    $this->reference_type = 'userprofile';
+                    $this->reference_type = 'user';
                     $this->reference_id   = $this->content_metadata['userId'];
                     $this->reference_url  = 'https://funnyjunk.com/u/' . $this->content_metadata['username'];
                     $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to USERPROFILE {$this->reference_url}");
