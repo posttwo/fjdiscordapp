@@ -39,7 +39,7 @@ class ModCaseObserver
                 $slack->username = 'Mod Complaint High Severity';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = 'SEV3 Case has been openned ' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] );
+                $slack->text = 'SEV3 Case has been openned <' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] ) . '>';
                 $slack->color = "error";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
