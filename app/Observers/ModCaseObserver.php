@@ -26,7 +26,9 @@ class ModCaseObserver
             $slack->title = "Title Test";
             $slack->text = 'SEV3 Case has been openned ' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] );
             $slack->color = "error";
-            \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+            //\Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+
+            $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
         }
     }
 
