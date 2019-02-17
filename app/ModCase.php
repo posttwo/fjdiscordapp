@@ -7,6 +7,7 @@ use Posttwo\FunnyJunk\FunnyJunk;
 use Posttwo\FunnyJunk\User as FJUser;
 use Illuminate\Support\Facades\DB;
 use App\ModCaseMessage;
+use Illuminate\Support\Facades\Hash;
 
 class ModCase extends Model
 {
@@ -58,7 +59,8 @@ class ModCase extends Model
             $case->routeCase();
             $case->getUserData();
             $case->routeSeverity();
-
+            
+            $case->status = 1;
             $case->save();
             //}
             //$case->save();
@@ -166,12 +168,15 @@ class ModCase extends Model
         return $this->hasMany('App\ModCaseMessage');
     }
 
-    public function addInternalAnnotation($topic, $message)
+    public function addInternalAnnotation($topic, $message, $user = null)
     {
         $this->messages()->create([
             'title' => $topic,
             'description' => $message,
-            'internal' => true
+            'internal' => true,
+            'fj_user_id' => $user
         ]);
     }
+
+   
 }

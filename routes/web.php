@@ -21,7 +21,11 @@ Route::group(['domain' => 'rules.' . env('APP_URI')], function () {
     Route::get('/', function(){
         return redirect("https://redmine.posttwo.pt/projects/fj/wiki");
     });
-});   
+});
+
+Route::get('/usc/{modCase}/{hash}', 'ModCaseController@getCaseForUser')->name('moderator.case.viewbyuser');
+Route::post('/usc/{modCase}/{hash}', 'ModCaseController@addCaseMessageByUser')->name('moderator.case.postbyuser');
+
 Route::group(['middleware' => ['auth','web']], function () {
     Route::get('/verify/fj/{username}', 'VerificationController@sendPM');
     Route::get('/verify2/fj/{token}', 'VerificationController@verify');
@@ -47,8 +51,11 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/flagnotice', 'FlagNoticeController@index')->middleware('role:mod.isAMod')->name('moderator.flagnotice.index');
 
         //Mod Complaints
-        Route::get('/mods/complaints/{sourceType}/{sourceId}', 'ModCaseController@getCase')->middleware('role:mod.isAMod')->name('moderator.case');
+        Route::get('/mods/complaints/{modCase}', 'ModCaseController@getCase')->middleware('role:mod.isAMod')->name('moderator.case');
+        //Route::get('/mods/complaints/{sourceType}/{sourceId}', 'ModCaseController@getCase')->middleware('role:mod.isAMod')->name('moderator.case');
         Route::get('/mods/complaints', 'ModCaseController@index')->middleware('role:mod.isAMod')->name('moderator.case.index');
+        Route::post('/mods/complaints/{modCase}', 'ModCaseController@addCaseMessage')->middleware('role:mod.isExec')->name('moderator.case.postmessage');
+        Route::get('/mods/complaints/{modCase}/resetAccessKey', 'ModCaseController@resetAccessKey')->middleware('role:mod.isExec')->name('moderator.case.resetaccesskey');
 
         //Modstats
         Route::get('/test2', 'ModActionController@getLastTimeUserRatedContent');

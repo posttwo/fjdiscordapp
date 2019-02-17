@@ -5,18 +5,19 @@ namespace App\Observers;
 use App\ModCase;
 use App\Slack;
 Use App\Jobs\SendNotificationToMods;
+use Illuminate\Support\Str;
 
 class ModCaseObserver
 {
     /**
-     * Handle the mod case "created" event.
+     * Handle the mod case "creating" event.
      *
      * @param  \App\ModCase  $modCase
      * @return void
      */
-    public function created(ModCase $modCase)
+    public function creating(ModCase $modCase)
     {
-        //
+        $modCase->access_key = Str::random(40);
     }
 
     /**
@@ -27,19 +28,17 @@ class ModCaseObserver
      */
     public function saved(ModCase $modCase)
     {
-        echo("SAVED");
         if($modCase->severity != $modCase->getOriginal('severity')){
-            echo("CHANGED");
+            //Severity has been changed
             if($modCase->severity != null && $modCase->severity <= 3)
             {
-                echo("HIGH");
                 //Severity is 3 or "higher"
                 $slack = new Slack;
                 $slack->target = 'mod-notify';
                 $slack->username = 'Mod Complaint High Severity';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = 'SEV3 Case has been openned <' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] ) . '>';
+                $slack->text = 'SEV3 Case has been openned <' . route( 'moderator.case', $modCase) . '>';
                 $slack->color = "error";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
