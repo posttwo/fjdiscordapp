@@ -29,7 +29,12 @@ class ModCaseController extends Controller
         if($case->reference_type == 'content')
             $contentLive = FJContent::where('id', $case->reference_id)->first();
         
-        $previousFlags = ModAction::where('owner', $case->user_metadata['username'])->whereIn('category', array('flag', 'unflag', 'comment_flag', 'comment_unflag', 'cover_flag', 'cover_unflag', 'ban', 'avatar_flag', 'spam_comment_flag', 'voteban'))->get();
+        $previousFlags = ModAction::where('owner', $case->user_metadata['username'])
+                        ->whereIn('category', array('flag', 'unflag', 'comment_flag', 'comment_unflag', 'cover_flag', 'cover_unflag', 'ban', 'avatar_flag', 'spam_comment_flag', 'voteban'))
+                        ->get();
+        
+        $previousGays = ModAction::where('reference_type', 'user')->where('reference_id', $case->fj_user_id)->get();
+        $previousFlags = $previousFlags->merge($previousGays);
         return view('case', ['case' => $case, 'modactions' => $modActions, 'contentLive' => $contentLive, 'previousFlags' => $previousFlags]);
         return $case;
         //$x = new ModCase;
