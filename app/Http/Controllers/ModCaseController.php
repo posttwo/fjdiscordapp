@@ -66,7 +66,7 @@ class ModCaseController extends Controller
             $user->username = $modCase->user_metadata['username'];
             $user->id = $modCase->fj_user_id;
             $topic = 'New Reply to Case#' . $modCase->id;
-            $reply .= "\n [big][bold]====================[bold][big]\n";
+            $reply  = "\n [big][bold]====================[bold][big]\n";
             $reply .= $message->description;
             $reply .= "\n [big][bold]====================[bold][big]\n";
             $reply .= "[small]To reply to this please go to: " . route('moderator.case.viewbyuser', ['modCase' => $modCase, 'hash' => $modCase->access_key]) . '[small]';
