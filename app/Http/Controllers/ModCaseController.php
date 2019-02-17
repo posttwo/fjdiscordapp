@@ -71,6 +71,9 @@ class ModCaseController extends Controller
             $reply .= "\n [big][bold]====================[bold][big]\n";
             $reply .= "[small]To reply to this please go to: " . route('moderator.case.viewbyuser', ['modCase' => $modCase, 'hash' => $modCase->access_key]) . '[small]';
             dispatch(new SendMessageToUser($user, $topic, $reply));
+
+            $modCase->status = 2;
+            $modCase->save();
         }
 
         if(Request::input('fjstatus') != null && $modCase->source_type == 'fj-user-complaint')
@@ -108,7 +111,9 @@ class ModCaseController extends Controller
     {
         if($modCase->access_key != $hash)
             abort(403);
-            
+        
+        $modCase->status = 3;
+        $modCase->save();
         $message = new ModCaseMessage;
         $message->title = 'webReply';
         $message->description = Request::input('new_message');
