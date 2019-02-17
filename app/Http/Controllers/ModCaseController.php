@@ -121,6 +121,9 @@ class ModCaseController extends Controller
         if($modCase->access_key != $hash)
             abort(403);
         
+        if($modCase->locked == true)
+            abort(403);
+        
         $modCase->status = 3;
         $modCase->save();
         $message = new ModCaseMessage;
