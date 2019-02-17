@@ -83,7 +83,7 @@
         </div>
         <div class="panel-collapse collapse in" id="relatedContentCollapse">
             <div class="panel-body">
-                User specified <a href="{{$case->reference_url}}">{{$case->reference_url}}</a>
+                User specified <a href="{{$case->reference_url}}" rel="noreferrer">{{$case->reference_url}}</a>
                 <table class="pull-left col-md-12">
                     <tbody>
                         @if(isset($case->content_metadata['title']))
@@ -174,7 +174,7 @@
                 <tbody>
                     @foreach($previousFlags as $flag)
                     <tr>
-                        <a href="{{$flag->url}}"><td class="h5">{{$flag->url}}</td></a>
+                        <a href="{{$flag->url}}" rel="noreferrer"><td class="h5">Open FJ</td></a>
                         <td class="h5">{{$flag->info}}</td>
                     </tr>
                     @endforeach
