@@ -191,6 +191,7 @@
                     <tr>
                         <td class="h5"><a href="{{$flag->url}}" rel="noreferrer">Open FJ</a></td>
                         <td class="h5">{{$flag->info}}</td>
+                        <td class="h5">{{$flag->date}}</td>
                     </tr>
                     @endforeach
                 </tbody>
