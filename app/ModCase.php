@@ -48,8 +48,8 @@ class ModCase extends Model
             $case->save();
             
             $caseUserMessage = new ModCaseMessage;
-            $caseUserMessage->title = $complaint->complaint_description;
-            $caseUserMessage->description = $complaint->solution . "\n" . $complaint->link;
+            $caseUserMessage->title = '';
+            $caseUserMessage->description = $complaint->complaint_description . $complaint->solution . "\n" . $complaint->link;
             $caseUserMessage->fj_user_id = $complaint->id_user;
             $caseUserMessage->internal = false;
             $case->messages()->save($caseUserMessage);
