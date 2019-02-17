@@ -16,20 +16,7 @@ class ModCaseObserver
      */
     public function created(ModCase $modCase)
     {
-        if($modCase->severity != null && $modCase->severity <= 3)
-        {
-            //Severity is 3 or "higher"
-            $slack = new Slack;
-            $slack->target = 'mod-notify';
-            $slack->username = 'Mod Complaint High Severity';
-            $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
-            $slack->title = "Title Test";
-            $slack->text = 'SEV3 Case has been openned ' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] );
-            $slack->color = "error";
-            \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
-
-            $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
-        }
+        //
     }
 
     /**
@@ -40,7 +27,22 @@ class ModCaseObserver
      */
     public function saved(ModCase $modCase)
     {
-        //
+        if($modCase->severity != $modCase->getOriginal('severity')){
+            if($modCase->severity != null && $modCase->severity <= 3)
+            {
+                //Severity is 3 or "higher"
+                $slack = new Slack;
+                $slack->target = 'mod-notify';
+                $slack->username = 'Mod Complaint High Severity';
+                $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
+                $slack->title = "Title Test";
+                $slack->text = 'SEV3 Case has been openned ' . route( 'moderator.case', ['sourceType' => $modCase->source_type, 'sourceId' => $modCase->source_id] );
+                $slack->color = "error";
+                \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+
+                $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
+            }
+        }
     }
 
     /**
