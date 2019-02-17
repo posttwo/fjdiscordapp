@@ -154,6 +154,7 @@
 </div>
 
 
+@if($case->locked == false)
 <div class="col-md-12">
     <div class="col-md-12 well" style="padding-bottom:0">
         <form accept-charset="UTF-8" action="" method="POST" id="caseReply">
@@ -165,7 +166,11 @@
         </form>
     </div>
 </div>
-
+@else
+<div class="col-md-12">
+    <h1>Case Locked</h1>
+</div>
+@endif
 @endsection
 
 @section('meta')

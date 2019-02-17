@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/complaints', 'ModCaseController@index')->middleware('role:mod.isAMod')->name('moderator.case.index');
         Route::post('/mods/complaints/{modCase}', 'ModCaseController@addCaseMessage')->middleware('role:mod.isExec')->name('moderator.case.postmessage');
         Route::get('/mods/complaints/{modCase}/resetAccessKey', 'ModCaseController@resetAccessKey')->middleware('role:mod.isExec')->name('moderator.case.resetaccesskey');
+        Route::get('/mods/complaints/{modCase}/toggleCaseLock', 'ModCaseController@toggleCaseLock')->middleware('role:mod.isExec')->name('moderator.case.togglecaselock');
 
         //Modstats
         Route::get('/test2', 'ModActionController@getLastTimeUserRatedContent');
