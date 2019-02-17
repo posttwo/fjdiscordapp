@@ -8,7 +8,8 @@ use Illuminate\Notifications\Notifiable;
 class Slack extends Model
 {
     use Notifiable;
-
+    
+    protected $fillable = ['target', 'username', 'avatar', 'title', 'text', 'color'];
     /**
      * Route notifications for the Slack channel.
      *

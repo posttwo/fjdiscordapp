@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Schema;
 use Auth;
 use App\Role;
 use Laravel\Passport\Passport;
+use App\ModCase;
+use App\Observers\ModCaseObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
             return  "<?php if(Auth::check() && Auth::user()->roles()->remember(1440)->cacheTags('role_membership.' . Auth::user()->id . '.$name')->where('slug', '$name')->first()): ?>";
         });
         Blade::setEchoFormat('nl2br(e(%s))');
+
+        //Observers
+        ModCase::observe(ModCaseObserver::class);
     }
 
     /**
