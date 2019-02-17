@@ -103,6 +103,12 @@
                         <p>Own Ratings</p>
                     </a>
                 </li>
+                <li class="active">
+                    <a href="{{route('moderator.case.index')}}">
+                        <i class="pe-7s-piggy"></i>
+                        <p>ModCases</p>
+                    </a>
+                </li>
 		        <li class="active">
                     <a href="https://edu.fjme.me">
                         <i class="pe-7s-notebook"></i>
