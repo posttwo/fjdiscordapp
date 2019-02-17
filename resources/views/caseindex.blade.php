@@ -15,7 +15,7 @@
                             <tr>
                                 <td>
                                     <a href="{{{
-                                        route( 'moderator.case', ['sourceType' => $case->source_type, 'sourceId' => $case->source_id] )
+                                        route( 'moderator.case', $case )
                                         }}} ">
                                         {{$case->id}}
                                     </a>

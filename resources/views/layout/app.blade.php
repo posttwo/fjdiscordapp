@@ -60,6 +60,7 @@
                         <p>Join a Group</p>
                     </a>
                 </li>
+                @if (Auth::check())
                 @ifgroup(cah)
                 <li class="active">
                     <a href="{{route('cahcards')}}/">
@@ -116,6 +117,7 @@
                     </a>
                 </li>
                 @endcan
+                @endif
             </ul>
     	</div>
     </div>

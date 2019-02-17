@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModCaseMessage extends Model
 {
-    protected $fillable = ['title', 'description', 'internal'];
+    protected $fillable = ['title', 'description', 'internal', 'fj_user_id'];
+    
     public function case()
     {
         return $this->belongsTo('App\ModCase');
