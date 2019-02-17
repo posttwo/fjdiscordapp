@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('ifgroup', function($name) {
             return  "<?php if(Auth::check() && Auth::user()->roles()->remember(1440)->cacheTags('role_membership.' . Auth::user()->id . '.$name')->where('slug', '$name')->first()): ?>";
         });
+        Blade::setEchoFormat('nl2br(e(%s))');
     }
 
     /**
