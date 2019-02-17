@@ -174,7 +174,7 @@
                 <tbody>
                     @foreach($previousFlags as $flag)
                     <tr>
-                        <a href="{{$flag->url}}" rel="noreferrer"><td class="h5">Open FJ</td></a>
+                        <td class="h5"><a href="{{$flag->url}}" rel="noreferrer">Open FJ</a></td>
                         <td class="h5">{{$flag->info}}</td>
                     </tr>
                     @endforeach
