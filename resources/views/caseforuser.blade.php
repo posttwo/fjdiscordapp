@@ -71,10 +71,10 @@
                                 <span class="label label-default">Open</span>
                                 @break
                             @case(2)
-                                <span class="label label-success">Assigned</span>
+                                <span class="label label-success">FAC</span>
                                 @break
                             @case(3)
-                                <span class="label label-warning">Locked</span>
+                                <span class="label label-warning">UAC</span>
                                 @break
                             @case(4)
                                 <span class="label label-default">Resolved</span>
