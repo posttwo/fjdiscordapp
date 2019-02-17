@@ -20,8 +20,8 @@
                                         {{$case->id}}
                                     </a>
                                 </td>
-                                <td>{{$case->source_type}}</td>
-                                <td>{{$case->source_id}}</td>
+                                <td>{{$case->reference_type}}</td>
+                                <td>{{$case->reference_id}}</td>
                                 <td>{{$case->queue}}</td>
                                 <td>
                                     @switch($case->severity)
