@@ -146,18 +146,7 @@
                 @if($message->fj_user_id != $case->fj_user_id && $message->fj_user_id != null) 
                 <span class="label label-success">Mod</span>
                 @endif
-                    {{$message->title}}
-                    Posted by 
-                    @if($message->fjuser)
-                        {{$message->fjuser->username}}
-                    @else
-                        @if($message->fj_user_id == $case->fj_user_id)
-                            {{$case->user_metadata['username']}}
-                        @else
-                            {{$message->fj_user_id}}
-                        @endif
-                    @endif
-                    @ {{$message->created_at}}
+                    {{$message->title}} @ {{$message->created_at}}
             </div>
         </div>
     @endforeach
