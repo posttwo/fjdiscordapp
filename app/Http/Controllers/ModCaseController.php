@@ -97,6 +97,15 @@ class ModCaseController extends Controller
         return back();
     }
 
+    public function toggleCaseLock(ModCase $modCase)
+    {
+        $modCase->locked = !$modCase->locked;
+        $modCase->save();
+
+        $modCase->addInternalAnnotation('toggleCaseLock', "Toggling case lock to " . $modCase->locked, Auth::user()->fjuser->fj_id);
+        return back();
+    }
+
 
     //######### USER FUNCTIONS ###################\\
     public function getCaseForUser(ModCase $modCase, $hash)
