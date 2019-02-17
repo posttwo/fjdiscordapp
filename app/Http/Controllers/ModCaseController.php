@@ -17,8 +17,9 @@ class ModCaseController extends Controller
 {
     public function index()
     {
-        $x = ModCase::orderBy('status', 'asc')->orderBy('severity', 'asc')->orderBy('id', 'desc')->paginate(100);
-        return view('caseindex', ['list' => $x]);
+        $x = ModCase::orderBy('id', 'desc')->paginate(100);
+        $important = ModCase::whereIn('status', [1,2,3])->orderBy('severity', 'asc');
+        return view('caseindex', ['list' => $x, 'importantList' => $important]);
     }
 
     public function getCase(ModCase $modCase)//($sourceType, $sourceId)
