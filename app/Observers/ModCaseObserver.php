@@ -27,9 +27,12 @@ class ModCaseObserver
      */
     public function saved(ModCase $modCase)
     {
+        echo("SAVED");
         if($modCase->severity != $modCase->getOriginal('severity')){
+            echo("CHANGED");
             if($modCase->severity != null && $modCase->severity <= 3)
             {
+                echo("HIGH");
                 //Severity is 3 or "higher"
                 $slack = new Slack;
                 $slack->target = 'mod-notify';
