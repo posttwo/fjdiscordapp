@@ -254,8 +254,8 @@
 @endsection
 
 @section('meta')
-<meta property="og:title" content="FunnyJunk Discord - CAH Card Proposals">
-<meta property="og:description" content="Propose Your Stupid Cards Here!">
+<meta property="og:title" content="FunnyJunk Mod Cases">
+<meta property="og:description" content="Do your mod cases here!">
 <meta property="og:image" content="https://i.imgur.com/gPgcmuc.png">
-<meta property="og:url" content="https://fjme.me/list/cah">
+<meta property="og:url" content="https://fjme.me/mods/complaints">
 @endsection
