@@ -89,9 +89,7 @@ class ModCase extends Model
 
                         $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to COMMENT {$onPageCommentId} on https://funnyjunk.com{$page->base_url}");
                         break;
-                    } else {
-                        $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve!");
-                    }
+                    } 
                 }
             } else {
                 $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve (NOT IN DB)!");
@@ -105,7 +103,7 @@ class ModCase extends Model
                 if(isset($this->content_metadata['is_profile']))
                 {
                     //Is user profile
-                    $this->reference_type = 'userprofile';
+                    $this->reference_type = 'user';
                     $this->reference_id   = $this->content_metadata['userId'];
                     $this->reference_url  = 'https://funnyjunk.com/u/' . $this->content_metadata['username'];
                     $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to USERPROFILE {$this->reference_url}");
