@@ -11,7 +11,7 @@ class ModCaseController extends Controller
 {
     public function index()
     {
-        $x = ModCase::paginate(100);
+        $x = ModCase::orderBy('id', 'desc')->paginate(100);
         return view('caseindex', ['list' => $x]);
     }
 
