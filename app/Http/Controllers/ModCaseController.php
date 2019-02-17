@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use App\ModCase;
 use App\ModAction;
 use App\FJContent;
@@ -35,8 +35,12 @@ class ModCaseController extends Controller
         
         $previousGays = ModAction::where('reference_type', 'user')->where('reference_id', $case->fj_user_id)->get();
         $previousFlags = $previousFlags->merge($previousGays);
+
+        if(Request::get('json'))
+        {
+            return $case;
+        }
         return view('case', ['case' => $case, 'modactions' => $modActions, 'contentLive' => $contentLive, 'previousFlags' => $previousFlags]);
-        return $case;
         //$x = new ModCase;
         //return $x->bulkImport();
     }
