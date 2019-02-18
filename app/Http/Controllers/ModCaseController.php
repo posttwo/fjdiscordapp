@@ -109,6 +109,15 @@ class ModCaseController extends Controller
         return back();
     }
 
+    public function resolveCase(ModCase $modCase)
+    {
+        $modCase->status = 4;
+        $modCase->save();
+
+        $modCase->addInternalAnnotation('setCaseStatus', "Setting case status to " . $modCase->status, Auth::user()->fjuser->fj_id);
+        return back();
+    }
+
 
     //######### USER FUNCTIONS ###################\\
     public function getCaseForUser(ModCase $modCase, $hash)

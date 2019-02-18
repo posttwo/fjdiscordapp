@@ -27,6 +27,7 @@
     <a class="btn btn-danger" onclick="return confirm('Are you sure you want to toggle case lock?');" href="{{route('moderator.case.togglecaselock', $case)}}" role="button">
         Toggle Lock {{$case->locked}}
     </a>
+    <a class="btn btn-default" onclick="return confirm('Are you sure you want to resolve case?');" href="{{route('moderator.case.resolvecase', $case)}}" role="button">Resolve</a>
 </h3>
 <div class="row">
     <div class="col-md-12">
