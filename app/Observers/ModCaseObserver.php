@@ -45,6 +45,25 @@ class ModCaseObserver
                 $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
             }
         }
+        //548199053943373969
+
+        if($modCase->queue != $modCase->getOriginal('queue')){
+            //Queue has been has been changed
+            if($modCase->queue == 'user-complaint-nsfw')
+            {
+                //is NSFW queue
+                $slack = new Slack;
+                $slack->target = 'mod-notify';
+                $slack->username = 'user-complaint-nsfw';
+                $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
+                $slack->title = "Title Test";
+                $slack->text = 'NSFW Case has been openned <' . route( 'moderator.case', $modCase) . '> <@&548199053943373969>';
+                $slack->color = "error";
+                \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+
+                $modCase->addInternalAnnotation('notificationSent', "Sent notification due to queue {$modCase->queue}");
+            }
+        }
     }
 
     /**
