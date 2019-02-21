@@ -29,6 +29,9 @@
             @if(Auth::user()->can('user.canUseFJMemeForSingleSignOn'))
                 <span class="label label-default">OAuth</span>
             @endif
+            @if(Auth::user()->can('mod.complaintsResponder'))
+                <span class="label label-danger">Case</span>
+            @endif
             <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>
