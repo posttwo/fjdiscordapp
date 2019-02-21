@@ -117,6 +117,7 @@ class FJUserController extends \App\Http\Controllers\Controller
         $return['user'] = $user;
         $user->revokePermissionTo('mod.isAMod');
         $user->revokePermissionTo('mod.isExec');
+        $user->revokePermissionTo('mod.complaintsResponder');
         $returnText .="Revoked mod.isAMox and mod.isExec ";
         //Revoke Notes Token
         try{
