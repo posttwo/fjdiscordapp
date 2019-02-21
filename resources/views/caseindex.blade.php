@@ -95,7 +95,7 @@
                                     </a>
                                 </td>
                                 <td>{{$case->reference_type}}</td>
-                                <td>{{$case->reference_id}}</td>
+                                <td>{{$case->user_metadata['username']}}</td>
                                 <td>{{$case->queue}}</td>
                                 <td>
                                     @switch($case->severity)
