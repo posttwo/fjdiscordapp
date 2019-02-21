@@ -133,7 +133,7 @@
         @else
         <div class="panel panel-default">
         @endif
-            <div class="panel-collapse collapse" id="caseMessage{{$message->id}}">
+            <div class="panel-collapse collapse in" id="caseMessage{{$message->id}}">
                 <div class="panel-body ellipses">
                     {{$message->description}}
                 </div>
