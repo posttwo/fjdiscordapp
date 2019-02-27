@@ -158,7 +158,7 @@ class ModCase extends Model
     {
         $this->severity = 4;
         //if user currently banned, SEV3
-        if($this->user_metadata['banned_by'] != null)
+        if(isset($this->user_metadata['banned_by'] && $this->user_metadata['banned_by'] != null)
             $this->severity = 3;
         
         return $this;
