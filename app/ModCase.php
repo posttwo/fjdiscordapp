@@ -135,6 +135,7 @@ class ModCase extends Model
         //If related content is mature
         if(isset($this->content_metadata['is_mature']) 
             && $this->content_metadata['is_mature'] == 1
+            && isset($this->content_metadata['flagged'])
             && $this->content_metadata['flagged'] == 1)
             $queues['user-complaint-nsfw'] += 10;
 
