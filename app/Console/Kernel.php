@@ -150,7 +150,7 @@ class Kernel extends ConsoleKernel
         })->everyTenMinutes();
 
         $schedule->call(function () {
-                $slack = new Slack;
+                $slack = new \App\Slack;
                 $slack->target = 'mod-notify';
                 $slack->username = 'KillinTime';
                 $slack->avatar = 'https://i.imgur.com/cVsdYOH.png';
@@ -162,7 +162,7 @@ class Kernel extends ConsoleKernel
         })->everyFifteenMinutes();
 
         $schedule->call(function () {
-            $slack = new Slack;
+            $slack = new \App\Slack;
             $slack->target = 'mod-notify';
             $slack->username = 'Hunter Weapon';
             $slack->avatar = 'https://i.imgur.com/RyPN677.png';
