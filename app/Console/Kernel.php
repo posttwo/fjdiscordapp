@@ -171,7 +171,7 @@ class Kernel extends ConsoleKernel
             $slack->color = "error";
             \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
         
-        })->everyHour();
+        })->hourly();
 
         $schedule->call('App\Http\Controllers\ModActionController@parseJson')->hourly();
         //$schedule->call('App\Http\Controllers\ModComplaintController@checkComplaintsAndAlertMods')->everyTenMinutes();
