@@ -149,6 +149,30 @@ class Kernel extends ConsoleKernel
             }
         })->everyTenMinutes();
 
+        $schedule->call(function () {
+                $slack = new Slack;
+                $slack->target = 'mod-notify';
+                $slack->username = 'KillinTime';
+                $slack->avatar = 'https://i.imgur.com/cVsdYOH.png';
+                $slack->title = "Title Test";
+                $slack->text = 'PLEASE CHECK USER FLAGGED COMMENTS <@&551354445221593089>';
+                $slack->color = "error";
+                \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+            
+        })->everyFifteenMinutes();
+
+        $schedule->call(function () {
+            $slack = new Slack;
+            $slack->target = 'mod-notify';
+            $slack->username = 'Hunter Weapon';
+            $slack->avatar = 'https://i.imgur.com/RyPN677.png';
+            $slack->title = "Title Test";
+            $slack->text = 'STOP STANDING IN FIRE <@&497478544897605652>';
+            $slack->color = "error";
+            \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+        
+        })->everyHour();
+
         $schedule->call('App\Http\Controllers\ModActionController@parseJson')->hourly();
         //$schedule->call('App\Http\Controllers\ModComplaintController@checkComplaintsAndAlertMods')->everyTenMinutes();
         $schedule->call(function(){
