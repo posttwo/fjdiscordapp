@@ -152,7 +152,7 @@ class Kernel extends ConsoleKernel
         })->everyTenMinutes();
 
         $schedule->call(function () {
-            if(\Cache::get('CRON-remind-user-flagged', true) == false) return;
+            if(\Cache::get('CRON-remind-user-flagged', false) == false) return;
             $slack = new \App\Slack;
             $slack->target = 'mod-notify';
             $slack->username = 'KillinTime';
