@@ -87,9 +87,9 @@
                 @endcan
                 @can('mod.isAMod')
                 <li class="active">
-                    <a href="{{route('moderator.index')}}">
-                        <i class="pe-7s-smile"></i>
-                        <p>Moderators</p>
+                    <a href="{{route('moderator.tokens.index')}}">
+                        <i class="pe-7s-ticket"></i>
+                        <p>API Tokens</p>
                     </a>
                 </li>
                 <li class="active">
@@ -108,6 +108,12 @@
                     <a href="{{route('moderator.case.index')}}">
                         <i class="pe-7s-piggy"></i>
                         <p>ModCases</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="{{route('moderator.schedule.index')}}">
+                        <i class="pe-7s-clock"></i>
+                        <p>Robot Schedule</p>
                     </a>
                 </li>
 		        <li class="active">

@@ -70,6 +70,10 @@ Route::group(['middleware' => ['auth','web']], function () {
         //DJ Mods
         Route::get('/mods/dj/{boardName}', 'DJController@index')->name('moderator.dj.index')->middleware('role:mod.isAMod');
         Route::get('/mods/dj/{boardName}/{djNumber}', 'DJController@initiateReplacement')->name('moderator.dj.replace')->middleware('role:mod.isAMod')->middleware('throttle:1');
+    
+        //Schedule
+        Route::get('/mods/schedule', 'ScheduleSettingsController@index')->name('moderator.schedule.index')->middleware('role:mod.isAMod');
+        Route::get('/mods/schedule/toggle/{name}', 'ScheduleSettingsController@toggle')->name('moderator.schedule.toggle')->middleware('role:mod.isExec');
     });
 
     Route::group(['domain' => '{role}.' . env('APP_URI')], function () {
