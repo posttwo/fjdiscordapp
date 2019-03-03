@@ -69,6 +69,7 @@ class Kernel extends ConsoleKernel
 
          //Check mod stats comments
          $schedule->call(function () {
+            if(\Cache::get('CRON-rating-reminder', true) == false) return;
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
             $r = $fj->getModInfo();
@@ -116,6 +117,7 @@ class Kernel extends ConsoleKernel
         })->everyFiveMinutes();
         
         $schedule->call(function () {
+            if(\Cache::get('CRON-sameip', true) == false) return;
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $user = new \Posttwo\FunnyJunk\User;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
@@ -150,18 +152,20 @@ class Kernel extends ConsoleKernel
         })->everyTenMinutes();
 
         $schedule->call(function () {
-                $slack = new \App\Slack;
-                $slack->target = 'mod-notify';
-                $slack->username = 'KillinTime';
-                $slack->avatar = 'https://i.imgur.com/cVsdYOH.png';
-                $slack->title = "Title Test";
-                $slack->text = 'PLEASE CHECK USER FLAGGED COMMENTS <@&551354445221593089>';
-                $slack->color = "error";
-                \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+            if(\Cache::get('CRON-remind-user-flagged', true) == false) return;
+            $slack = new \App\Slack;
+            $slack->target = 'mod-notify';
+            $slack->username = 'KillinTime';
+            $slack->avatar = 'https://i.imgur.com/cVsdYOH.png';
+            $slack->title = "Title Test";
+            $slack->text = 'PLEASE CHECK USER FLAGGED COMMENTS <@&551354445221593089>';
+            $slack->color = "error";
+            \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
             
         })->everyFifteenMinutes();
 
         $schedule->call(function () {
+            if(\Cache::get('CRON-remind-hunter-hourly', true) == false) return;
             $slack = new \App\Slack;
             $slack->target = 'mod-notify';
             $slack->username = 'Hunter Weapon';
@@ -174,8 +178,8 @@ class Kernel extends ConsoleKernel
         })->hourly();
 
         $schedule->call('App\Http\Controllers\ModActionController@parseJson')->hourly();
-        //$schedule->call('App\Http\Controllers\ModComplaintController@checkComplaintsAndAlertMods')->everyTenMinutes();
         $schedule->call(function(){
+            if(\Cache::get('CRON-grab-new-complaints', true) == false) return;
             $x = new \App\ModCase;
             $x->bulkImport();
         })->everyFiveMinutes();
