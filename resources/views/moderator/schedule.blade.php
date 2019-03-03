@@ -9,6 +9,7 @@
                 <h4 class="title">Mod Schedules</h4>
             </div>
             <div class="content">
+                <strong>CRON-remind-user-flagged WORKS OPPOSITE TO WHAT IT SAYS (enabled is disabled)</strong>
                 @foreach($schedules as $s)
                     {{$s}} ---
                     @if(Cache::get($s, true))
