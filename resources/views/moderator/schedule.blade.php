@@ -9,7 +9,6 @@
                 <h4 class="title">Mod Schedules</h4>
             </div>
             <div class="content">
-                <strong>CRON-remind-user-flagged WORKS OPPOSITE TO WHAT IT SAYS (enabled is disabled)</strong><br />
                 @foreach($schedules as $s)
                     {{$s}} ---
                     @if(Cache::get($s, true))
@@ -17,7 +16,7 @@
                     @else
                         Disabled
                     @endif
-                    <a href="{{route('moderator.schedule.toggle', $s)}}"><button type="button" class="btn btn-xs btn-success">Toggle For Hour</button></a>
+                    <a href="{{route('moderator.schedule.toggle', $s)}}"><button type="button" class="btn btn-xs btn-success">Toggle</button></a>
                     <br />
                 @endforeach
             </div>
