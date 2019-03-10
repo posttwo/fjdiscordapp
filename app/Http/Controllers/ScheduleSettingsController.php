@@ -24,7 +24,7 @@ class ScheduleSettingsController extends Controller
     public function toggle($name)
     {
         info("User toggled " . $name . Auth::user());
-        Cache::set($name, 
+        Cache::forever($name, 
             !Cache::get($name, true), 60
         );
         
