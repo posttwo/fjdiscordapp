@@ -184,6 +184,12 @@ class Kernel extends ConsoleKernel
             $x->bulkImport();
         })->everyFiveMinutes();
 
+        $schedule->call(function(){
+            if(\Cache::get('CRON-grab-new-user-flags', true) == false) return;
+            $x = new \App\UserFlag;
+            $x->bulkImport();
+        })->everyFiveMinutes();
+
     }
 
     /**

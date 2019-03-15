@@ -74,6 +74,12 @@ Route::group(['middleware' => ['auth','web']], function () {
         //Schedule
         Route::get('/mods/schedule', 'ScheduleSettingsController@index')->name('moderator.schedule.index')->middleware('role:mod.isAMod');
         Route::get('/mods/schedule/toggle/{name}', 'ScheduleSettingsController@toggle')->name('moderator.schedule.toggle')->middleware('role:mod.isExec');
+
+        //User Flags
+        Route::get('/mods/userflags', 'UserFlagController@index')->name('moderator.userflag.index')->middleware('role:mod.isAMod');
+        Route::get('/mods/userflags/getByCid/{type}/{cid}', 'UserFlagController@getByCid')->middleware('role:mod.isAMod');
+        Route::get('/mods/userflags/getByUserId/{id}', 'UserFlagController@getByUserId')->middleware('role:mod.isAMod');
+
     });
 
     Route::group(['domain' => '{role}.' . env('APP_URI')], function () {
