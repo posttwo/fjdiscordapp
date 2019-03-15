@@ -13,7 +13,8 @@ class ScheduleSettingsController extends Controller
         'CRON-sameip',
         'CRON-remind-user-flagged',
         'CRON-remind-hunter-hourly',
-        'CRON-grab-new-complaints'
+        'CRON-grab-new-complaints',
+        'CRON-grab-new-user-flags'
     ];
     public function index()
     {

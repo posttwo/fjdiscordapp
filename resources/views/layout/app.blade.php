@@ -111,6 +111,12 @@
                     </a>
                 </li>
                 <li class="active">
+                    <a href="{{route('moderator.userflag.index')}}">
+                        <i class="pe-7s-flag"></i>
+                        <p>UserFlags</p>
+                    </a>
+                </li>
+                <li class="active">
                     <a href="{{route('moderator.schedule.index')}}">
                         <i class="pe-7s-clock"></i>
                         <p>Robot Schedule</p>
