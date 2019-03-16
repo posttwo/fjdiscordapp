@@ -79,6 +79,8 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/userflags', 'UserFlagController@index')->name('moderator.userflag.index')->middleware('role:mod.isAMod');
         Route::get('/mods/userflags/getByCid/{type}/{cid}', 'UserFlagController@getByCid')->middleware('role:mod.isAMod');
         Route::get('/mods/userflags/getByUserId/{id}', 'UserFlagController@getByUserId')->middleware('role:mod.isAMod');
+        Route::post('/mods/userflags/{id}', 'UserFlagController@markAsPatrolled')->middleware('role:mod.isAMod');
+
 
     });
 

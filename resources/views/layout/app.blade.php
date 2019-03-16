@@ -213,4 +213,5 @@
     <!--   Core JS Files   -->
     <script src="//{{ env('APP_URI') . mix('/js/app.js') }}" type="text/javascript"></script>
     <script src="//{{ env('APP_URI') . mix('/js/app-admin.js') }}" type="text/javascript"></script>
+    @yield('script')
 </html>

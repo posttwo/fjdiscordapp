@@ -91,6 +91,16 @@ class ModCaseController extends Controller
         return back();
     }
 
+    public function outboundCase()
+    {
+        return view('newcase');
+    }
+
+    public function createOutboundCase()
+    {
+        return back();
+    }
+
     public function resetAccessKey(ModCase $modCase)
     {
         $modCase->access_key = Str::random(40);
