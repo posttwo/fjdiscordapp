@@ -32,7 +32,7 @@
                                         <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}">{{$flag->type}} {{$flag->cid}}</a></td>
                                         <td>{{$flag->flagged}} @if($flag->patroller){{$flag->patroller->username}}@endif</td>
                                         <td>{{$flag->updated_at}}</td>
-                                        <td>{{$flag->amount}}</td>
+                                        <td>{{$flag->flags}}</td>
                                         <td><button data-id="{{$flag->id}}" class="markPatrolled">Mark Patrolled</button>
                                              <a href="/mods/userflags/getByCid/{{$flag->type}}/{{$flag->cid}}">SPY</a>
                                         </td>
