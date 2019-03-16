@@ -11,7 +11,7 @@ class UserFlagController extends Controller
     {
         //$x = new UserFlag;
         //$x->bulkImport();
-        $contentFlags = UserFlag::paginate(200);
+        $contentFlags = UserFlag::orderBy('id', 'desc')->paginate(200);
         //return $contentFlags;
         return view('moderator.userflag')->with(['content' => $contentFlags]);
     }
