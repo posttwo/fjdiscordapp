@@ -229,7 +229,9 @@ class ModActionController extends Controller
                     }
 
                     if(in_array($chunk->get('category'), ['flag', 'comment_flag', 'spam_comment_flag'])) {
+                        echo("IN CATEGORY");
                         $patrol = UserFlagPatrol::where('type', strtoupper($chunk->reference_type))->where('cid', $chunk->reference_id)->first();
+                        print_r($patrol);
                         if($patrol != null)
                             $patrol->markAsPatrolled($chunk->user_id, true);
                     }
