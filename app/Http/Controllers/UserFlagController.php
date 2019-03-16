@@ -11,7 +11,7 @@ class UserFlagController extends Controller
 {
     public function index()
     {
-        $patrol = UserFlagPatrol::where('flags', '!=', '1')->orderBy('id', 'desc')->with('patroller')->paginate(200);
+        $patrol = UserFlagPatrol::orderBy('id', 'desc')->with('patroller')->paginate(200);
         $contentFlags = UserFlag::orderBy('id', 'desc')->paginate(200);
         //eturn $patrol;
         return view('moderator.userflag')->with(['content' => $contentFlags, 'patrol' => $patrol]);
