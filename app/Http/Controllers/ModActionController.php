@@ -16,6 +16,7 @@ use App\User;
 use App\Exceptions\ModActionParseErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Posttwo\FunnyJunk\FunnyJunk;
+use App\UserFlagPatrol;
 
 class ModActionController extends Controller
 {
@@ -219,6 +220,11 @@ class ModActionController extends Controller
                         case 'flag':
                             $flag = $this->getLastWordFromString($chunk->get('info'));
                             $content->flagged_as = $flag;
+
+                            //HERE
+                            $patrol = UserFlagPatrol::where('type', strtoupper($chunk->reference_type))->where('cid', $chunk->reference_id)->first();
+                            if($patrol != null)
+                                $patrol->markAsPatrolled($chunk->user_id, true);
                             break;
                         case 'unflag':
                             $content->flagged_as = null;

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Posttwo\FunnyJunk\FunnyJunk;
 use DB;
+use App\UserFlagPatrol;
 
 class UserFlag extends Model
 {
@@ -43,8 +44,18 @@ class UserFlag extends Model
             $userFlag->reason = $flag->reason;
             $userFlag->flagger_username = $flag->flagger_username;
             $userFlag->save();
+
+            $x = UserFlagPatrol::firstOrCreate(['cid' => $flag->cid, 'type' => $flag->type]);
+            $x->incrementFlagCounter();
+            $x->save();
+
         }
         DB::commit();
         return true;
+    }
+
+    public function userFlagPatrol()
+    {
+        return $this->belongsTo('App\UserFlagPatrol', 'cid', 'cid')->where('type', $this->type);
     }
 }

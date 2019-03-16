@@ -1,6 +1,53 @@
 @extends('layout.app')
 @section('title', 'Moderator Home')
+@section('script')
+<script>
+    $('.markPatrolled').on('click', function(){
+        let id = $(this).data('id');
+        axios.post('/mods/userflags/' + id).then(function(response){
+            $.notify("Patrolled", 'success');
+            
+        })
+    })
+</script>
+@endsection
 @section('content')
+<div class="row">
+    <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Patrol</h3>
+                </div>
+                <div class="panel">
+                    <div class="panel-body">
+                        <table class="col-md-12">
+                            <tbody>
+                                @foreach($patrol as $flag)
+                                    <tr 
+                                    @if($flag->patrolled_by == null)
+                                    class="bg-danger"
+                                    @endif
+                                    id="{{$flag->id}}"
+                                    >
+                                        <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}">{{$flag->type}} {{$flag->cid}}</a></td>
+                                        <td>{{$flag->flagged}} @if($flag->patroller){{$flag->patroller->username}}@endif</td>
+                                        <td>{{$flag->updated_at}}</td>
+                                        <td>{{$flag->amount}}</td>
+                                        <td><button data-id="{{$flag->id}}" class="markPatrolled">Mark Patrolled</button>
+                                             <a href="/mods/userflags/getByCid/{{$flag->type}}/{{$flag->cid}}">SPY</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="col-md-12">
+    {{{$patrol->links()}}}
+</div>
 <div class="row">
     <div class="col-md-12">
             <div class="panel panel-default">
