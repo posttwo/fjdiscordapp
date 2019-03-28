@@ -29,7 +29,7 @@
                                     @endif
                                     id="{{$flag->id}}"
                                     >
-                                        <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}">{{$flag->type}} {{$flag->cid}}?redirect=1</a></td>
+                                        <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}?redirect=1">{{$flag->type}} {{$flag->cid}}</a></td>
                                         <td>{{$flag->flagged}} @if($flag->patroller){{$flag->patroller->username}}@endif</td>
                                         <td>{{$flag->updated_at}}</td>
                                         <td>{{$flag->flags}}</td>
@@ -66,7 +66,7 @@
                                     >
                                         <td>{{$flag->id}}</td>
                                         <td>{{$flag->flagger_username}}</td>
-                                        <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}">{{$flag->type}} {{$flag->cid}}?redirect=1</a></td>
+                                        <td><a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}?redirect=1">{{$flag->type}} {{$flag->cid}}</a></td>
                                         <td>{{$flag->reason}}</td>
                                         <td>{{$flag->amount}}</td>
                                     </tr>
