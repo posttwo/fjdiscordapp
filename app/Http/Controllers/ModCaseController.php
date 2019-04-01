@@ -70,7 +70,7 @@ class ModCaseController extends Controller
     {
         if(in_array($modCase->queue, ['mods-requests-lvl10', 'mods-requests-exec']) && Auth::user()->cannot('mod.isExec'))
             abort(403);
-            
+
         $message = new ModCaseMessage;
         $message->title = '';
         $message->description = Request::input('new_message');
@@ -120,7 +120,7 @@ class ModCaseController extends Controller
 
         $userFor = Request::get('username');
         
-        if($queue != 'fjmeme-outbound')
+        if($x->queue != 'fjmeme-outbound')
         {
             $userFor = Auth::user()->fjuser->username;
         }
