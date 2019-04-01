@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('title', 'Mod Cases')
 @section('content')
+<a href="{{route('moderator.case.newcase')}}">New Outbound Case</a>
 <div class="col-md-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -11,7 +12,10 @@
                 <table class="col-md-12">
                     <tbody>
                         @foreach($importantList as $case)
-                            <tr>
+                            <tr
+                            @if(in_array($case->queue, ['mods-requests-lvl10', 'mods-requests-exec']))
+                                class="bg-danger"
+                            @endif>
                                 <td>
                                     <a href="{{{
                                         route( 'moderator.case', $case )

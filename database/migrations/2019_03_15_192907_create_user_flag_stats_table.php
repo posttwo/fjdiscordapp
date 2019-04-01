@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
 
-class ChangeThumbnailToLongTextInModActions extends Migration
+class CreateUserFlagStatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +13,10 @@ class ChangeThumbnailToLongTextInModActions extends Migration
      */
     public function up()
     {
-       DB::statement('ALTER TABLE mod_actions MODIFY thumbnail LONGTEXT;');
+        Schema::create('user_flag_stats', function (Blueprint $table) {
+            $table->increments('id');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,6 +26,6 @@ class ChangeThumbnailToLongTextInModActions extends Migration
      */
     public function down()
     {
-        DB::statement('ALTER TABLE mod_actions MODIFY thumbnail VARCHAR(255);');
+        Schema::dropIfExists('user_flag_stats');
     }
 }

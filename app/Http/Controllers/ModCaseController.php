@@ -17,8 +17,18 @@ class ModCaseController extends Controller
 {
     public function index()
     {
-        $x = ModCase::orderBy('id', 'desc')->paginate(100);
-        $important = ModCase::whereIn('status', [1,2,3])->orderBy('severity', 'asc')->get();
+        $x = ModCase::orderBy('id', 'desc');
+        $important = ModCase::whereIn('status', [1,2,3]);
+
+        if(!Auth::user()->can('mod.isExec'))
+        {
+            $x = $x->whereNotIn('queue', ['mods-requests-lvl10', 'mods-requests-exec']);
+            $important = $important->whereNotIn('queue', ['mods-requests-lvl10', 'mods-requests-exec']);
+        }
+
+        $x = $x->paginate(100);
+        $important = $important->get();
+        
         return view('caseindex', ['list' => $x, 'importantList' => $important]);
     }
 
@@ -26,6 +36,10 @@ class ModCaseController extends Controller
     {
         //$case = ModCase::with('messages')->where('source_type', $sourceType)->where('source_id', $sourceId)->first();
         $case = $modCase;
+
+        if(in_array($case->queue, ['mods-requests-lvl10', 'mods-requests-exec']) && Auth::user()->cannot('mod.isExec'))
+            abort(403);
+
         $referenceType = $case->reference_type;
         if($referenceType == 'userprofile')
             $referenceType = 'user';
@@ -54,6 +68,9 @@ class ModCaseController extends Controller
 
     public function addCaseMessage(ModCase $modCase)
     {
+        if(in_array($modCase->queue, ['mods-requests-lvl10', 'mods-requests-exec']) && Auth::user()->cannot('mod.isExec'))
+            abort(403);
+            
         $message = new ModCaseMessage;
         $message->title = '';
         $message->description = Request::input('new_message');
@@ -98,7 +115,50 @@ class ModCaseController extends Controller
 
     public function createOutboundCase()
     {
-        return back();
+        $x = new ModCase;
+        $x->source_type = 'fjmeme-outbound-case';
+
+        $userFor = Request::get('username');
+        
+        if($queue != 'fjmeme-outbound')
+        {
+            $userFor = Auth::user()->fjuser->username;
+        }
+
+        $x->getUserDataByName($userFor);
+        $x->queue = Request::get('queue');
+        $x->severity = Request::get('severity');
+        $x->save();
+
+        $message = new ModCaseMessage;
+        $message->title = '';
+        $message->description = Request::get('message');
+        $message->fj_user_id = Auth::user()->fjuser->fj_id;
+        $message->internal = false;
+        $x->messages()->save($message);
+
+        $x->link = Request::get('reference');
+        $x->status = 1;
+        $x->save();
+        
+        if($x->queue == 'fjmeme-outbound')
+        {
+            $user = new FJUser;
+            $user->username = $x->user_metadata['username'];
+            $user->id = $x->fj_user_id;
+            $topic = 'Moderator Contact #' . $x->id;
+            $reply  = "\n A Moderator has sent you a new message";
+            $reply .= "\n [big][bold]====================[bold][big]\n";
+            $reply .= $message->description;
+            $reply .= "\n [big][bold]====================[bold][big]\n";
+            $reply .= "[small]To reply to this please go to: " . route('moderator.case.viewbyuser', ['modCase' => $x, 'hash' => $x->access_key]) . '[small]';
+            dispatch(new SendMessageToUser($user, $topic, $reply));
+
+            $x->status = 2;
+            $x->save();
+        }
+
+        return redirect()->route('moderator.case.index');
     }
 
     public function resetAccessKey(ModCase $modCase)
