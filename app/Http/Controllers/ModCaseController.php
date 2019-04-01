@@ -117,6 +117,7 @@ class ModCaseController extends Controller
     {
         $x = new ModCase;
         $x->source_type = 'fjmeme-outbound-case';
+        $x->queue = Request::get('queue');
 
         $userFor = Request::get('username');
         
@@ -126,7 +127,6 @@ class ModCaseController extends Controller
         }
 
         $x->getUserDataByName($userFor);
-        $x->queue = Request::get('queue');
         $x->severity = Request::get('severity');
         $x->save();
 
