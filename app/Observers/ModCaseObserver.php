@@ -30,7 +30,7 @@ class ModCaseObserver
     {
         if($modCase->severity != $modCase->getOriginal('severity')){
             //Severity has been changed
-            if($modCase->severity != null && $modCase->severity <= 3)
+            if($modCase->severity != null && $modCase->severity <= 3 && $modCase->queue == 'user-complaint-sfw')
             {
                 //Severity is 3 or "higher"
                 $slack = new Slack;

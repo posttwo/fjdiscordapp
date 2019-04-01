@@ -13,6 +13,14 @@ class ModCase extends Model
 {
 
     private $fj;
+    protected $queues = [
+        'user-complaint-nsfw' => 0,
+        'user-complaint-sfw'  => 5,
+        'mods-requests-lvl10' => 0,
+        'mods-requests-exec'  => 0,
+        'mods-hr'             => 0,
+        'fjmeme-outbound'     => 0,
+    ];
 
     function __construct() {
         parent::__construct();
@@ -67,6 +75,11 @@ class ModCase extends Model
         }
         DB::commit();
         return $data;
+    }
+
+    public function setLinkAttribute($value)
+    {
+        $this->resolveLink($value);
     }
 
     protected function resolveLink($link)
@@ -127,10 +140,7 @@ class ModCase extends Model
 
     protected function routeCase()
     {
-        $queues = [
-            'user-complaint-nsfw' => 0,
-            'user-complaint-sfw'  => 5
-        ];
+        $queues = $this->queues;
 
         //If related content is mature
         if(isset($this->content_metadata['is_mature']) 
@@ -145,13 +155,25 @@ class ModCase extends Model
         return $this;
     }
 
-    protected function getUserData()
+    public function getUserData()
     {
         $u = new FJUser;
         $u->id = $this->fj_user_id;
         $u->getUsername();
         $u->getUserInfo();
         $this->user_metadata = $u; //banned_by
+        return $this;
+    }
+
+    public function getUserDataByName($name)
+    {
+        $u = new FJUser;
+        $u->username = $name;
+        $u->getId();
+        $u->getUserInfo();
+
+        $this->fj_user_id = $u->id;
+        $this->user_metadata = $u;
         return $this;
     }
 
