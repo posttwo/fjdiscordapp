@@ -37,7 +37,15 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 			return $user;
 	})->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
 	
-
+    Route::get('/fjuser/history/{fjusername}', function($fjusername){
+		if(Auth::user()->cannot('mod.isAMod'))
+					abort(403);
+			$user = \App\ModAction::where('owner', $fjusername)
+            ->whereIn('category', array('flag', 'unflag', 'comment_flag', 'comment_unflag', 'cover_flag', 'cover_unflag', 'ban', 'avatar_flag', 'spam_comment_flag', 'voteban'))
+            ->get();
+			return $user;
+    })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+    
 	//FJMeme by Username
 	Route::get('/fjmeme/getUserFJMemeInfoByFJUsername/{username}', 'API\FJUserController@getUserFJMemeInfoByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/revokeModeratorPermissionByFJUsername/{username}', 'API\FJUserController@revokeModeratorPermissionByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
