@@ -43,6 +43,8 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 			$user = \App\ModAction::where('owner', $fjusername)
             ->whereIn('category', array('flag', 'unflag', 'comment_flag', 'comment_unflag', 'cover_flag', 'cover_unflag', 'ban', 'avatar_flag', 'spam_comment_flag', 'voteban'))
             ->get();
+            $previousGays = \App\ModAction::where('reference_type', 'user')->where('reference_id', $case->fj_user_id)->get();
+            $user = $user->merge($previousGays);
 			return $user;
     })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
     
