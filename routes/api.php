@@ -47,6 +47,17 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
             $user = $user->merge($previousGays);
 			return $user;
     })->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	
+	Route::get('/fjuser/ban/{fjid}', function($fjid){
+		if(Auth::user()->cannot('mod.permabanuser'))
+			abort(403);
+		$fj = new Posttwo\FunnyJunk\FunnyJunk();
+		$fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
+		$user = new Posttwo\FunnyJunk\User();
+		$user->set(array('id' => $fjid));
+		$user->permaBan(Auth::user()->fjuser->fj_id);
+		logger()->info("User Permabanned", ["moderator" => Auth::user(), "user" => $user]);
+	})->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
     
 	//FJMeme by Username
 	Route::get('/fjmeme/getUserFJMemeInfoByFJUsername/{username}', 'API\FJUserController@getUserFJMemeInfoByFJUsername')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
