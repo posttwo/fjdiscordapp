@@ -68,7 +68,7 @@ class ModCaseController extends Controller
 
     public function addCaseMessage(ModCase $modCase)
     {
-        if(in_array($modCase->queue, ['mods-requests-lvl10', 'mods-requests-exec']) && Auth::user()->cannot('mod.isExec') && Auth::user()->cannot('mod.complaintsResponder'))
+        if(in_array($modCase->queue, ['mods-requests-lvl10', 'mods-requests-exec']) && Auth::user()->cannot('mod.isExec'))
             abort(403);
 
         $message = new ModCaseMessage;
