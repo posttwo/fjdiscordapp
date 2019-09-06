@@ -82,19 +82,20 @@ class Kernel extends ConsoleKernel
                 $slack->target = 'mod-social';
 				$slack->title    = '';
 				
-                $slack->username =   "Amazon Content Rating Prime";
-                $slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
-                $slack->text     = '<@&427487027429244929>  Please return to your Primestation for your daily Primerating, valued Primemod!';
+                $slack->username =   "Jettoms Cummies";
+                $slack->avatar   =   'https://i.imgur.com/qo4spDb.png';
+                $slack->text     = '<@&427487027429244929>  Rate or cummies on your tummies!';
                 
 				if($r->sfw > 45){
-					$slack->username =   "Amazon Content Rating Prime";
-					$slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
-					$slack->text     = 	 ' <@&427487027429244929>   SEV2 incident detected. Please return to your Primestations immediately, valued Primemods! ';
+					$slack->username =   "Walcorns Poop";
+					$slack->avatar   =   'https://i.imgur.com/y42Ii91.png';
+					$slack->text     = 	 ' <@&427487027429244929> Literally shitting on your face right now if you dont rate! ';
 				}
 				
 				if($r->sfw > 50){
-					$slack->avatar   =   'https://i.imgur.com/VkIRAY4.png';
-                    			$slack->text .= ' SEV0 incident detected and ticket opened. Paging Jeff. <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
+					$slack->username =   "Edward";
+					$slack->avatar   =   'https://i.imgur.com/ZmBC2aN.png';
+                    			$slack->text .= ' Cunts <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
 				}
 				
 				if($r->sfw > 70){
