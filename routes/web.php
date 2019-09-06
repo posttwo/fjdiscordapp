@@ -56,8 +56,8 @@ Route::group(['middleware' => ['auth','web']], function () {
         Route::get('/mods/complaints', 'ModCaseController@index')->middleware('role:mod.isAMod')->name('moderator.case.index');
         Route::post('/mods/complaints/{modCase}', 'ModCaseController@addCaseMessage')->middleware('role:mod.isExec,mod.complaintsResponder')->name('moderator.case.postmessage');
         Route::get('/mods/complaints/{modCase}/resetAccessKey', 'ModCaseController@resetAccessKey')->middleware('role:mod.isExec')->name('moderator.case.resetaccesskey');
-        Route::get('/mods/complaints/{modCase}/toggleCaseLock', 'ModCaseController@toggleCaseLock')->middleware('role:mod.isExec,mod.complaintsResponde')->name('moderator.case.togglecaselock');
-        Route::get('/mods/complaints/{modCase}/resolveCase', 'ModCaseController@resolveCase')->middleware('role:mod.isExec,mod.complaintsResponde')->name('moderator.case.resolvecase');
+        Route::get('/mods/complaints/{modCase}/toggleCaseLock', 'ModCaseController@toggleCaseLock')->middleware('role:mod.isExec,mod.complaintsResponder')->name('moderator.case.togglecaselock');
+        Route::get('/mods/complaints/{modCase}/resolveCase', 'ModCaseController@resolveCase')->middleware('role:mod.isExec,mod.complaintsResponder')->name('moderator.case.resolvecase');
         Route::get('/mods/newcomplaint/', 'ModCaseController@outboundCase')->middleware('role:mod.isAMod')->name('moderator.case.newcase');
         Route::post('/mods/newcomplaint/', 'ModCaseController@createOutboundCase')->middleware('role:mod.isAMod')->name('moderator.case.newcase');
 
