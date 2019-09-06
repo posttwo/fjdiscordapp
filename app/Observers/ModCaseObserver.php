@@ -44,6 +44,20 @@ class ModCaseObserver
 
                 $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
             }
+            
+            if($modCase->severity != null && $modCase->severity == 4 && $modCase->queue == 'user-complaint-sfw')
+            {
+                $slack = new Slack;
+                $slack->target = 'mod-notify';
+                $slack->username = 'Mod Complaint Spammer';
+                $slack->avatar = 'https://i.imgur.com/SRa0wCj.png';
+                $slack->title = "Title Test";
+                $slack->text = 'HEY STUPID <@&151904333703675904> <' . route( 'moderator.case', $modCase) . '>';
+                $slack->color = "warning";
+                \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
+
+                $modCase->addInternalAnnotation('notificationSent', "Sent notification due to SEV{$modCase->severity}");
+            }
         }
         //548199053943373969
 
