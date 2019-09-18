@@ -277,7 +277,7 @@ class ModActionController extends Controller
                         $patrol->markAsPatrolled($chunk->get('user_id'), true);
                 }
 
-                if($action->modifier != null)
+                if($action->modifier != null && $action->modifier > 1)
                 {
                      $action->addNote('fjmeme_parser_message', 'Issue raised due to modifier usage');
                         $slack = new Slack;
