@@ -70,7 +70,7 @@ class UnverifyUser extends Command
                 $slack->text     =   null;
                 $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
                 $slack->title    = '';
-                $slack->text     = ':warning: <@' . $discordId . '> User Demodded, please remove <@156530362862927880>';
+                $slack->text     = ':warning: <@' . $discordId . '> User Demodded, please remove <@198325775370420224>';
                 $slack->embedFields = ['FJUser' => $fjusername, 'Discord' =>  $user->nickname];
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
 	}
