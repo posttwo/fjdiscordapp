@@ -291,7 +291,7 @@ class ModActionController extends Controller
                         $slack->color = "warning";
                         try {
                             \Notification::send($slack, new \App\Notifications\ModNotify(null));
-                        } catch (RuntimeException $e) {
+                        } catch (RequestException $e) {
                             $action->addNote('fjmeme_parser_error', "EXCEPTION: $e");
                         }
                 }
