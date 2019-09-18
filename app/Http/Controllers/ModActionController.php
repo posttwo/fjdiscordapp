@@ -17,7 +17,8 @@ use App\Exceptions\ModActionParseErrorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Posttwo\FunnyJunk\FunnyJunk;
 use App\UserFlagPatrol;
-
+use GuzzleHttp\Exception\ClientException;
+    
 class ModActionController extends Controller
 {
 
@@ -289,8 +290,8 @@ class ModActionController extends Controller
                         $slack->color = "warning";
                         try {
                             \Notification::send($slack, new \App\Notifications\ModNotify(null));
-                        } catch (Exception $e) {
-                         //   
+                        } catch (ClientException $e) {
+                          $action->addNote('fjmeme_notification_error', "EXCEPTION $e");
                         }
                 }
                 
