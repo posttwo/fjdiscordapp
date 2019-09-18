@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
 
-class ModNotify extends Notification implements ShouldQueue
+class ModNotify extends Notification
 {
     use Queueable;
 
