@@ -87,7 +87,7 @@ class ModCase extends Model
         $commentIdOrEmpty = substr($link, strrpos($link, '/') + 1);
         $onPageCommentId = (int)substr($commentIdOrEmpty, 0, strpos($commentIdOrEmpty, "#"));
         if($onPageCommentId == '') $onPageCommentId = $commentIdOrEmpty;
-        try{
+        try {
             if(is_numeric($onPageCommentId))
             {
                 $page = $this->fj->getByUrl($link);
@@ -134,14 +134,13 @@ class ModCase extends Model
                 } else {
                     $this->addInternalAnnotation('resolveLink', "I have no clue what this retard is doing {$link}");
                 }
-            } 
-            
-           
+
+            }
         } catch (Exception $e) {
-                $this->addInternalAnnotation('resolveLink', "EXCEPTION: {$link} $e");
+            $this->addInternalAnnotation('resolveLink', "EXCEPTION {$link} $e");
         }
 
-        }
+        
         return $this;
     }
 
