@@ -145,7 +145,7 @@ class FJUserController extends \App\Http\Controllers\Controller
             $slack->text     =   null;
             $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
             $slack->title    = '';
-            $slack->text     = ':warning: <@' . $user->discord_id . '> User Demodded, please remove <@156530362862927880>';
+            $slack->text     = ':warning: <@' . $user->discord_id . '> User Demodded, please remove <@198325775370420224>';
             $slack->embedFields = ['FJUser' => $user->fjuser->username, 'Discord' =>  $user->nickname];
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
         } catch (Exception $e){
