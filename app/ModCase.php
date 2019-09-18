@@ -87,51 +87,55 @@ class ModCase extends Model
         $commentIdOrEmpty = substr($link, strrpos($link, '/') + 1);
         $onPageCommentId = (int)substr($commentIdOrEmpty, 0, strpos($commentIdOrEmpty, "#"));
         if($onPageCommentId == '') $onPageCommentId = $commentIdOrEmpty;
-        if(is_numeric($onPageCommentId))
-        {
-            $page = $this->fj->getByUrl($link);
-            if(!isset($page->success) && $page->comments[0]->id != 'empty')
+        try{
+            if(is_numeric($onPageCommentId))
             {
-                $comments = $page->comments;
-                foreach($comments as $comment)
+                $page = $this->fj->getByUrl($link);
+                if(!isset($page->success) && $page->comments[0]->id != 'empty')
                 {
-                    if($comment->number == $onPageCommentId)
+                    $comments = $page->comments;
+                    foreach($comments as $comment)
                     {
-                        $this->reference_type = 'comment';
-                        $this->reference_id   = $comment->id;
-                        $this->reference_url  = 'https://funnyjunk.com' . $page->base_url . $comment->number;
-                        $this->content_metadata = $page;
+                        if($comment->number == $onPageCommentId)
+                        {
+                            $this->reference_type = 'comment';
+                            $this->reference_id   = $comment->id;
+                            $this->reference_url  = 'https://funnyjunk.com' . $page->base_url . $comment->number;
+                            $this->content_metadata = $page;
 
-                        $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to COMMENT {$onPageCommentId} on https://funnyjunk.com{$page->base_url}");
-                        break;
-                    } 
-                }
-            } else {
-                $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve (NOT IN DB)!");
-            }
-        } else {
-            //Treat is as content
-            $page = $this->fj->getByUrl($link);
-            $this->content_metadata = $page;
-            if(!isset($page->success))
-            {
-                if(isset($this->content_metadata['is_profile']))
-                {
-                    //Is user profile
-                    $this->reference_type = 'user';
-                    $this->reference_id   = $this->content_metadata['userId'];
-                    $this->reference_url  = 'https://funnyjunk.com/u/' . $this->content_metadata['username'];
-                    $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to USERPROFILE {$this->reference_url}");
+                            $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to COMMENT {$onPageCommentId} on https://funnyjunk.com{$page->base_url}");
+                            break;
+                        } 
+                    }
                 } else {
-                    //is normal content
-                    $this->reference_type = 'content';
-                    $this->reference_id = $this->content_metadata['id'];
-                    $this->reference_url = 'https://funnyjunk.com' . $this->content_metadata['base_url'];
-                    $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to CONTENT {$this->reference_url}");
-
+                    $this->addInternalAnnotation('resolveLink', "Comment assumed based on {$link} but could not resolve (NOT IN DB)!");
                 }
             } else {
-                $this->addInternalAnnotation('resolveLink', "I have no clue what this retard is doing {$link}");
+                //Treat is as content
+                $page = $this->fj->getByUrl($link);
+                $this->content_metadata = $page;
+                if(!isset($page->success))
+                {
+                    if(isset($this->content_metadata['is_profile']))
+                    {
+                        //Is user profile
+                        $this->reference_type = 'user';
+                        $this->reference_id   = $this->content_metadata['userId'];
+                        $this->reference_url  = 'https://funnyjunk.com/u/' . $this->content_metadata['username'];
+                        $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to USERPROFILE {$this->reference_url}");
+                    } else {
+                        //is normal content
+                        $this->reference_type = 'content';
+                        $this->reference_id = $this->content_metadata['id'];
+                        $this->reference_url = 'https://funnyjunk.com' . $this->content_metadata['base_url'];
+                        $this->addInternalAnnotation('resolveLink', "Resolved user link {$link} to CONTENT {$this->reference_url}");
+
+                    }
+                } else {
+                    $this->addInternalAnnotation('resolveLink', "I have no clue what this retard is doing {$link}");
+                }
+            } catch (Exception $e) {
+                $this->addInternalAnnotation('resolveLink', "EXCEPTION: {$link} $e");
             }
 
         }
