@@ -287,7 +287,11 @@ class ModActionController extends Controller
                         $slack->text = 'I have encountered a modifier being used <@&299311804113354763> ' . $action->url;
                         $slack->embedFields = ['Modifier' => $action->modifier];
                         $slack->color = "warning";
-                        \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                        try {
+                            \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                        } catch (Exception $e) {
+                         //   
+                        }
                 }
                 
             }
