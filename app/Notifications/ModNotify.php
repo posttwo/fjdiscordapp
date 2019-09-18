@@ -6,10 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Queue\SerializesModels;
 
-class ModNotify extends Notification
+class ModNotify extends Notification implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
     /**
      * Create a new notification instance.
