@@ -141,9 +141,9 @@ class FJUserController extends \App\Http\Controllers\Controller
             $returnText .="Posting on Discord\n";
             $slack = new \App\Slack;
             $slack->target = 'mod-social';
-            $slack->username =   "Jettoms Peen";
+            $slack->username =   "Clown Fiesta";
             $slack->text     =   null;
-            $slack->avatar   =   'https://i.imgur.com/6G1qaAT.png';
+            $slack->avatar   =   'https://i.imgur.com/Yllnij1.png';
             $slack->title    = '';
             $slack->text     = ':warning: <@' . $user->discord_id . '> User Demodded, please remove <@198325775370420224>';
             $slack->embedFields = ['FJUser' => $user->fjuser->username, 'Discord' =>  $user->nickname];
