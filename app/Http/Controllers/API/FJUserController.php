@@ -118,6 +118,7 @@ class FJUserController extends \App\Http\Controllers\Controller
         $user->revokePermissionTo('mod.isAMod');
         $user->revokePermissionTo('mod.isExec');
         $user->revokePermissionTo('mod.complaintsResponder');
+        $user->revokePermissionTo('mod.ratingReviewer');
         $returnText .="Revoked mod.isAMox and mod.isExec ";
         //Revoke Notes Token
         try{
@@ -178,6 +179,15 @@ class FJUserController extends \App\Http\Controllers\Controller
         $user->givePermissionTo('user.canUseFJMemeForSingleSignOn');
         return ["success" => true];
     }
+
+    public function giveUserAccessToReviewByID($id){
+        $user = \App\User::findOrFail($id);
+        $username = $user->fjuser->username;
+        logger(Auth::user()->nickname . " Granted Rating Review Access " . $username);
+        $user->givePermissionTo('mod.ratingReviewer');
+        return ["success" => true];
+    }
+
     public function revokeUserAccessToOAuthByFJUsername($username){
 		logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;

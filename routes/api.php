@@ -72,6 +72,7 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 
 	Route::get('/fjmeme/giveUserAccessToOAuthByID/{id}', 'API\FJUserController@giveUserAccessToOAuthByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/revokeUserAccessToOAuthByID/{id}', 'API\FJUserController@revokeUserAccessToOAuthByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
+	Route::get('/fjmeme/giveUserAccessToReviewByID/{id}', 'API\FJUserController@giveUserAccessToReviewByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 	Route::get('/fjmeme/nukeFJMemeUserByID/{id}', 'API\FJUserController@nukeFJMemeUserByID')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.isExec']);
 
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
