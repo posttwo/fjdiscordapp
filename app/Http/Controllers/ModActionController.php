@@ -113,7 +113,7 @@ class ModActionController extends Controller
         $content->modaction()->latest('id')->first()->addNote('content_attribute', Auth::user()->fjuser->username . ' attributed content to ' . $userid);
     }
 
-    public function removeNeedsReview(FJContent $content)
+    public function removeNeedsReview(FJContent $fjcontent)
     {
         $content->needsReview = false;
         $content->save();
