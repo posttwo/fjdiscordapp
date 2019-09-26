@@ -258,13 +258,13 @@ class ModActionController extends Controller
                     if($modLevel <= 2)
                     {
                         $content->needsReview = true;
-                        $action->addNote('fjmeme_student', 'Content marked for review as moderator is a student');
+                        //$action->addNote('fjmeme_student', 'Content marked for review as moderator is a student');
                     }
                     
                     if($action->modifier != null)
                     {
-                     $action->addNote('fjmeme_parser_message', 'Issue raised due to modifier usage');
-                     $contnet->hasIssue = true;
+                     //$action->addNote('fjmeme_parser_message', 'Issue raised due to modifier usage');
+                     //$content->hasIssue = true;
                     }
 
                     //If content was never seen before, attribute it.
