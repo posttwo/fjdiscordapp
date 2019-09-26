@@ -116,12 +116,13 @@ class ModActionController extends Controller
     public function removeNeedsReview(FJContent $content)
     {
         $content->needsReview = false;
+        $content->save();
         $content->modaction()->latest('id')->first()->addNote('content_review', Auth::user()->fjuser->username . ' acknowledged review');
     }
 
-    public function getNextContetNeedingReview($studentName)
+    public function getNextContentNeedingReview($studentName)
     {
-        $fjuser = FunnyjunkUser::where('username', $fjusername)->firstOrFail();
+        $fjuser = FunnyjunkUser::where('username', $studentName)->firstOrFail();
 
         $content = FJContent::with('modaction')
                     ->with('modaction.notes')
