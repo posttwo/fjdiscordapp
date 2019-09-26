@@ -85,7 +85,7 @@
                                     <td><a href="https://funnyjunk.com/u/{{$action->user->username ?? $action->user_id}}">{{$action->user->username ?? $action->user_id}}</a></td>
                                 </tr>
                                  @foreach($action->notes as $note)
-                                    <tr class="@if($note->category =='content_attribute')success
+                                    <tr class="@if($note->category =='content_attribute' || $note->category == 'content_review')success
                                                 @else danger
                                                 @endif">
                                         <td></td>
