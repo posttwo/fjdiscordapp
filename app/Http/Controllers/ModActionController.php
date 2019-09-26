@@ -113,6 +113,27 @@ class ModActionController extends Controller
         $content->modaction()->latest('id')->first()->addNote('content_attribute', Auth::user()->fjuser->username . ' attributed content to ' . $userid);
     }
 
+    public function removeNeedsReview(FJContent $content)
+    {
+        $content->needsReview = false;
+        $content->modaction()->latest('id')->first()->addNote('content_review', Auth::user()->fjuser->username . ' acknowledged review');
+    }
+
+    public function getNextContetNeedingReview($studentName)
+    {
+        $fjuser = FunnyjunkUser::where('username', $fjusername)->firstOrFail();
+
+        $content = FJContent::with('modaction')
+                    ->with('modaction.notes')
+                    ->with('user')
+                    ->with('modaction.user')
+                    ->where('attributedTo', $fjuser->fj_id)
+                    ->where('needsReview', true)
+                    ->first();
+
+        return $content;
+    }
+
 
     /*
     * Updates records with new times
@@ -227,6 +248,14 @@ class ModActionController extends Controller
                             $content->hasIssue = true;
                             $action->addNote('fjmeme_parser_message', 'Issue raised due to content unflag');
                             break;
+                    }
+
+                    //action made by student
+                    $modLevel = (int) filter_var($chunk->role_name, FILTER_SANITIZE_NUMBER_INT);
+                    if($modLevel <= 2)
+                    {
+                        $content->needsReview = true;
+                        $action->addNote('fjmeme_student', 'Content marked for review as moderator is a student');
                     }
                     
                     if($action->modifier != null)
