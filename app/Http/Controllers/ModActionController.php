@@ -255,7 +255,7 @@ class ModActionController extends Controller
 
                     //action made by student
                     $modLevel = (int) filter_var($chunk->get('role_name'), FILTER_SANITIZE_NUMBER_INT);
-                    if($modLevel <= 2)
+                    if($modLevel <= 1)
                     {
                         $content->needsReview = true;
                         //$action->addNote('fjmeme_student', 'Content marked for review as moderator is a student');
