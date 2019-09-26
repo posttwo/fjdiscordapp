@@ -64,6 +64,9 @@
                     @if($content->flagged_as != null)
                         <div class="label label-danger content_flagged">FLAGGED {{$content->flagged_as}}</div>
                     @endif
+                    @if($content->needsReview == true)
+                        <div class="label label-warning content_needs_review">REVIEW NEEDED</div>
+                    @endif
                     {{$content->created_at}}
                     <hr />
                     <table class="table table-striped table-condensed">
