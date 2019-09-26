@@ -119,7 +119,7 @@ class ModActionController extends Controller
         $content->needsReview = false;
         $content->save();
         $content->modaction()->latest('id')->first()->addNote('content_review', Auth::user()->fjuser->username . ' acknowledged review');
-        return "OK";
+        return ["OK"];
     }
 
     public function getNextContentNeedingReview($studentName)
