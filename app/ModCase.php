@@ -62,6 +62,7 @@ class ModCase extends Model
             $caseUserMessage->internal = false;
             $case->messages()->save($caseUserMessage);
 
+            logger("Complaints resolving " . $complaint->link);
             $case->resolveLink($complaint->link); //@TODO FIX THIS
 
             $case->routeCase();
