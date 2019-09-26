@@ -79,8 +79,8 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 
 	//Content Review
 
-	Route::get('/ratings/{fjusername}', 'ModActionController@getNextContentNeedingReview')->middleware('role:mod.ratingReviewer')->name('moderator.ratings.nextunreviewed');
-	Route::get('/ratings/removeNeedsReview/{fjcontent}', 'ModActionController@removeNeedsReview')->middleware('role:mod.ratingReviewer')->name('moderator.ratings.ack');
+	Route::get('/ratings/{fjusername}', 'ModActionController@getNextContentNeedingReview')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.ratingReviewer']);
+	Route::get('/ratings/removeNeedsReview/{fjcontent}', 'ModActionController@removeNeedsReview')->middleware(['auth:api', 'scope:fjmeme-change-user', 'mod.ratingReviewer']);
 		
 	//Flag Notices
 	Route::post('/mods/flagNotice', 'API\FlagNoticeController@getFlagNotices')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
