@@ -252,7 +252,7 @@ class ModActionController extends Controller
                     }
 
                     //action made by student
-                    $modLevel = (int) filter_var($chunk->role_name, FILTER_SANITIZE_NUMBER_INT);
+                    $modLevel = (int) filter_var($chunk->get('role_name'), FILTER_SANITIZE_NUMBER_INT);
                     if($modLevel <= 2)
                     {
                         $content->needsReview = true;
