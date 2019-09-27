@@ -78,6 +78,9 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
     Route::post('/mods/discord/help', 'API\DiscordHelpController@sendHelpRequest')->middleware(['auth:api', 'scope:discord-post-modhelp', 'role:mod.isAMod']);
     Route::get('/mods/notetoken', 'ModeratorController@getOrCreateNotesToken')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
 
+	//User Flags
+
+	Route::get('/mods/userflags/getUnpatrolled', 'UserFlagController@getCount')->middleware(['auth:api', 'role:mod.isAMod', 'scope:fjmod-token']);
 	//Content Review
 
 	Route::get('/ratings/{fjusername}', 'ModActionController@getNextContentNeedingReview')->middleware(['auth:api', 'scope:fjmeme-change-user', 'role:mod.ratingReviewer']);

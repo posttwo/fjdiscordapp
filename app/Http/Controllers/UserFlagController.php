@@ -35,4 +35,9 @@ class UserFlagController extends Controller
         $x->markAsPatrolled(Auth::user()->fjuser->fj_id, false);
         return $x;
     }
+
+    public function getCount()
+    {
+        return UserFlagPatrol::where('patrolled_by', null)->count();
+    }
 }
