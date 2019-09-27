@@ -12,9 +12,6 @@
 </script>
 @endsection
 @section('content')
-<div class="alert alert-danger">
-        <strong>Warning!</strong> PLEASE HALT WHILE I TEST A THING THANKS
-    </div>
 <div class="row">
     <div class="col-md-12">
             <div class="panel panel-default">
