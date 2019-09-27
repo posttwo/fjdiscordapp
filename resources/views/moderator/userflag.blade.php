@@ -34,7 +34,7 @@
                                     >
                                         <td>
                                             <a href="https://funnyjunk.com/find/{{strtolower($flag->type)}}/{{$flag->cid}}?redirect=1">{{$flag->type}} {{$flag->cid}}</a>
-                                            @if($flag->userflags->firstWhere('reason', 'harassment') != null && $flag->patrolled_by == null)
+                                            @if($flag->patrolled_by == null && $flag->userflags->firstWhere('reason', 'harassment') != null)
                                                 <div class="alert alert-warning">
                                                     <strong>Warning!</strong> This is a hrassment flag, please check if the flagged user has a mod note regarding {{$flag->userflags->firstWhere('reason', 'harassment')->flagger_username}} or recent comment show weird behavious.
                                                 </div>
