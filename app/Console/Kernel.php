@@ -82,8 +82,8 @@ class Kernel extends ConsoleKernel
                 $slack->target = 'mod-social';
 				$slack->title    = '';
 				
-                $slack->username =   "Jettoms Cummies";
-                $slack->avatar   =   'https://i.imgur.com/qo4spDb.png';
+                $slack->username =   "Big Sister";
+                $slack->avatar   =   'https://i.imgur.com/xEUNwuN.png';
                 $slack->text     = '<@&427487027429244929>  Rate or cummies on your tummies!';
                 
 				if($r->sfw > 45){
