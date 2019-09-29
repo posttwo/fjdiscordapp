@@ -327,6 +327,30 @@ class ModActionController extends Controller
                         }
                 }
                 
+                if(
+                    in_array(
+                        $chunk->get('category'), 
+                        [
+                         'mod_remove',
+                         'mod_add'
+                        ]
+                    )
+                ){
+                    try{
+                        $slack = new Slack;
+                        $slack->target = 'mod-notify';
+                        $slack->username = 'Moderation Supervisor';
+                        $slack->avatar = 'https://i.imgur.com/9u7JJeX.png';
+                        $slack->title = 'Administrative action detected';
+                        $slack->text =  $chunk->get('info') . ' <@!66277163090841600> ' . $chunk->get('url');
+                        $slack->embedFields = ['Modifier' => $chunk->get('category')];
+                        $slack->color = "warning";
+                        \Notification::send($slack, new \App\Notifications\ModNotify(null));
+                    } catch(Exception $e)
+                    {
+                        logger()->emergency('Notification failure', ['Notification failed', $chunk]);
+                    }
+                }
             }
         });
 
