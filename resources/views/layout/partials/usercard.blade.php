@@ -32,6 +32,12 @@
             @if(Auth::user()->can('mod.complaintsResponder'))
                 <span class="label label-danger">Case</span>
             @endif
+            @if(Auth::user()->can('mod.ratingReviewer'))
+                <span class="label label-success">Rating Reviewer</span>
+            @endif
+            @if(Auth::user()->can('mod.permabanuser'))
+                <span class="label label-warning">Permabanner</span>
+            @endif
             <button type="button" class="btn btn-primary btn-lg btn-block" id="syncPermissions">Update FJ Status</button>
         @endif
     </div>
