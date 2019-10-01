@@ -104,6 +104,8 @@ class VerificationController extends Controller
         if($user->level > 9 && Auth::user()->cannot('user.level10'))
             Auth::user()->givePermissionTo('user.level10');
         
+        Auth::user()->fjuser->username = $user->username;
+        
         //Moderators
         if(substr($user->role_name, 0, 14) == 'flag_moderator'){
 
