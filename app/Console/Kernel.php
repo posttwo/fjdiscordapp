@@ -84,27 +84,29 @@ class Kernel extends ConsoleKernel
 				
                 $slack->username =   "Big Sister";
                 $slack->avatar   =   'https://i.imgur.com/xEUNwuN.png';
-                $slack->text     = '<@&427487027429244929>  Rate or cummies on your tummies!';
+                $slack->text     = '<@&427487027429244929>  Rate or no bonewhip for you!';
                 
 				if($r->sfw > 45){
-					$slack->username =   "Walcorns Poop";
-					$slack->avatar   =   'https://i.imgur.com/y42Ii91.png';
-					$slack->text     = 	 ' <@&427487027429244929> Literally shitting on your face right now if you dont rate! ';
+					$slack->username =   "The rating doge";
+					$slack->avatar   =   'https://i.imgur.com/HeGEEbu.jpg';
+					$slack->text     = 	 ' :OkRetard1::OkRetard2:<br>:OkRetard4::OkRetard3: <@&427487027429244929> wow, much moderators, many rate, very content! ';
 				}
 				
 				if($r->sfw > 50){
-					$slack->username =   "Edward";
-					$slack->avatar   =   'https://i.imgur.com/ZmBC2aN.png';
-                    			$slack->text .= ' Cunts <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
+					$slack->username =   "🅱️osttwo";
+					$slack->avatar   =   'https://i.imgur.com/bV0pD76.png';
+                    			$slack->text     =   'Mmmmmmm Im pissing and shidding and farding and cumming on you until you rate <@&305827361767817216> <@&137342300723478528> <@&151904749984284672> **Students with a cap above 20 are allowed ignore their cap and rate until all content is rated**';
 				}
 				
 				if($r->sfw > 70){
-					$slack->username = 'Helpfuls Ressurection';
-					$slack->text .= '@everyone The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
+					$slack->username = "Helpfuls Ressurection";
+					$slack->text     = '@everyone The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
 				}
 				
 				if($r->sfw > 100){
-					$slack->text .= 'Seriously tho';
+					$slack->username = "Trap Cock Recruitment";
+					$slack->avatar   = 'https://i.imgur.com/8Gn5cs7.png';
+					$slack->text     = 'Requesting penis until all rates have been completed.';
 				}
                 
 				$slack->embedFields = [ 'SFW' => $r->sfw,
