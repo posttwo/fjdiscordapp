@@ -86,10 +86,10 @@ class Kernel extends ConsoleKernel
                 $slack->avatar   =   'https://i.imgur.com/xEUNwuN.png';
                 $slack->text     = '<@&427487027429244929>  Rate or no bonewhip for you!';
                 
-				if($r->sfw > 45){
+				if($r->sfw > 40){
 					$slack->username =   "The rating doge";
 					$slack->avatar   =   'https://i.imgur.com/HeGEEbu.jpg';
-					$slack->text     = 	 ' :OkRetard1::OkRetard2:<br>:OkRetard4::OkRetard3: <@&427487027429244929> wow, much moderators, many rate, very content! ';
+					$slack->text     = 	 "<:OkRetard1:625111286887219200><:OkRetard2:625111299713400832>" \n "<:OkRetard3:625111313688821760><:OkRetard4:625111326091640833> <@&427487027429244929> wow, much moderators, many rate, very content! ";
 				}
 				
 				if($r->sfw > 50){
@@ -100,6 +100,7 @@ class Kernel extends ConsoleKernel
 				
 				if($r->sfw > 70){
 					$slack->username = "Helpfuls Ressurection";
+					$slack->avatar   = 'https://i.imgur.com/EyptcJP.png';
 					$slack->text     = '@everyone The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
 				}
 				
