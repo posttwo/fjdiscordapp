@@ -155,13 +155,13 @@ class FJUserController extends \App\Http\Controllers\Controller
         }
 
         //Get Moodle User
-        $returnText .="Building moodle user ";
+        /*$returnText .="Building moodle user ";
         $results = $this->getMoodleUser($user->fjuser->username);
         $return['moodleuser'] = $results;
         //Suspend Mod Moodle Account
         $returnText .="Suspending moodle user ";
         $this->suspendMoodleUser($results);
-        $return['debug'] = $returnText;
+        $return['debug'] = $returnText;*/
         return $return;
     }
 
