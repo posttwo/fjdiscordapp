@@ -93,7 +93,7 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 
 });
 
-Route::get('/userinfo/', function(Request $request){
+Route::get('/user/', function(Request $request){
 	if(Auth::user()->cannot('mod.isAMod') && Auth::user()->cannot('user.canUseFJMemeForSingleSignOn'))
                 abort(403);
 	$avatar = $request->user()->avatar;
