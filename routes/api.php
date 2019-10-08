@@ -105,6 +105,7 @@ Route::get('/user/', function(Request $request){
 		logger()->error("Error in get_headers", ["user" => $request->user()]);
 	}
 	$return['user'] = $request->user();
+	$return['user']['name'] = $request->user()->fjuser->username;
 	$return['user']['avatar'] = $avatar;
 	$return['user']['email'] = $request->user()->fjuser->username . '@users.fjme.me';
 	$return['user']['fjuser'] = $request->user()->fjuser;
