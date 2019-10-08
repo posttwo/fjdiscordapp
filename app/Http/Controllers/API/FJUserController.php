@@ -193,8 +193,8 @@ class FJUserController extends \App\Http\Controllers\Controller
         $user = FunnyjunkUser::where('username', $username)->firstOrFail()->user;
         $user->revokePermissionTo('user.canUseFJMemeForSingleSignOn');
 
-        $results = $this->getMoodleUser($username);
-        $this->suspendMoodleUser($results);
+        //$results = $this->getMoodleUser($username);
+        //$this->suspendMoodleUser($results);
         return ["success" => true];
     }
 
@@ -203,8 +203,8 @@ class FJUserController extends \App\Http\Controllers\Controller
         $username = $user->fjuser->username;
         logger(Auth::user()->nickname . " Revoked OAuth Access " . $username);
         $user->revokePermissionTo('user.canUseFJMemeForSingleSignOn');
-        $results = $this->getMoodleUser($username);
-        $this->suspendMoodleUser($results);
+        //$results = $this->getMoodleUser($username);
+        //$this->suspendMoodleUser($results);
         return ["success" => true];
     }
     
