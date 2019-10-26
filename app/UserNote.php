@@ -9,6 +9,11 @@ class UserNote extends Model
 {
     use SoftDeletes;
 
+    public function getDescriptionAttribute($value)
+    {
+        return htmlspecialchars($value);
+    }
+
     public function createdBy()
     {
         return $this->belongsTo('App\User', 'created_by_id', 'id');
