@@ -25,6 +25,11 @@ class FunnyjunkUser extends Model
     {
         return $this->hasMany('App\ModAction', 'owner', 'username');
     }
+
+    public function notes()
+    {
+        return $this->hasMany('App\UserNote', 'fj_id', 'fj_id');
+    }
     
     public function attributedContent()
     {

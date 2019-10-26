@@ -226,6 +226,19 @@ class FJUserController extends \App\Http\Controllers\Controller
     }
 
 
+    public function addUserNote($fjUserId){
+
+    }
+
+    public function toggleUserNoteHighlight($noteId){
+
+    }
+
+    public function removeUserNote($noteId){
+
+    }
+
+
 
     protected function getMoodleUser($username){
         $postdata = http_build_query(

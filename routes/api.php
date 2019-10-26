@@ -91,6 +91,12 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	Route::post('/mods/addFlagNotice', 'API\FlagNoticeController@addFlagNotice')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 	Route::delete('/mods/flagNotice/{flagNotice}', 'API\FlagNoticeController@deleteFlagNotice')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 
+	//User Notes
+	Route::get('/mods/userNotes/{fjUserId}', 'API\FJUserNoteController@getUserNotes')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	Route::post('/mods/userNotes/{fjUserId}', 'API\FJUserNoteController@addUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	Route::post('/mods/userNote/{noteId}/highlight', 'API\FJUserNoteController@setUserNoteHighlight')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
+	Route::delete('/mods/userNote/{noteId}', 'API\FJUserNoteController@removeUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
+
 });
 
 Route::get('/user/', function(Request $request){

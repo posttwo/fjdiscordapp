@@ -55,6 +55,11 @@ class User extends Authenticatable
         return $this->hasMany('App\FlagNotice');
     }
 
+    public function notesMadeBy()
+    {
+        return $this->hasMany('App\UserNote', 'created_by_id', 'id');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role', 'user_role')->withTimestamps();
