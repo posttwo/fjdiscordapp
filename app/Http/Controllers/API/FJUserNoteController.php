@@ -20,7 +20,7 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
         });
 
         //DEBUG
-        Cache::forget('fjapi.getUserNotes.' . $fjUserId);
+        //Cache::forget('fjapi.getUserNotes.' . $fjUserId);
         //ENDDEBUG
         
         return $response;
