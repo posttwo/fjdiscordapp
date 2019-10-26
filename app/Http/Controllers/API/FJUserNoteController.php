@@ -17,7 +17,7 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
 
     public function getUserNotes($fjUserId){
         $response = Cache::remember('fjapi.getUserNotes.' . $fjUserId, 60*60, function() use($fjUserId){
-            $notes = UserNote::where('fj_id', $fjUserId)->with('createdBy.fjuser')->orderBy('highlight', 'desc')->orderBy('id', 'asc')->get();
+            $notes = UserNote::where('fj_id', $fjUserId)->with('createdBy.fjuser')->orderBy('highlight', 'desc')->orderBy('created_at', 'asc')->get();
             return $notes;
         });
 
@@ -95,7 +95,7 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
             $user->getId();
             $resolve = FunnyjunkUser::where('fj_id', $user->id)->first();
             
-            if($resolve != null && $resolve->user != null){
+            if($resolve != null && $resolve->user != null && $note->added_by != 'jettom'){
                 $x->created_by_id = $resolve->user->id;
             } else {
                 $x->description .= ' @NOTE BY: ' . $note->added_by;
