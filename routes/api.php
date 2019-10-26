@@ -93,6 +93,7 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 
 	//User Notes
 	Route::get('/mods/userNotes/{fjUserId}', 'API\FJUserNoteController@getUserNotes')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
+	Route::get('/mods/userNotes/{fjUserId}/{username}/import', 'API\FJUserNoteController@importLegacyNotes')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 	Route::post('/mods/userNotes/{fjUserId}', 'API\FJUserNoteController@addUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isAMod']);
 	Route::post('/mods/userNote/{noteId}/highlight', 'API\FJUserNoteController@setUserNoteHighlight')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 	Route::delete('/mods/userNote/{noteId}', 'API\FJUserNoteController@removeUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
