@@ -15,7 +15,7 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
 
     public function getUserNotes($fjUserId){
         $response = Cache::remember('fjapi.getUserNotes.' . $fjUserId, 60*60, function() use($fjUserId){
-            $notes = UserNote::where('fj_id', $fjUserId)->with('createdBy.fjuser')->orderBy('highlight', 'desc')->orderBy('id', 'desc')->get();
+            $notes = UserNote::where('fj_id', $fjUserId)->with('createdBy.fjuser')->orderBy('highlight', 'desc')->orderBy('id', 'asc')->get();
             return $notes;
         });
 
