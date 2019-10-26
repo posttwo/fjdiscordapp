@@ -63,7 +63,7 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
 
     public function importLegacyNotes($fjUserId, $username)
     {
-        $data = array('token' => 'POOOPYDOOFACE'); //@TODO REMOVE
+        $data = array('token' => env('FJMOD_NOTES_TOKEN')); //@TODO REMOVE
         $options = array(
             'http' => array(
               'ignore_errors' => true,
@@ -107,10 +107,11 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
             
             $x->save();
             logger("Note imported", ['newnote' => $x]);
+            
         }
+        Cache::forget('fjapi.getUserNotes.' . $fjUserId);
+        return ["OK" => "YEP"];
 
-
-        
     }
 
 }
