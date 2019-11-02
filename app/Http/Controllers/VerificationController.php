@@ -105,6 +105,7 @@ class VerificationController extends Controller
             Auth::user()->givePermissionTo('user.level10');
         
         Auth::user()->fjuser->username = $user->username;
+        Auth::user()->fjuser->save();
         
         //Moderators
         if(substr($user->role_name, 0, 14) == 'flag_moderator'){
