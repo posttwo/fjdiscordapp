@@ -193,7 +193,7 @@ class ModCaseController extends Controller
         $modCase->queue = 'user-complaint-nsfw';
         $modCase->save();
 
-        $modCase->addInternalAnnotation('setCaseStatus', "Switching queue To: " . $modCase->queue, Auth::user()->fjuser->fj_id);
+        $modCase->addInternalAnnotation('setCaseQueue', "Switching queue To: " . $modCase->queue, Auth::user()->fjuser->fj_id);
         return back();
     }
 
