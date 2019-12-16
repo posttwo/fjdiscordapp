@@ -28,6 +28,7 @@
         Toggle Lock {{$case->locked}}
     </a>
     <a class="btn btn-default" onclick="return confirm('Are you sure you want to resolve case?');" href="{{route('moderator.case.resolvecase', $case)}}" role="button">Resolve</a>
+    <a class="btn btn-warning" onclick="return confirm('Are you sure you want to anger Wrinklynewt?');" href="{{route('moderator.case.changeQueueToNSFW', $case)}}" role="button">Move to Wrinkly</a>
 </h3>
 <div class="row">
     <div class="col-md-12">

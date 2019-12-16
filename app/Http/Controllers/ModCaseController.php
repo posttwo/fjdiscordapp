@@ -188,6 +188,15 @@ class ModCaseController extends Controller
         return back();
     }
 
+    public function changeQueueToNSFW(ModCase $modCase)
+    {
+        $modCase->queue = 'user-complaint-nsfw';
+        $modCase->save();
+
+        $modCase->addInternalAnnotation('setCaseStatus', "Switching queue To: " . $modCase->queue, Auth::user()->fjuser->fj_id);
+        return back();
+    }
+
 
     //######### USER FUNCTIONS ###################\\
     public function getCaseForUser(ModCase $modCase, $hash)
