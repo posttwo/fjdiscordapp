@@ -38,7 +38,7 @@ class ModCaseObserver
                 $slack->username = 'Mod Complaint High Severity';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = 'SEV3 Case has been openned <' . route( 'moderator.case', $modCase) . '>';
+                $slack->text = 'Currently banned user submitted a complaint <@&151904333703675904> <' . route( 'moderator.case', $modCase) . '>';
                 $slack->color = "error";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
@@ -47,12 +47,13 @@ class ModCaseObserver
             
             if($modCase->severity != null && $modCase->severity == 4 && $modCase->queue == 'user-complaint-sfw')
             {
+                //Normal case
                 $slack = new Slack;
                 $slack->target = 'mod-notify';
                 $slack->username = 'Mod Complaint Spammer';
                 $slack->avatar = 'https://i.imgur.com/SRa0wCj.png';
                 $slack->title = "Title Test";
-                $slack->text = 'HEY STUPID <@&151904333703675904> <' . route( 'moderator.case', $modCase) . '>';
+                $slack->text = 'Normal user is butthurt <' . route( 'moderator.case', $modCase) . '>';
                 $slack->color = "warning";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
@@ -71,7 +72,7 @@ class ModCaseObserver
                 $slack->username = 'user-complaint-nsfw';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = 'NSFW Case has been openned <' . route( 'moderator.case', $modCase) . '> <@&548199053943373969>';
+                $slack->text = 'NSFWrinkly Case has been openned <' . route( 'moderator.case', $modCase) . '> <@&548199053943373969>';
                 $slack->color = "error";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
