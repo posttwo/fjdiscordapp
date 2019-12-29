@@ -101,7 +101,7 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	//Discord <=> FunnyJunk resolve
 	Route::get('/fjmeme/discordToFunnyJunk/{discordId}', function(Request $request, $discordId){
 
-		$user = \App\User::where('discord_id', $discordId)->first();
+		$user = \App\User::where('discord_id', $discordId)->with('user')->first();
         return $user;
 
 	})->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
