@@ -98,6 +98,21 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	Route::post('/mods/userNote/{noteId}/highlight', 'API\FJUserNoteController@setUserNoteHighlight')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 	Route::delete('/mods/userNote/{noteId}', 'API\FJUserNoteController@removeUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 
+	//Discord <=> FunnyJunk resolve
+	Route::get('/fjmeme/discordToFunnyJunk/{discordId}', function(Request $request, $discordId){
+
+		$user = \App\User::where('discord_id', $discordId)->first();
+        return $user;
+
+	})->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
+
+	Route::get('/fjmeme/funnyJunkToDiscord/{fjname}', function(Request $request, $fjname){
+
+		$user = \App\FunnyjunkUser::where('username', $fjname)->first();
+		return $user;
+
+	})->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
+
 });
 
 Route::get('/user/', function(Request $request){
