@@ -101,14 +101,14 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	//Discord <=> FunnyJunk resolve
 	Route::get('/fjmeme/discordToFunnyJunk/{discordId}', function(Request $request, $discordId){
 
-		$user = \App\User::where('discord_id', $discordId)->with('user')->first();
+		$user = \App\User::where('discord_id', $discordId)->with('fjuser')->first();
         return $user;
 
 	})->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
 
 	Route::get('/fjmeme/funnyJunkToDiscord/{fjname}', function(Request $request, $fjname){
 
-		$user = \App\FunnyjunkUser::where('username', $fjname)->first();
+		$user = \App\FunnyjunkUser::where('username', $fjname)->with('user')->first();
 		return $user;
 
 	})->middleware(['auth:api', 'scope:fjapi-userinfo-basic']);
