@@ -40,6 +40,12 @@ class FJUserNoteController extends \App\Http\Controllers\Controller
         $x->created_by_id = Auth::user()->id;
         $x->description = $request->input('description');
         $x->color = $request->input('color');
+
+        if($request->input('shitpost', false))
+        {
+            $x->highlight = -1;
+        }
+
         $x->save();
             
         Cache::forget('fjapi.getUserNotes.' . $fjUserId);
