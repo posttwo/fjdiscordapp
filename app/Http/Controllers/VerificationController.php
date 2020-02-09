@@ -70,7 +70,6 @@ class VerificationController extends Controller
             $fjuser->level = 0; //@TODO REMOVE
             $fjuser->ismod = 0; //@TODO REMOVE
             Auth::user()->fjuser()->save($fjuser);
-            dispatch(new VerifyUserDiscord(Auth::user()));
             if(env('FJ_API_ENABLED') == true)
                     $this->sync();
         }
@@ -88,8 +87,9 @@ class VerificationController extends Controller
         $user->set(array('username' => Auth::user()->fjuser->username));
         $user->populate();
         $user->getUsername(); //allow username update
-        if(Auth::user()->cannot('user.verified') && $user->username != null)
+        if(Auth::user()->cannot('user.verified') && $user->username != null && $user->level > 0)
         {
+            dispatch(new VerifyUserDiscord(Auth::user()));
             Auth::user()->givePermissionTo('user.verified');
         }
         if($user->contributor_account && Auth::user()->cannot('user.patreon'))  
