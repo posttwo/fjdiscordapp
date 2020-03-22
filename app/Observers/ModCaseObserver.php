@@ -82,7 +82,7 @@ class ModCaseObserver
 
         if($modCase->severity != null && $modCase->queue == 'fjmeme-outbound' && $modCase->severity < 4)
         {
-            if($modCase->getOriginal('status') == 1 && $modCase->status == 3) {
+            if($modCase->getOriginal('status') == 2 && $modCase->status == 3) {
                 $slack = new Slack;
                 $slack->target = 'mod-notify';
                 $slack->username = 'user-replied';
