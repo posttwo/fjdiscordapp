@@ -85,14 +85,14 @@ class ModCaseObserver
             if($modCase->getOriginal('status') == 2 && $modCase->status == 3) {
                 $slack = new Slack;
                 $slack->target = 'mod-notify';
-                $slack->username = 'user-replied';
+                $slack->username = 'user-replied-complaint';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = 'Test User Replied';
+                $slack->text = $modCase->user_metadata->username . ' replied to outbound case https://fjme.me/mods/complaints/' . $modCase->id;
                 $slack->color = "success";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
-                $modCase->addInternalAnnotation('notificationSent', "Sent notification due to queue {$modCase->queue}");
+                $modCase->addInternalAnnotation('notificationSent', "Sent notification due to queue {$modCase->queue} and high severity");
             }
         }
     }
