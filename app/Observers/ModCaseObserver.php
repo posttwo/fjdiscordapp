@@ -80,7 +80,7 @@ class ModCaseObserver
             }
         }
 
-        if($modCase->severity != null && $modCase->queue == 'fjmeme-outbound' && $modCase->severity >= 4)
+        if($modCase->severity != null && $modCase->queue == 'fjmeme-outbound' && $modCase->severity < 4)
         {
             if($modCase->getOriginal('status') == 1 && $modCase->status == 3) {
                 $slack = new Slack;
