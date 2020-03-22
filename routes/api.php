@@ -98,6 +98,9 @@ Route::group(['middleware' => 'throttle:60,1,1'], function(){
 	Route::post('/mods/userNote/{noteId}/highlight', 'API\FJUserNoteController@setUserNoteHighlight')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 	Route::delete('/mods/userNote/{noteId}', 'API\FJUserNoteController@removeUserNote')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
 
+	//Mod Complaints
+	Route::post('/mods/newcomplaint/', 'ModCaseController@createOutboundCase')->middleware(['auth:api', 'scope:fjapi-userinfo-mod', 'role:mod.isExec']);
+
 	//Discord <=> FunnyJunk resolve
 	Route::get('/fjmeme/discordToFunnyJunk/{discordId}', function(Request $request, $discordId){
 

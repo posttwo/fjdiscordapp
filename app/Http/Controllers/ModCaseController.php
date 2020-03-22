@@ -158,6 +158,9 @@ class ModCaseController extends Controller
             $x->save();
         }
 
+        if (Request::ajax())
+            return $x;
+
         return redirect()->route('moderator.case.index');
     }
 
