@@ -88,7 +88,7 @@ class ModCaseObserver
                 $slack->username = 'user-replied-complaint';
                 $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                 $slack->title = "Title Test";
-                $slack->text = $modCase->user_metadata->username . ' replied to outbound case https://fjme.me/mods/complaints/' . $modCase->id;
+                $slack->text = "User replied to outbound case https://fjme.me/mods/complaints/{$modCase->id}";
                 $slack->color = "success";
                 \Notification::send($slack, new \App\Notifications\ModNotifyNew(null));
 
