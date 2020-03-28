@@ -19,7 +19,7 @@
         @if(Auth::user()->fjuser === null)
             <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#verificationStepOneModal">Connect FunnyJunk</button>
         @else
-            FJ: {{Auth::user()->fjuser->username}} 
+            FJ: {{Auth::user()->fjuser->username}} | Level  {{Auth::user()->fjuser->level}} <br />
             @if(Auth::user()->can('mod.isAMod'))
                     <span class="label label-success">Mod</span>
             @endif
