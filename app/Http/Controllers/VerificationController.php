@@ -102,6 +102,8 @@ class VerificationController extends Controller
             Auth::user()->givePermissionTo('user.level200');
         if($user->level > 399 && Auth::user()->cannot('user.level400'))
             Auth::user()->givePermissionTo('user.level400');
+         if($user->level > 499 && Auth::user()->cannot('user.level500'))
+            Auth::user()->givePermissionTo('user.level500');
         if($user->level > 9 && Auth::user()->cannot('user.level10'))
             Auth::user()->givePermissionTo('user.level10');
         
