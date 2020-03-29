@@ -43,6 +43,11 @@ class AddVerifiedPermission extends Migration
         $p->name = 'user.level400';
         $p->description = 'Requires user to have an account level of 400';
         $p->save();
+        
+        $p = new Permission();
+        $p->name = 'user.level500';
+        $p->description = 'Requires user to have an account level of 500';
+        $p->save();
 
         $p = new Permission();
         $p->name = 'user.level10';
