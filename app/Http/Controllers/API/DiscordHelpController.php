@@ -41,8 +41,17 @@ class DiscordHelpController extends \App\Http\Controllers\Controller
             $slack->target = 'mod-help';
             $slack->username =   Auth::user()->nickname;
             $slack->avatar   =   Auth::user()->avatar;
-            $slack->title    = $fj->title;
-            $slack->text     = 'Content: https://funnyjunk.com' . $fj->base_url . '#' . $content->image_id;
+            
+            if($content->comment_id != null) {
+                //COMMENT
+                $slack->title = "Comment #" . $content->comment_id;
+                $slack->text  = 'Comment: https://funnyjunk.com/find/comment/' . $content->comment_id;
+            } else {
+                //CONTENT
+                $slack->title = $fj->title;
+                $slack->text  = 'Content: https://funnyjunk.com' . $fj->base_url . '#' . $content->image_id;
+            }
+            
             $slack->text    .= "\nImage: " . $content->image_url;
             $slack->embedFields = [ 'Posted By' => $fj->username, 
                                     'Date: ' => $fj->date];
