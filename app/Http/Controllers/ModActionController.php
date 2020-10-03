@@ -368,6 +368,22 @@ class ModActionController extends Controller
             $slack->color = "warning";
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
         }
+
+        try{
+            $slack = new Slack;
+            $slack->target = 'mod-social';
+            $slack->username = 'Moderation Supervisor';
+            $slack->avatar = 'https://i.imgur.com/9u7JJeX.png';
+            $slack->title = 'Youre retarded';
+            $slack->text =  'Hourly reminder that youre a dumbass <@!222275959066329088> lol ';
+            $slack->embedFields = ['Modifier' => 'dumbass'];
+            $slack->color = "warning";
+            \Notification::send($slack, new \App\Notifications\ModNotify(null));
+        } catch(Exception $e)
+        {
+            
+        }
+
         return("DONE");
     }
     
