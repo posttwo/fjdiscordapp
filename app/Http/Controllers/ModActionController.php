@@ -342,7 +342,7 @@ class ModActionController extends Controller
                         $slack->username = 'Moderation Supervisor';
                         $slack->avatar = 'https://i.imgur.com/9u7JJeX.png';
                         $slack->title = 'Administrative action detected';
-                        $slack->text =  $chunk->get('info') . ' <@!66277163090841600> @everyone if this is a demod and there isnt a correspodning mod-social announcement, tell EdwardNigma to do it properly. ' . $chunk->get('url');
+                        $slack->text =  $chunk->get('info') . ' <@!66277163090841600> <@!222275959066329088> if this is a demod and there isnt a correspodning mod-social announcement, tell EdwardNigma to do it properly. ' . $chunk->get('url');
                         $slack->embedFields = ['Modifier' => $chunk->get('category')];
                         $slack->color = "warning";
                         \Notification::send($slack, new \App\Notifications\ModNotify(null));
