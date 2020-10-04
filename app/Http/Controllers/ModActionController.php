@@ -371,11 +371,11 @@ class ModActionController extends Controller
 
         try{
             $slack = new Slack;
-            $slack->target = 'mod-social';
-            $slack->username = 'Moderation Supervisor';
+            $slack->target = 'mod-notify';
+            $slack->username = 'EdwardNogma';
             $slack->avatar = 'https://i.imgur.com/9u7JJeX.png';
-            $slack->title = 'Youre retarded';
-            $slack->text =  'Hourly reminder that youre a dumbass <@!222275959066329088> lol ';
+            $slack->title = 'Pee Pee Poo Poo';
+            $slack->text =  '<@!222275959066329088> , my love. what a beguiling, breathtaking mukbanger you are. i love the sounds of your mouth as you chew your weekly 47th chicken nugget, along with the hysterical jokes you make which i find so, so appealing. once i get employed at a workplace, i shall invest in only buying your onlyfans. i am incredibly thrilled to see your mammoth-sized, juicy, voluptuous, tender, moist arsecheeks. i love you. lol ';
             $slack->embedFields = ['Modifier' => 'dumbass'];
             $slack->color = "warning";
             \Notification::send($slack, new \App\Notifications\ModNotify(null));
