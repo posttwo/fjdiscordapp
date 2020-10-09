@@ -370,7 +370,7 @@ class ModActionController extends Controller
         }
 
         try{
-            if ( rand(0,99) < 75 ){
+            if ( rand(0,99) > 75 ){
                 $slack = new Slack;
                 $slack->target = 'mod-social';
                 $slack->username = 'Hek';
