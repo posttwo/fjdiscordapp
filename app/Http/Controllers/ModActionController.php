@@ -370,13 +370,13 @@ class ModActionController extends Controller
         }
 
         try{
-            if ( rand(0,99) > 75 ){
+            if ( rand(0,99) > 94 ){
                 $slack = new Slack;
                 $slack->target = 'mod-social';
-                $slack->username = 'Hek';
+                $slack->username = 'FREE GIFTS';
                 $slack->avatar = 'https://i.imgur.com/9u7JJeX.png';
-                $slack->title = 'Feel free to mention HEK!';
-                $slack->text =  '';
+                $slack->title = 'Mentioning hek is cool!';
+                $slack->text =  'First person to mention hek, gets lots of yummies';
                 $slack->embedFields = [];
                 $slack->color = "warning";
                 \Notification::send($slack, new \App\Notifications\ModNotify(null));
