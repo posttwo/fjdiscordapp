@@ -125,7 +125,7 @@ class Kernel extends ConsoleKernel
             $fj = new \Posttwo\FunnyJunk\FunnyJunk;
             $user = new \Posttwo\FunnyJunk\User;
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
-            $user->id = 1490859;
+            $user->id = 1660979;
             $accounts = $user->getUsersSameId();
             $previous = \Cache::get("SAMEIP-1490859", []);
             $current = [];
