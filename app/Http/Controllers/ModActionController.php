@@ -294,7 +294,7 @@ class ModActionController extends Controller
                         $slack->username = 'Ratings Parser';
                         $slack->avatar = 'https://i.imgur.com/RoZ6aLY.jpg';
                         $slack->title = $content->title;
-                        $slack->text = 'I have encountered an issue <@&299311804113354763>';
+                        $slack->text = 'I have encountered an issue <@&790627250415599639>';
                         $slack->embedFields = ['Content ID' => $content->id, 'Issue' => $action->info];
                         $slack->footer = "Review: https://fjme.me/mods/contentInfo/" . $content->id;
                         $slack->color = "error";
