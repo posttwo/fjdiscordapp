@@ -29,7 +29,8 @@ class ModAction extends Model
         'text',
         'owner',
         'title',
-        'role_name'
+        'role_name',
+        'extraMessage'
     ];
 
     protected $dates = ['date'];
