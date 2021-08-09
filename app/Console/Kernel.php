@@ -119,7 +119,7 @@ class Kernel extends ConsoleKernel
 				if($r->sfw > 100){
 					$slack->username = "Trap Cock Recruitment";
 					$slack->avatar   = 'https://i.imgur.com/8Gn5cs7.png';
-					$slack->text     = 'Requesting penis @everyone until all rates have been completed.';
+					$slack->text     = 'Requesting penis until all rates have been completed.';
 				}
                 
 				$slack->embedFields = [ 'SFW' => $r->sfw,
