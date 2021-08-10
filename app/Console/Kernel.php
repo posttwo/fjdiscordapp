@@ -101,7 +101,7 @@ class Kernel extends ConsoleKernel
 				if($r->sfw > 60){
 					$slack->username = "Tails Miles Prower";
 					$slack->avatar   = 'https://i.imgur.com/D6iDCnR.png';
-					$slack->text     = '<:administyping1:675616130097741835><:administyping2:675616141342801940><:administyping3:675616149668495360><:administyping4:675616159843876864><:administyping5:675616170224910337>' \n 'Can someone please rate';
+					$slack->text     = '<:administyping1:675616130097741835><:administyping2:675616141342801940><:administyping3:675616149668495360><:administyping4:675616159843876864><:administyping5:675616170224910337> Can someone please rate';
 				}
 		    
 		    		if($r->sfw > 70){
