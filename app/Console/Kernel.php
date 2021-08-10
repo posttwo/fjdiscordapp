@@ -107,19 +107,19 @@ class Kernel extends ConsoleKernel
 		    		if($r->sfw > 70){
 					$slack->username = "Helpfuls Ressurection";
 					$slack->avatar   = 'https://i.imgur.com/EyptcJP.png';
-					$slack->text     = '@everyone The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
+					$slack->text     = '@here The needs of the many outweigh the needs of the few. Remodding <@156717038570700800> in progress';
 				}
 		    
 				if($r->sfw > 80){
 					$slack->username = "Containment Breach Alert";
 					$slack->avatar   = 'https://imgur.com/uHqeo04.png';
-					$slack->text     = '<:stewfoot:661149931398103050> Hey @everyone . I am coming for them toes until the rates go down.';
+					$slack->text     = '<:stewfoot:661149931398103050> Hey @here . I am coming for them toes until the rates go down.';
 				}
 		    
 				if($r->sfw > 100){
-					$slack->username = "Trap Cock Recruitment";
+					$slack->username = "Walcorn the Trap Boi";
 					$slack->avatar   = 'https://i.imgur.com/8Gn5cs7.png';
-					$slack->text     = 'Requesting penis until all rates have been completed.';
+					$slack->text     = 'Sucking penis until all rates have been completed. @here';
 				}
                 
 				$slack->embedFields = [ 'SFW' => $r->sfw,
