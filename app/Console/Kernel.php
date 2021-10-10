@@ -74,6 +74,7 @@ class Kernel extends ConsoleKernel
             $fj->login(env("FJ_USERNAME"), env("FJ_PASSWORD"));
             $r = $fj->getModInfo();
             $lastCall = \Cache::get("Cron-SFW_COUNT", 0);
+      	    $r->sfw = $r->sfwNOW;
             $isIncreasing = $r->sfw > $lastCall;
             //$r -> sfw nsfw links
             if($r->sfw > 30 && $isIncreasing)
